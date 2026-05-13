@@ -114,7 +114,7 @@ type Product = {
 ### 6.1 Page d'accueil
 ```
 ┌──────────────────────────────────────────────┐
-│  LOGO        Accueil  Produits  Panier 🛒(2) │
+│  LOGO        Accueil  Produits  Panier       │
 ├──────────────────────────────────────────────┤
 │                                              │
 │   HERO : grande image + slogan + bouton CTA  │
