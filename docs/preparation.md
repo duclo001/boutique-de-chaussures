@@ -2,7 +2,7 @@
 
 > Cours : Programmation web avancée — IFM29991  
 > Projet : Application web e-commerce (frontend uniquement)  
-> Équipe : wildguins Duclona et Rufin Derrick Keyanla Nodem Tchoupou
+> Équipe : wildguins Duclona, Rufin Derrick Keyanla Nodem Tchoupou et Mamadou Gando Baldé
 > Date de début : Semaine du 06 mai 2026
 
 ---
