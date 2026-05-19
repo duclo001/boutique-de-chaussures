@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Rapport récapitulatif (non suivi)
+docs/recapitulatif-semaine2.md
