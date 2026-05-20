@@ -18,7 +18,7 @@ const CATEGORIES: CategoryItem[] = [
     label: "Ville",
     slug: "ville",
     image:
-      "https://images.unsplash.com/photo-1520975916090-3105956dac38?w=800&q=80",
+      "https://images.unsplash.com/photo-1581803274668-261faa12dca7?w=900&q=80",
   },
   {
     label: "Casual",
