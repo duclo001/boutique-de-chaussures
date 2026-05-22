@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Logo from "@/components/ui/Logo";
+import SearchBar from "@/components/ui/SearchBar";
 
 /** Liens de navigation principaux du site */
 const NAV_LINKS = [
@@ -16,8 +17,9 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur">
-      <div className="container-app flex h-16 items-center justify-between">
+      <div className="container-app flex h-16 items-center justify-between gap-6">
         <Logo />
+        <SearchBar />
 
         {/* Navigation desktop */}
         <nav
