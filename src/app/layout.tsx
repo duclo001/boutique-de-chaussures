@@ -12,6 +12,7 @@ import Footer from "@/components/layout/Footer";
 import Home from "@/components/home/Home";
 import Produits from "@/components/produits/Produits";
 import ProduitDetail from "@/components/produits/ProduitDetail";
+import type { Category } from "@/types/product";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,9 @@ export default function RootLayout({
 
   // Id du produit sélectionné — passé à ProduitDetail pour afficher la bonne fiche
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
+
+  // Catégorie pré-sélectionnée — permet à Categories.tsx de filtrer le catalogue
+  const [selectedCategory, setSelectedCategory] = useState<Category | "tous">("tous");
 
   return (
     <html
