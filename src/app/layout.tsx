@@ -11,6 +11,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Home from "@/components/home/Home";
 import Produits from "@/components/produits/Produits";
+import ProduitDetail from "@/components/produits/ProduitDetail";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,9 +31,8 @@ export default function RootLayout({
   // Page actuellement affichée
   const [page, setPage] = useState("accueil");
 
-  // Id du produit sélectionné — sera passé à ProduitDetail (semaine 3)
+  // Id du produit sélectionné — passé à ProduitDetail pour afficher la bonne fiche
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
-  void selectedProductId; // sera utilisé quand ProduitDetail sera créé
 
   return (
     <html
@@ -51,6 +51,11 @@ export default function RootLayout({
             <Produits
               setPage={setPage}
               setSelectedProductId={setSelectedProductId}
+            />
+          ) : page === "produit-detail" ? (
+            <ProduitDetail
+              id={selectedProductId}
+              setPage={setPage}
             />
           ) : (
             /* Fallback : retour à l'accueil si page inconnue */
