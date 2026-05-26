@@ -1,48 +1,64 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import Logo from "@/components/ui/Logo";
 
-/** Liens de navigation principaux du site */
+/**
+ * Props reçues depuis layout.tsx.
+ * setPage permet de changer la page affichée sans Next.js Router.
+ */
+type HeaderProps = {
+  setPage: (page: string) => void;
+};
+
+/** Liens de navigation avec leur identifiant de page */
 const NAV_LINKS = [
-  { href: "/", label: "Accueil" },
-  { href: "/produits", label: "Produits" },
-  { href: "/panier", label: "Panier" },
+  { page: "accueil", label: "Accueil" },
+  { page: "produits", label: "Catalogue" },
+  { page: "panier",   label: "Panier" },
 ] as const;
 
-export default function Header() {
+export default function Header({ setPage }: HeaderProps) {
   const [open, setOpen] = useState(false);
+
+  /** Naviguer vers une page et fermer le menu mobile si ouvert */
+  function naviguer(page: string) {
+    setPage(page);
+    setOpen(false);
+  }
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur">
       <div className="container-app flex h-16 items-center justify-between">
-        <Logo />
+        {/* Logo — clic ramène à l'accueil */}
+        <button onClick={() => naviguer("accueil")} className="focus:outline-none">
+          <Logo />
+        </button>
 
         {/* Navigation desktop */}
         <nav
           aria-label="Navigation principale"
           className="hidden items-center gap-8 md:flex"
         >
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
+          {NAV_LINKS.map((lien) => (
+            <button
+              key={lien.page}
+              onClick={() => naviguer(lien.page)}
               className="text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
             >
-              {link.label}
-            </Link>
+              {lien.label}
+            </button>
           ))}
         </nav>
 
         {/* Icône panier (desktop) */}
-        <Link
-          href="/panier"
+        <button
+          onClick={() => naviguer("panier")}
           aria-label="Voir mon panier"
           className="hidden h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:bg-[var(--color-bg-alt)] md:inline-flex"
         >
           <CartIcon />
-        </Link>
+        </button>
 
         {/* Bouton menu mobile */}
         <button
@@ -63,15 +79,14 @@ export default function Header() {
           className="border-t border-[var(--color-border)] bg-[var(--color-bg)] md:hidden"
         >
           <ul className="container-app flex flex-col py-2">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="block py-3 text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-accent)]"
+            {NAV_LINKS.map((lien) => (
+              <li key={lien.page}>
+                <button
+                  onClick={() => naviguer(lien.page)}
+                  className="block w-full text-left py-3 text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-accent)]"
                 >
-                  {link.label}
-                </Link>
+                  {lien.label}
+                </button>
               </li>
             ))}
           </ul>

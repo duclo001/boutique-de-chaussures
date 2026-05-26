@@ -1,8 +1,16 @@
-import type { Metadata } from "next";
+"use client";
+
+// import type { Metadata } from "next";
+// ↑ Metadata ne peut pas être exporté depuis un composant "use client"
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { useState } from "react";
+
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import Home from "@/components/home/Home";
+import Produits from "@/components/produits/Produits";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,25 +22,42 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Boutique de Chaussures — Sélection 2026",
-  description:
-    "Découvrez notre sélection de chaussures sport, ville, casual et élégantes. Confort, style et qualité au rendez-vous.",
-};
-
 export default function RootLayout({
-  children,
+  children: _children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Page actuellement affichée
+  const [page, setPage] = useState("accueil");
+
+  // Id du produit sélectionné — sera passé à ProduitDetail (semaine 3)
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
+  void selectedProductId; // sera utilisé quand ProduitDetail sera créé
+
   return (
     <html
       lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] text-[var(--color-text)]">
-        <Header />
-        <main className="flex-1">{children}</main>
+
+        {/* Header reçoit setPage pour gérer la navigation */}
+        <Header setPage={setPage} />
+
+        <main className="flex-1">
+          {page === "accueil" ? (
+            <Home />
+          ) : page === "produits" ? (
+            <Produits
+              setPage={setPage}
+              setSelectedProductId={setSelectedProductId}
+            />
+          ) : (
+            /* Fallback : retour à l'accueil si page inconnue */
+            <Home />
+          )}
+        </main>
+
         <Footer />
       </body>
     </html>
