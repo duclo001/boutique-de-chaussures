@@ -50,11 +50,12 @@ export default function RootLayout({
 
         <main className="flex-1">
           {page === "accueil" ? (
-            <Home />
+            <Home setPage={setPage} setSelectedProductId={setSelectedProductId} setSelectedCategory={setSelectedCategory} />
           ) : page === "produits" ? (
             <Produits
               setPage={setPage}
               setSelectedProductId={setSelectedProductId}
+              categorieInitiale={selectedCategory}
             />
           ) : page === "produit-detail" ? (
             <ProduitDetail
@@ -63,7 +64,7 @@ export default function RootLayout({
             />
           ) : (
             /* Fallback : retour à l'accueil si page inconnue */
-            <Home />
+            <Home setPage={setPage} setSelectedProductId={setSelectedProductId} setSelectedCategory={setSelectedCategory} />
           )}
         </main>
 

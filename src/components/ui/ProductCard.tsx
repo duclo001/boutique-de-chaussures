@@ -4,20 +4,23 @@ import type { Product } from "@/types/product";
 
 type ProductCardProps = {
   product: Product;
+  /**
+   * Si fourni, la carte devient un <button> avec cet onClick.
+   * Utile pour la navigation par useState (pas de Link Next.js).
+   * Si absent, la carte reste un <Link> vers `/produits/[id]`.
+   */
+  onClick?: () => void;
 };
 
 /**
  * Carte produit réutilisable (catalogue + section vedette).
- * Affiche : image, nom, prix de base. Lien vers la fiche produit.
+ * Affiche : image, catégorie, nom, prix de base.
  */
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, onClick }: ProductCardProps) {
   const cover = product.images[0];
 
-  return (
-    <Link
-      href={`/produits/${product.id}`}
-      className="group block overflow-hidden rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] transition-shadow hover:shadow-lg"
-    >
+  const content = (
+    <>
       <div className="relative aspect-square w-full overflow-hidden bg-[var(--color-bg-alt)]">
         <Image
           src={cover}
@@ -39,6 +42,25 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.basePrice.toFixed(2)} $
         </p>
       </div>
+    </>
+  );
+
+  const cardClasses =
+    "group block overflow-hidden rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] transition-shadow hover:shadow-lg text-left w-full";
+
+  // Navigation par état : on rend un <button>
+  if (onClick) {
+    return (
+      <button onClick={onClick} className={cardClasses}>
+        {content}
+      </button>
+    );
+  }
+
+  // Navigation Next.js classique : on rend un <Link>
+  return (
+    <Link href={`/produits/${product.id}`} className={cardClasses}>
+      {content}
     </Link>
   );
 }
