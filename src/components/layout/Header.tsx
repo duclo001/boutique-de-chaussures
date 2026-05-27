@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Logo from "@/components/ui/Logo";
+import SearchBar from "@/components/ui/SearchBar";
 
 /**
  * Props reçues depuis layout.tsx.
@@ -29,11 +30,9 @@ export default function Header({ setPage }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur">
-      <div className="container-app flex h-16 items-center justify-between">
-        {/* Logo — clic ramène à l'accueil */}
-        <button onClick={() => naviguer("accueil")} className="focus:outline-none">
-          <Logo />
-        </button>
+      <div className="container-app flex h-16 items-center justify-between gap-6">
+        <Logo />
+        <SearchBar />
 
         {/* Navigation desktop */}
         <nav
