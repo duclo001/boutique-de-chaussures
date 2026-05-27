@@ -26,9 +26,11 @@ type ProduitDetailProps = {
 export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
   // Variante actuellement sélectionnée par l'utilisateur (null = aucune)
   const [varianteChoisie, setVarianteChoisie] = useState<Variant | null>(null);
+const [varianteSurvolee, setVarianteSurvolee] = useState<Variant | null>(null);
 
   // ── Recherche du produit ──────────────────────────────────────────
   const produit = products.find((p) => p.id === id);
+  
 
   if (!produit) {
     return (
@@ -49,7 +51,8 @@ export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
   const prixAffiche = varianteChoisie ? varianteChoisie.price : produit.basePrice;
 
   // Règle 2 : image affichée = image de la variante (ou première image du produit)
-  const imageAffichee = varianteChoisie ? varianteChoisie.image : produit.images[0];
+ const variantePourImage = varianteSurvolee ?? varianteChoisie;
+const imageAffichee = variantePourImage ? variantePourImage.image : produit.images[0];
 
   // Règle 3 : bouton actif seulement si une variante est sélectionnée
   const peutAjouterAuPanier = varianteChoisie !== null;
@@ -77,11 +80,12 @@ export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
           <Image
             key={imageAffichee} // force le re-render de l'image quand elle change
             src={imageAffichee}
-            alt={
-              varianteChoisie
-                ? `${produit.name} — ${varianteChoisie.color}, taille ${varianteChoisie.size}`
+            // Texte alternatif : inclut la couleur et la taille si variante, sinon juste le nom du produit
+           alt={
+                variantePourImage
+                ? `${produit.name} — ${variantePourImage.color}, taille ${variantePourImage.size}`
                 : produit.name
-            }
+}
             fill
             priority
             sizes="(min-width: 1024px) 50vw, 100vw"
@@ -140,6 +144,12 @@ export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
                       // Si déjà sélectionnée, on désélectionne (toggle)
                       setVarianteChoisie(estSelectionnee ? null : variante);
                     }}
+                    // Règle 2 : on change l'image au survol ou focus d'une variante (desktop + clavier)
+
+                    onMouseEnter={() => setVarianteSurvolee(variante)}
+                    onMouseLeave={() => setVarianteSurvolee(null)}
+                    onFocus={() => setVarianteSurvolee(variante)}
+                    onBlur={() => setVarianteSurvolee(null)}
                     disabled={estEpuisee}
                     className={`rounded-xl border px-4 py-2 text-sm font-medium transition-all ${
                       estEpuisee

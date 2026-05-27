@@ -46,7 +46,7 @@ export default function RootLayout({
 
         <main className="flex-1">
           {page === "accueil" ? (
-            <Home />
+            <Home />//initialement, la page affichée est l'accueil et le composant Home est rendu. Lorsque setPage est appelé (par exemple, en cliquant sur un lien dans le Header), la valeur de page change, ce qui déclenche un nouveau rendu du composant RootLayout. En fonction de la nouvelle valeur de page, le composant affiché dans le main change dynamiquement entre Home, Produits ou ProduitDetail.  
           ) : page === "produits" ? (
             <Produits
               setPage={setPage}
