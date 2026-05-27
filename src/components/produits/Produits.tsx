@@ -13,6 +13,8 @@ import type { Category } from "@/types/product";
 type ProduitsProps = {
   setPage: (page: string) => void;
   setSelectedProductId: (id: string) => void;
+  /** Catégorie pré-sélectionnée quand on arrive depuis Categories.tsx */
+  categorieInitiale?: Category | "tous";
 };
 
 /** Libellés affichés pour chaque catégorie */
@@ -28,9 +30,9 @@ const CATEGORY_LABELS: Record<Category | "tous", string> = {
  * Page Catalogue — affiche tous les produits avec filtre par catégorie.
  * Cliquer sur une carte navigue vers la fiche détail du produit.
  */
-export default function Produits({ setPage, setSelectedProductId }: ProduitsProps) {
-  // Catégorie sélectionnée pour le filtre ("tous" = pas de filtre)
-  const [filtreCategorie, setFiltreCategorie] = useState<Category | "tous">("tous");
+export default function Produits({ setPage, setSelectedProductId, categorieInitiale = "tous" }: ProduitsProps) {
+  // Catégorie sélectionnée pour le filtre — initialisée depuis Categories.tsx si fournie
+  const [filtreCategorie, setFiltreCategorie] = useState<Category | "tous">(categorieInitiale);
 
   // Produits filtrés selon la catégorie sélectionnée
   const produitsFiltres =

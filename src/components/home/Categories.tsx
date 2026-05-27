@@ -1,9 +1,11 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
+import type { Category } from "@/types/product";
 
 type CategoryItem = {
   label: string;
-  slug: string;
+  slug: Category;
   image: string;
 };
 
@@ -34,10 +36,21 @@ const CATEGORIES: CategoryItem[] = [
   },
 ];
 
+type CategoriesProps = {
+  setPage: (page: string) => void;
+  setSelectedCategory: (cat: Category | "tous") => void;
+};
+
 /**
- * Grille de catégories : chaque tuile renvoie vers `/produits?categorie=...`
+ * Grille de catégories — chaque tuile navigue vers le catalogue
+ * pré-filtré sur la catégorie choisie.
  */
-export default function Categories() {
+export default function Categories({ setPage, setSelectedCategory }: CategoriesProps) {
+  function naviguerVersCategorie(slug: Category) {
+    setSelectedCategory(slug); // pré-filtre le catalogue
+    setPage("produits");       // affiche la page catalogue
+  }
+
   return (
     <section className="bg-[var(--color-bg-alt)] py-16 lg:py-24">
       <div className="container-app">
@@ -52,10 +65,11 @@ export default function Categories() {
 
         <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
           {CATEGORIES.map((cat) => (
-            <Link
+            /* button à la place de Link — navigation par état */
+            <button
               key={cat.slug}
-              href={`/produits?categorie=${cat.slug}`}
-              className="group relative aspect-[3/4] overflow-hidden rounded-2xl"
+              onClick={() => naviguerVersCategorie(cat.slug)}
+              className="group relative aspect-[3/4] overflow-hidden rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
             >
               <Image
                 src={cat.image}
@@ -68,7 +82,7 @@ export default function Categories() {
               <span className="absolute bottom-4 left-4 text-lg font-semibold text-white sm:text-xl">
                 {cat.label}
               </span>
-            </Link>
+            </button>
           ))}
         </div>
       </div>
