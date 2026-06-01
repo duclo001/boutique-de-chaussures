@@ -48,7 +48,7 @@ export default function Header({ setPage }: HeaderProps) {
             <button
               key={lien.page}
               onClick={() => naviguer(lien.page)}
-              className="text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
+              className="text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]cursor-pointer"
             >
               {lien.label}
             </button>
@@ -80,8 +80,7 @@ export default function Header({ setPage }: HeaderProps) {
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          //  {/*className="flex w-full items-center py-3 text-left text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-accent)]" */}
-          className="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:bg-[var(--color-bg-alt)] hover:text-[var(--color-accent)] md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] md:hidden cursor-pointer transition-colors hover:bg-[var(--color-bg-alt)]"
         >
           {open ? <CloseIcon /> : <MenuIcon />}
         </button>
@@ -89,53 +88,23 @@ export default function Header({ setPage }: HeaderProps) {
 
       {/* Menu mobile déroulant */}
       {open && (
-        <div className="fixed inset-0 z-50 md:hidden">
-          <button
-            type="button"
-            aria-label="Fermer le menu"
-            onClick={() => setOpen(false)}
-            className="absolute inset-0 bg-black/30"
-          />
-
-          <nav
-            aria-label="Navigation mobile"
-            className="relative flex h-screen w-1/2 flex-col bg-[var(--color-bg)] px-6 py-6 shadow-xl"
-          >
-            <div className="mb-8 flex items-center justify-between">
-              <span className="text-sm font-semibold text-[var(--color-text)]">
-                Menu
-              </span>
-
-              <button
-                type="button"
-                aria-label="Fermer le menu"
-                onClick={() => setOpen(false)}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border)]"
-              >
-                <CloseIcon />
-              </button>
-            </div>
-
-            <ul className="flex flex-col gap-2">
-              {NAV_LINKS.map((lien) => (
-                <li key={lien.page}>
-                  <button
-                    onClick={() => naviguer(lien.page)}
-                    className="flex w-full items-center justify-start rounded-xl px-3 py-3 text-left text-sm font-medium text-[var(--color-text)] transition-colors hover:bg-[var(--color-bg-alt)] hover:text-[var(--color-accent)]"
-                  >
-                    {lien.label}
-
-                    {lien.page === "panier" && totalItems > 0 && (
-                      <span className="ml-2 rounded-full bg-[var(--color-accent)] px-2 py-0.5 text-xs font-bold text-white">
-                        {totalItems}
-                      </span>
-                    )}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
+        <nav
+          aria-label="Navigation mobile"
+          className="border-t border-[var(--color-border)] bg-[var(--color-bg)] md:hidden"
+        >
+          <ul className="container-app flex flex-col py-2">
+            {NAV_LINKS.map((lien) => (
+              <li key={lien.page}>
+                <button
+                  onClick={() => naviguer(lien.page)}
+                  className="block w-full text-left py-3 text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-accent)]cursor-pointer transition-colors"
+                >
+                  {lien.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
       )}
     </header>
   );
