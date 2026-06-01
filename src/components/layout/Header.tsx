@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Logo from "@/components/ui/Logo";
 import SearchBar from "@/components/ui/SearchBar";
+import { useCart } from "@/context/CartContext";
 
 /**
  * Props reçues depuis layout.tsx.
@@ -16,11 +17,15 @@ type HeaderProps = {
 const NAV_LINKS = [
   { page: "accueil", label: "Accueil" },
   { page: "produits", label: "Catalogue" },
-  { page: "panier",   label: "Panier" },
+  { page: "panier", label: "Panier" },
 ] as const;
 
 export default function Header({ setPage }: HeaderProps) {
   const [open, setOpen] = useState(false);
+  // Accès au nombre total d'articles dans le panier pour l'afficher sur l'icône du panier
+  // le totalItems est utilisé pour afficher un badge avec le nombre d'articles dans le panier sur l'icône du panier dans le header,
+  // et pour permettre à Header de se mettre à jour automatiquement lorsque des articles sont ajoutés ou supprimés du panier depuis d'autres composants de l'application, grâce au contexte du panier qui gère l'état global du panier dans l'application
+  const { totalItems } = useCart();
 
   /** Naviguer vers une page et fermer le menu mobile si ouvert */
   function naviguer(page: string) {
@@ -50,13 +55,23 @@ export default function Header({ setPage }: HeaderProps) {
           ))}
         </nav>
 
-        {/* Icône panier (desktop) */}
+        {/* Icône panier (desktop) 
+         // le bouton du panier est affiché sur desktop et mobile, mais le badge avec le nombre d'articles n'est affiché que si totalItems > 0, pour éviter d'afficher un badge "0" lorsque le panier est vide
+        // le badge avec le nombre d'articles dans le panier est positionné en absolute par rapport au bouton du panier, pour apparaître en haut à droite de l'icône du panier, et est stylisé pour être petit, 
+        //rond, avec un fond coloré et du texte blanc pour être facilement visible*/}
+
         <button
           onClick={() => naviguer("panier")}
           aria-label="Voir mon panier"
-          className="hidden h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:bg-[var(--color-bg-alt)] md:inline-flex"
+          className="relative hidden h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:bg-[var(--color-bg-alt)] md:inline-flex"
         >
           <CartIcon />
+
+          {totalItems > 0 && (
+            <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[var(--color-accent)] px-1 text-xs font-bold text-white">
+              {totalItems}
+            </span>
+          )}
         </button>
 
         {/* Bouton menu mobile */}
