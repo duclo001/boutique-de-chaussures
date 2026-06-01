@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { products } from "@/data/products";
 import type { Variant } from "@/types/product";
+//import du contexte du panier pour pouvoir ajouter des articles au panier depuis la fiche produit
+import { useCart } from "@/context/CartContext";
 
 /**
  * Props reçues depuis layout.tsx.
@@ -26,6 +28,9 @@ type ProduitDetailProps = {
 export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
   // Variante actuellement sélectionnée par l'utilisateur (null = aucune)
   const [varianteChoisie, setVarianteChoisie] = useState<Variant | null>(null);
+  // Accès aux fonctions du panier pour pouvoir ajouter des articles au panier depuis la fiche produit
+  const { addItem } = useCart();
+
 
   // ── Recherche du produit ──────────────────────────────────────────
   const produit = products.find((p) => p.id === id);
@@ -141,16 +146,15 @@ export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
                       setVarianteChoisie(estSelectionnee ? null : variante);
                     }}
                     disabled={estEpuisee}
-                    className={`rounded-xl border px-4 py-2 text-sm font-medium transition-all ${
-                      estEpuisee
+                    className={`rounded-xl border px-4 py-2 text-sm font-medium transition-all ${estEpuisee
                         ? // Variante épuisée : grisée et non cliquable
-                          "cursor-not-allowed border-[var(--color-border)] bg-gray-50 text-gray-300 line-through"
+                        "cursor-not-allowed border-[var(--color-border)] bg-gray-50 text-gray-300 line-through"
                         : estSelectionnee
-                        ? // Variante sélectionnée : fond accentué
+                          ? // Variante sélectionnée : fond accentué
                           "border-[var(--color-accent)] bg-[var(--color-accent)] text-white shadow-md"
-                        : // Variante disponible : bordure simple
+                          : // Variante disponible : bordure simple
                           "border-[var(--color-border)] bg-white text-[var(--color-text)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-                    }`}
+                      }`}
                   >
                     {variante.color} · {variante.size}
                     {estEpuisee && " (épuisé)"}
@@ -171,13 +175,30 @@ export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
           <button
             disabled={!peutAjouterAuPanier}
             onClick={() => {
-             
+              if (!varianteChoisie) return;
+              // Ajoute la variante choisie au panier via le contexte
+              // Les informations ajoutées au panier incluent l'id du produit, 
+              // l'id de la variante, le nom du produit, la couleur, la taille, le prix, l'image,
+              //  la quantité (1 par défaut) et le stock disponible
+              //
+              addItem({
+                productId: produit.id,
+                variantId: varianteChoisie.id,
+                name: produit.name,
+                color: varianteChoisie.color,
+                size: varianteChoisie.size,
+                price: varianteChoisie.price,
+                image: varianteChoisie.image,
+                quantity: 1,
+                stock: varianteChoisie.stock,
+              });
+
+              setPage("panier");
             }}
-            className={`mt-2 w-full rounded-2xl px-6 py-4 text-base font-semibold transition-all ${
-              peutAjouterAuPanier
+            className={`mt-2 w-full rounded-2xl px-6 py-4 text-base font-semibold transition-all ${peutAjouterAuPanier
                 ? "bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] shadow-md hover:shadow-lg"
                 : "cursor-not-allowed bg-gray-100 text-gray-400"
-            }`}
+              }`}
           >
             {peutAjouterAuPanier ? "Ajouter au panier" : "Choisissez une variante"}
           </button>
