@@ -43,7 +43,7 @@ export default function Header({ setPage }: HeaderProps) {
             <button
               key={lien.page}
               onClick={() => naviguer(lien.page)}
-              className="text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
+              className="text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]cursor-pointer"
             >
               {lien.label}
             </button>
@@ -65,7 +65,7 @@ export default function Header({ setPage }: HeaderProps) {
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] md:hidden cursor-pointer transition-colors hover:bg-[var(--color-bg-alt)]"
         >
           {open ? <CloseIcon /> : <MenuIcon />}
         </button>
@@ -82,7 +82,7 @@ export default function Header({ setPage }: HeaderProps) {
               <li key={lien.page}>
                 <button
                   onClick={() => naviguer(lien.page)}
-                  className="block w-full text-left py-3 text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-accent)]"
+                  className="block w-full text-left py-3 text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-accent)]cursor-pointer transition-colors"
                 >
                   {lien.label}
                 </button>
