@@ -15,6 +15,7 @@ import ProduitDetail from "@/components/produits/ProduitDetail";
 import type { Category } from "@/types/product";
 import { CartProvider } from "@/context/CartContext";
 import Panier from "@/components/panier/Panier";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -90,6 +91,7 @@ export default function RootLayout({
           </main>
 
           <Footer />
+          <ScrollToTop />
         </CartProvider>
       </body>
     </html>

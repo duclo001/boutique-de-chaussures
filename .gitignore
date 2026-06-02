@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# documentation markdown files (notes locales)
+*.md
+
 # dependencies
 /node_modules
 /.pnp
@@ -43,3 +46,7 @@ next-env.d.ts
 # Rapport récapitulatif (non suivi)
 docs/recapitulatif-semaine2.md
 CLAUDE.md
+
+# fichiers explication sur les images
+public/images/produits
+README.md

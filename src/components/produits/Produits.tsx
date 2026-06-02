@@ -101,13 +101,13 @@ export default function Produits({ setPage, setSelectedProductId, categorieIniti
               className="group text-left overflow-hidden rounded-2xl bg-white border border-[var(--color-border)] transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
             >
               {/* Image du produit */}
-              <div className="relative aspect-square w-full overflow-hidden bg-[var(--color-bg-alt)]">
+              <div className="relative aspect-square w-full overflow-hidden bg-[var(--color-bg-alt)] p-4">
                 <Image
                   src={produit.images[0]}
                   alt={produit.name}
                   fill
                   sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-contain transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
 

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import { products } from "@/data/products";
-import type { Variant } from "@/types/product";
 //import du contexte du panier pour pouvoir ajouter des articles au panier depuis la fiche produit
 import { useCart } from "@/context/CartContext";
 
@@ -26,13 +25,18 @@ type ProduitDetailProps = {
  *  3. Le bouton "Ajouter au panier" est désactivé tant qu'aucune variante n'est choisie.
  */
 export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
-  // Variante actuellement sélectionnée par l'utilisateur (null = aucune)
-  const [varianteChoisie, setVarianteChoisie] = useState<Variant | null>(null);
-const [varianteSurvolee, setVarianteSurvolee] = useState<Variant | null>(null);
+  // Récupération de la fonction d'ajout depuis le contexte du panier
+  const { addItem } = useCart();
+
+  // Sélection en deux étapes (façon Amazon) : coloris puis pointure
+  const [coloris, setColoris] = useState<string | null>(null);
+  const [pointure, setPointure] = useState<number | null>(null);
+  // Coloris survolé pour aperçu image au survol
+  const [colorisSurvole, setColorisSurvole] = useState<string | null>(null);
 
   // ── Recherche du produit ──────────────────────────────────────────
   const produit = products.find((p) => p.id === id);
-  
+
 
   if (!produit) {
     return (
@@ -48,16 +52,42 @@ const [varianteSurvolee, setVarianteSurvolee] = useState<Variant | null>(null);
     );
   }
 
-  // ── Valeurs dynamiques selon la variante choisie ──────────────────
-  // Règle 1 : prix affiché = prix de la variante (ou prix de base si aucune)
-  const prixAffiche = varianteChoisie ? varianteChoisie.price : produit.basePrice;
+  // ── Dérivations à partir des variantes ────────────────────────────
+  // Liste unique des coloris (ordre d'apparition conservé)
+  const colorisDisponibles = Array.from(
+    new Map(produit.variants.map((v) => [v.color, v.image])).entries()
+  ).map(([color, image]) => ({ color, image }));
 
-  // Règle 2 : image affichée = image de la variante (ou première image du produit)
- const variantePourImage = varianteSurvolee ?? varianteChoisie;
-const imageAffichee = variantePourImage ? variantePourImage.image : produit.images[0];
+  // Pointures proposées pour le coloris sélectionné (vide si aucun coloris choisi)
+  const pointuresPourColoris = coloris
+    ? produit.variants.filter((v) => v.color === coloris)
+    : [];
 
-  // Règle 3 : bouton actif seulement si une variante est sélectionnée
-  const peutAjouterAuPanier = varianteChoisie !== null;
+  // Variante finale (coloris + pointure)
+  const varianteChoisie =
+    coloris && pointure !== null
+      ? produit.variants.find(
+          (v) => v.color === coloris && v.size === pointure
+        ) ?? null
+      : null;
+
+  // ── Image affichée ────────────────────────────────────────────────
+  // priorité : survol > coloris choisi > première image produit
+  const colorisPourImage = colorisSurvole ?? coloris;
+  const imageAffichee =
+    (colorisPourImage &&
+      colorisDisponibles.find((c) => c.color === colorisPourImage)?.image) ||
+    produit.images[0];
+
+  // ── Prix dynamique ────────────────────────────────────────────────
+  const prixAffiche = varianteChoisie
+    ? varianteChoisie.price
+    : coloris
+      ? // Si seul le coloris est choisi, on prend le prix de la 1re pointure dispo
+        pointuresPourColoris[0]?.price ?? produit.basePrice
+      : produit.basePrice;
+
+  const peutAjouterAuPanier = varianteChoisie !== null && varianteChoisie.stock > 0;
 
   return (
     <div className="container-app py-10 lg:py-16">
@@ -66,7 +96,8 @@ const imageAffichee = variantePourImage ? variantePourImage.image : produit.imag
       <button
         onClick={() => {
           setPage("produits");
-          setVarianteChoisie(null); // Réinitialise la sélection au retour
+          setColoris(null);
+          setPointure(null);
         }}
         className="mb-8 flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
       >
@@ -78,24 +109,23 @@ const imageAffichee = variantePourImage ? variantePourImage.image : produit.imag
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
 
         {/* ── Colonne gauche : image produit ── */}
-        <div className="relative aspect-square w-full overflow-hidden rounded-3xl bg-[var(--color-bg-alt)]">
+        <div className="relative aspect-square w-full overflow-hidden rounded-3xl bg-[var(--color-bg-alt)] p-6">
           <Image
-            key={imageAffichee} // force le re-render de l'image quand elle change
+            key={imageAffichee}
             src={imageAffichee}
-            // Texte alternatif : inclut la couleur et la taille si variante, sinon juste le nom du produit
-           alt={
-                variantePourImage
-                ? `${produit.name} — ${variantePourImage.color}, taille ${variantePourImage.size}`
+            alt={
+              coloris
+                ? `${produit.name} — coloris ${coloris}`
                 : produit.name
-}
+            }
             fill
             priority
             sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-cover transition-opacity duration-300"
+            className="object-contain transition-opacity duration-300"
           />
         </div>
 
-        {/* ── Colonne droite : informations + sélecteur ── */}
+        {/* ── Colonne droite : informations + sélecteurs ── */}
         <div className="flex flex-col gap-6">
 
           {/* Catégorie + Nom */}
@@ -108,12 +138,12 @@ const imageAffichee = variantePourImage ? variantePourImage.image : produit.imag
             </h1>
           </div>
 
-          {/* Prix — mis en avant, change selon la variante (Règle 1) */}
+          {/* Prix */}
           <p className="text-2xl font-semibold text-[var(--color-accent)]">
             {prixAffiche.toFixed(2)} $
             {!varianteChoisie && (
               <span className="ml-2 text-sm font-normal text-[var(--color-text-muted)]">
-                (prix de base)
+                {coloris ? "(à partir de)" : "(prix indicatif)"}
               </span>
             )}
           </p>
@@ -125,69 +155,104 @@ const imageAffichee = variantePourImage ? variantePourImage.image : produit.imag
 
           <hr className="border-[var(--color-border)]" />
 
-          {/* ── Sélecteur de variantes (Règle 1 + 2) ── */}
+          {/* ── Sélecteur de coloris ── */}
           <div>
             <p className="mb-3 text-sm font-semibold text-[var(--color-text)]">
-              Choisissez une variante{" "}
-              <span className="font-normal text-[var(--color-text-muted)]">
-                (couleur · taille)
-              </span>
+              Coloris{" "}
+              {coloris && (
+                <span className="font-normal text-[var(--color-text-muted)]">
+                  : {coloris}
+                </span>
+              )}
             </p>
 
             <div className="flex flex-wrap gap-3">
-              {produit.variants.map((variante) => {
-                const estSelectionnee = varianteChoisie?.id === variante.id;
-                const estEpuisee = variante.stock === 0;
-
+              {colorisDisponibles.map(({ color, image }) => {
+                const estSelectionne = coloris === color;
                 return (
                   <button
-                    key={variante.id}
+                    key={color}
+                    type="button"
                     onClick={() => {
-                      // Si déjà sélectionnée, on désélectionne (toggle)
-                      setVarianteChoisie(estSelectionnee ? null : variante);
+                      setColoris(color);
+                      setPointure(null); // reset pointure quand on change de coloris
                     }}
-                    // Règle 2 : on change l'image au survol ou focus d'une variante (desktop + clavier)
-
-                    onMouseEnter={() => setVarianteSurvolee(variante)}
-                    onMouseLeave={() => setVarianteSurvolee(null)}
-                    onFocus={() => setVarianteSurvolee(variante)}
-                    onBlur={() => setVarianteSurvolee(null)}
-                    disabled={estEpuisee}
-                    className={`rounded-xl border px-4 py-2 text-sm font-medium transition-all ${estEpuisee
-                        ? // Variante épuisée : grisée et non cliquable
-                        "cursor-not-allowed border-[var(--color-border)] bg-gray-50 text-gray-300 line-through"
-                        : estSelectionnee
-                          ? // Variante sélectionnée : fond accentué
-                          "border-[var(--color-accent)] bg-[var(--color-accent)] text-white shadow-md"
-                          : // Variante disponible : bordure simple
-                          "border-[var(--color-border)] bg-white text-[var(--color-text)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-                      }`}
+                    onMouseEnter={() => setColorisSurvole(color)}
+                    onMouseLeave={() => setColorisSurvole(null)}
+                    onFocus={() => setColorisSurvole(color)}
+                    onBlur={() => setColorisSurvole(null)}
+                    aria-label={`Choisir le coloris ${color}`}
+                    aria-pressed={estSelectionne}
+                    className={`group flex items-center gap-2 rounded-xl border p-1.5 pr-3 text-sm font-medium transition-all ${
+                      estSelectionne
+                        ? "border-[var(--color-accent)] ring-2 ring-[var(--color-accent)]/30"
+                        : "border-[var(--color-border)] hover:border-[var(--color-accent)]"
+                    }`}
                   >
-                    {variante.color} · {variante.size}
-                    {estEpuisee && " (épuisé)"}
+                    <span className="relative h-10 w-10 overflow-hidden rounded-lg bg-[var(--color-bg-alt)] p-1">
+                      <Image
+                        src={image}
+                        alt=""
+                        fill
+                        sizes="40px"
+                        className="object-contain"
+                      />
+                    </span>
+                    <span className="text-[var(--color-text)]">{color}</span>
                   </button>
                 );
               })}
             </div>
+          </div>
 
-            {/* Message si aucune variante sélectionnée — guide l'utilisateur */}
-            {!varianteChoisie && (
-              <p className="mt-3 text-xs text-[var(--color-text-muted)]">
-                Sélectionnez une variante pour voir le prix exact et ajouter au panier.
+          {/* ── Sélecteur de pointure ── */}
+          <div>
+            <p className="mb-3 text-sm font-semibold text-[var(--color-text)]">
+              Pointure
+              {pointure !== null && (
+                <span className="font-normal text-[var(--color-text-muted)]">
+                  {" "}: {pointure}
+                </span>
+              )}
+            </p>
+
+            {coloris ? (
+              <div className="flex flex-wrap gap-2">
+                {pointuresPourColoris.map((v) => {
+                  const estSelectionnee = pointure === v.size;
+                  const estEpuisee = v.stock === 0;
+                  return (
+                    <button
+                      key={v.id}
+                      type="button"
+                      onClick={() => setPointure(v.size)}
+                      disabled={estEpuisee}
+                      aria-pressed={estSelectionnee}
+                      className={`min-w-[3.5rem] rounded-xl border px-4 py-2 text-sm font-medium transition-all ${
+                        estEpuisee
+                          ? "cursor-not-allowed border-[var(--color-border)] bg-gray-50 text-gray-300 line-through"
+                          : estSelectionnee
+                            ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-white shadow-md"
+                            : "border-[var(--color-border)] bg-white text-[var(--color-text)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+                      }`}
+                    >
+                      {v.size}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="text-xs italic text-[var(--color-text-muted)]">
+                Choisissez d&apos;abord un coloris pour voir les pointures disponibles.
               </p>
             )}
           </div>
 
-          {/* ── Bouton Ajouter au panier (Règle 3) ── */}
+          {/* ── Bouton Ajouter au panier ── */}
           <button
             disabled={!peutAjouterAuPanier}
             onClick={() => {
               if (!varianteChoisie) return;
-              // Ajoute la variante choisie au panier via le contexte
-              // Les informations ajoutées au panier incluent l'id du produit, 
-              // l'id de la variante, le nom du produit, la couleur, la taille, le prix, l'image,
-              //  la quantité (1 par défaut) et le stock disponible
-              //
               addItem({
                 productId: produit.id,
                 variantId: varianteChoisie.id,
@@ -207,15 +272,21 @@ const imageAffichee = variantePourImage ? variantePourImage.image : produit.imag
                 : "cursor-not-allowed bg-gray-100 text-gray-400"
               }`}
           >
-            {peutAjouterAuPanier ? "Ajouter au panier" : "Choisissez une variante"}
+            {peutAjouterAuPanier
+              ? "Ajouter au panier"
+              : !coloris
+                ? "Choisissez un coloris"
+                : pointure === null
+                  ? "Choisissez une pointure"
+                  : "Article indisponible"}
           </button>
 
-          {/* Stock de la variante sélectionnée */}
-          {varianteChoisie && (
-            <p className="text-center text-xs text-[var(--color-text-muted)]">
-              {varianteChoisie.stock > 1
-                ? `${varianteChoisie.stock} exemplaires disponibles`
-                : "Dernier exemplaire disponible !"}
+          {/* Indication de stock — uniquement si stock bas (≤ 3) */}
+          {varianteChoisie && varianteChoisie.stock > 0 && varianteChoisie.stock <= 3 && (
+            <p className="text-center text-xs font-medium text-amber-700">
+              {varianteChoisie.stock === 1
+                ? "Plus qu'un exemplaire en stock — commandez vite !"
+                : `Plus que ${varianteChoisie.stock} exemplaires en stock`}
             </p>
           )}
         </div>
