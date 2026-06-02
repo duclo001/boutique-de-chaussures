@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Logo from "@/components/ui/Logo";
 import SearchBar from "@/components/ui/SearchBar";
 import { useCart } from "@/context/CartContext";
@@ -22,19 +22,47 @@ const NAV_LINKS = [
 
 export default function Header({ setPage }: HeaderProps) {
   const [open, setOpen] = useState(false);
-  // Accès au nombre total d'articles dans le panier pour l'afficher sur l'icône du panier
-  // le totalItems est utilisé pour afficher un badge avec le nombre d'articles dans le panier sur l'icône du panier dans le header,
-  // et pour permettre à Header de se mettre à jour automatiquement lorsque des articles sont ajoutés ou supprimés du panier depuis d'autres composants de l'application, grâce au contexte du panier qui gère l'état global du panier dans l'application
+  // Référence sur le <header> entier : sert à détecter les clics en dehors
+  const headerRef = useRef<HTMLElement>(null);
   const { totalItems } = useCart();
 
-  /** Naviguer vers une page et fermer le menu mobile si ouvert */
+  // Ferme le menu si l'utilisateur clique en dehors du header ou appuie sur Échap
+  useEffect(() => {
+    if (!open) return;
+
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as Node;
+      if (headerRef.current && !headerRef.current.contains(target)) {
+        setOpen(false);
+      }
+    }
+
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [open]);
+
+  /** Naviguer vers une page, fermer le menu mobile et remonter en haut */
   function naviguer(page: string) {
     setPage(page);
     setOpen(false);
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur">
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur"
+    >
       <div className="container-app flex h-16 items-center justify-between gap-6">
         <Logo />
         <SearchBar />
@@ -48,7 +76,7 @@ export default function Header({ setPage }: HeaderProps) {
             <button
               key={lien.page}
               onClick={() => naviguer(lien.page)}
-              className="text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]cursor-pointer"
+              className="cursor-pointer text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
             >
               {lien.label}
             </button>
@@ -86,7 +114,8 @@ export default function Header({ setPage }: HeaderProps) {
         </button>
       </div>
 
-      {/* Menu mobile déroulant */}
+      {/* Menu mobile déroulant. La fermeture au clic extérieur ou via Échap
+          est gérée par le useEffect ci-dessus. */}
       {open && (
         <nav
           aria-label="Navigation mobile"
@@ -97,7 +126,7 @@ export default function Header({ setPage }: HeaderProps) {
               <li key={lien.page}>
                 <button
                   onClick={() => naviguer(lien.page)}
-                  className="block w-full text-left py-3 text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-accent)]cursor-pointer transition-colors"
+                  className="block w-full cursor-pointer py-3 text-left text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
                 >
                   {lien.label}
                 </button>

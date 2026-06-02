@@ -79,13 +79,13 @@ export default function Panier({ setPage }: PanierProps) {
                             key={item.variantId}
                             className="grid gap-4 rounded-2xl border border-[var(--color-border)] bg-white p-4 sm:grid-cols-[120px_1fr_auto]"
                         >
-                            <div className="relative aspect-square overflow-hidden rounded-xl bg-[var(--color-bg-alt)]">
+                            <div className="relative aspect-square overflow-hidden rounded-xl bg-[var(--color-bg-alt)] p-2">
                                 <Image
                                     src={item.image}
                                     alt={item.name}
                                     fill
                                     sizes="120px"
-                                    className="object-cover"
+                                    className="object-contain"
                                 />
                             </div>
 
