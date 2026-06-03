@@ -3,32 +3,28 @@
 import { useState } from "react";
 import Image from "next/image";
 import { products } from "@/data/products";
-//import du contexte du panier pour pouvoir ajouter des articles au panier depuis la fiche produit
-import { useCart } from "@/context/CartContext";
+import type { CartItem } from "@/types/cart";
 
 /**
  * Props reçues depuis layout.tsx.
- * - id           : identifiant du produit à afficher (peut être null si aucun sélectionné)
- * - setPage      : permet de revenir au catalogue ou d'aller au panier
+ * - id       : identifiant du produit à afficher (peut être null)
+ * - setPage  : permet de revenir au catalogue ou d'aller au panier
+ * - addItem  : fonction d'ajout au panier (état remonté dans layout.tsx)
  */
 type ProduitDetailProps = {
   id: string | null;
   setPage: (page: string) => void;
+  addItem: (item: CartItem) => void;
 };
 
 /**
- * Page fiche produit.
- *
- * Comportements notés (semaine 3) :
+ * Page fiche produit (style Amazon : choix coloris puis pointure).
  *  1. Le prix change dynamiquement selon la variante sélectionnée.
- *  2. L'image change dynamiquement selon la variante sélectionnée.
+ *  2. L'image change dynamiquement selon le coloris (survol ou sélection).
  *  3. Le bouton "Ajouter au panier" est désactivé tant qu'aucune variante n'est choisie.
  */
-export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
-  // Récupération de la fonction d'ajout depuis le contexte du panier
-  const { addItem } = useCart();
-
-  // Sélection en deux étapes (façon Amazon) : coloris puis pointure
+export default function ProduitDetail({ id, setPage, addItem }: ProduitDetailProps) {
+  // Sélection en deux étapes : coloris puis pointure
   const [coloris, setColoris] = useState<string | null>(null);
   const [pointure, setPointure] = useState<number | null>(null);
   // Coloris survolé pour aperçu image au survol
@@ -37,12 +33,12 @@ export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
   // ── Recherche du produit ──────────────────────────────────────────
   const produit = products.find((p) => p.id === id);
 
-
   if (!produit) {
     return (
       <div className="container-app py-20 text-center">
         <p className="text-[var(--color-text-muted)]">Produit introuvable.</p>
         <button
+          type="button"
           onClick={() => setPage("produits")}
           className="mt-6 text-sm font-medium text-[var(--color-accent)] underline"
         >
@@ -58,7 +54,7 @@ export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
     new Map(produit.variants.map((v) => [v.color, v.image])).entries()
   ).map(([color, image]) => ({ color, image }));
 
-  // Pointures proposées pour le coloris sélectionné (vide si aucun coloris choisi)
+  // Pointures proposées pour le coloris sélectionné
   const pointuresPourColoris = coloris
     ? produit.variants.filter((v) => v.color === coloris)
     : [];
@@ -71,8 +67,7 @@ export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
         ) ?? null
       : null;
 
-  // ── Image affichée ────────────────────────────────────────────────
-  // priorité : survol > coloris choisi > première image produit
+  // ── Image affichée : priorité survol > coloris choisi > première image
   const colorisPourImage = colorisSurvole ?? coloris;
   const imageAffichee =
     (colorisPourImage &&
@@ -83,8 +78,7 @@ export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
   const prixAffiche = varianteChoisie
     ? varianteChoisie.price
     : coloris
-      ? // Si seul le coloris est choisi, on prend le prix de la 1re pointure dispo
-        pointuresPourColoris[0]?.price ?? produit.basePrice
+      ? pointuresPourColoris[0]?.price ?? produit.basePrice
       : produit.basePrice;
 
   const peutAjouterAuPanier = varianteChoisie !== null && varianteChoisie.stock > 0;
@@ -94,6 +88,7 @@ export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
 
       {/* ── Bouton retour ── */}
       <button
+        type="button"
         onClick={() => {
           setPage("produits");
           setColoris(null);
@@ -175,7 +170,7 @@ export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
                     type="button"
                     onClick={() => {
                       setColoris(color);
-                      setPointure(null); // reset pointure quand on change de coloris
+                      setPointure(null);
                     }}
                     onMouseEnter={() => setColorisSurvole(color)}
                     onMouseLeave={() => setColorisSurvole(null)}
@@ -250,6 +245,7 @@ export default function ProduitDetail({ id, setPage }: ProduitDetailProps) {
 
           {/* ── Bouton Ajouter au panier ── */}
           <button
+            type="button"
             disabled={!peutAjouterAuPanier}
             onClick={() => {
               if (!varianteChoisie) return;

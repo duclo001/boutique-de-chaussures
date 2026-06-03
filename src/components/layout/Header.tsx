@@ -1,16 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "@/components/ui/Logo";
 import SearchBar from "@/components/ui/SearchBar";
-import { useCart } from "@/context/CartContext";
 
 /**
  * Props reçues depuis layout.tsx.
- * setPage permet de changer la page affichée sans Next.js Router.
+ * - setPage     : permet de changer la page affichée (pas de routeur Next).
+ * - totalItems  : nombre total d'articles dans le panier (pour le badge).
  */
 type HeaderProps = {
   setPage: (page: string) => void;
+  totalItems: number;
 };
 
 /** Liens de navigation avec leur identifiant de page */
@@ -20,33 +21,20 @@ const NAV_LINKS = [
   { page: "panier", label: "Panier" },
 ] as const;
 
-export default function Header({ setPage }: HeaderProps) {
+export default function Header({ setPage, totalItems }: HeaderProps) {
   const [open, setOpen] = useState(false);
-  // Référence sur le <header> entier : sert à détecter les clics en dehors
-  const headerRef = useRef<HTMLElement>(null);
-  const { totalItems } = useCart();
 
-  // Ferme le menu si l'utilisateur clique en dehors du header ou appuie sur Échap
+  // Ferme le menu mobile lorsqu'on appuie sur Échap.
+  // (useEffect = module 4 ; aucun useRef nécessaire.)
   useEffect(() => {
     if (!open) return;
-
-    function handleClickOutside(event: MouseEvent) {
-      const target = event.target as Node;
-      if (headerRef.current && !headerRef.current.contains(target)) {
-        setOpen(false);
-      }
-    }
 
     function handleEscape(event: KeyboardEvent) {
       if (event.key === "Escape") setOpen(false);
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleEscape);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
-    };
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [open]);
 
   /** Naviguer vers une page, fermer le menu mobile et remonter en haut */
@@ -59,10 +47,7 @@ export default function Header({ setPage }: HeaderProps) {
   }
 
   return (
-    <header
-      ref={headerRef}
-      className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur"
-    >
+    <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur">
       <div className="container-app flex h-16 items-center justify-between gap-6">
         <Logo />
         <SearchBar />
@@ -75,6 +60,7 @@ export default function Header({ setPage }: HeaderProps) {
           {NAV_LINKS.map((lien) => (
             <button
               key={lien.page}
+              type="button"
               onClick={() => naviguer(lien.page)}
               className="cursor-pointer text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
             >
@@ -83,12 +69,9 @@ export default function Header({ setPage }: HeaderProps) {
           ))}
         </nav>
 
-        {/* Icône panier (desktop) 
-         // le bouton du panier est affiché sur desktop et mobile, mais le badge avec le nombre d'articles n'est affiché que si totalItems > 0, pour éviter d'afficher un badge "0" lorsque le panier est vide
-        // le badge avec le nombre d'articles dans le panier est positionné en absolute par rapport au bouton du panier, pour apparaître en haut à droite de l'icône du panier, et est stylisé pour être petit, 
-        //rond, avec un fond coloré et du texte blanc pour être facilement visible*/}
-
+        {/* Icône panier (desktop). Le badge n'apparaît que si totalItems > 0. */}
         <button
+          type="button"
           onClick={() => naviguer("panier")}
           aria-label="Voir mon panier"
           className="relative hidden h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:bg-[var(--color-bg-alt)] md:inline-flex"
@@ -114,17 +97,29 @@ export default function Header({ setPage }: HeaderProps) {
         </button>
       </div>
 
-      {/* Menu mobile déroulant. La fermeture au clic extérieur ou via Échap
-          est gérée par le useEffect ci-dessus. */}
+      {/* Overlay cliquable derrière le menu mobile : ferme le menu au clic
+          extérieur SANS recourir à useRef. Le menu est positionné au-dessus
+          (z-40) et l'overlay juste en-dessous (z-30), sous le header. */}
+      {open && (
+        <button
+          type="button"
+          aria-label="Fermer le menu"
+          onClick={() => setOpen(false)}
+          className="fixed inset-0 top-16 z-30 cursor-default bg-black/20 md:hidden"
+        />
+      )}
+
+      {/* Menu mobile déroulant */}
       {open && (
         <nav
           aria-label="Navigation mobile"
-          className="border-t border-[var(--color-border)] bg-[var(--color-bg)] md:hidden"
+          className="relative z-40 border-t border-[var(--color-border)] bg-[var(--color-bg)] md:hidden"
         >
           <ul className="container-app flex flex-col py-2">
             {NAV_LINKS.map((lien) => (
               <li key={lien.page}>
                 <button
+                  type="button"
                   onClick={() => naviguer(lien.page)}
                   className="block w-full cursor-pointer py-3 text-left text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
                 >
