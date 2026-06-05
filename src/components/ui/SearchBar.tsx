@@ -2,19 +2,27 @@
 
 import { useState } from "react";
 
-export default function SearchBar() {
+type SearchBarProps = {
+  /** Permet de naviguer vers la page catalogue après une recherche. */
+  setPage: (page: string) => void;
+};
+
+/**
+ * Barre de recherche simple.
+ * Au submit, on déclenche setPage("produits") via useState — pas de
+ * rechargement de page ni de window.location (respect des modules 1-4).
+ */
+export default function SearchBar({ setPage }: SearchBarProps) {
   const [query, setQuery] = useState("");
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const trimmedQuery = query.trim();
+    if (!query.trim()) return;
 
-    if (!trimmedQuery) {
-      return;
-    }
-
-    window.location.href = `/produits?recherche=${encodeURIComponent(trimmedQuery)}`;
+    // Navigation interne par état (module 3) — on remet le champ à zéro
+    setPage("produits");
+    setQuery("");
   }
 
   return (

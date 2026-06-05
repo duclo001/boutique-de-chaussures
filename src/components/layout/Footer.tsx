@@ -1,36 +1,56 @@
-import Link from "next/link";
 import Logo from "@/components/ui/Logo";
 
-const SECTIONS = [
+type FooterProps = {
+  setPage: (page: string) => void;
+};
+
+/**
+ * Configuration des sections du footer.
+ * - `page` (optionnel) : si présent, le lien navigue via setPage (useState).
+ * - `category` (optionnel) : passe une catégorie à pré-sélectionner sur la
+ *   page catalogue. Comme le filtre est dans Produits.tsx et non remonté
+ *   ici, on se contente d'aller au catalogue.
+ * - Les entrées sans `page` sont décoratives (pages non implémentées).
+ */
+type FooterLink = {
+  label: string;
+  page?: string;
+};
+
+type FooterSection = {
+  title: string;
+  links: FooterLink[];
+};
+
+const SECTIONS: FooterSection[] = [
   {
     title: "Boutique",
     links: [
-      { href: "/produits", label: "Tous les produits" },
-      { href: "/produits?categorie=sport", label: "Sport" },
-      { href: "/produits?categorie=ville", label: "Ville" },
-      { href: "/produits?categorie=elegant", label: "Élégant" },
+      { label: "Tous les produits", page: "produits" },
+      { label: "Page d'accueil", page: "accueil" },
+      { label: "Mon panier", page: "panier" },
     ],
   },
   {
     title: "Aide",
     links: [
-      { href: "#", label: "Livraison & retours" },
-      { href: "#", label: "Guide des tailles" },
-      { href: "#", label: "Nous contacter" },
-      { href: "#", label: "FAQ" },
+      { label: "Livraison & retours" },
+      { label: "Guide des tailles" },
+      { label: "Nous contacter" },
+      { label: "FAQ" },
     ],
   },
   {
     title: "Suivez-nous",
     links: [
-      { href: "#", label: "Instagram" },
-      { href: "#", label: "Facebook" },
-      { href: "#", label: "TikTok" },
+      { label: "Instagram" },
+      { label: "Facebook" },
+      { label: "TikTok" },
     ],
   },
-] as const;
+];
 
-export default function Footer() {
+export default function Footer({ setPage }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
@@ -39,7 +59,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Colonne logo + tagline */}
           <div className="flex flex-col gap-4">
-            <Logo />
+            <Logo onClick={() => setPage("accueil")} />
             <p className="max-w-xs text-sm text-[var(--color-text-muted)]">
               Des chaussures sélectionnées avec soin, pour un quotidien
               confortable et stylé.
@@ -54,12 +74,21 @@ export default function Footer() {
               <ul className="flex flex-col gap-2">
                 {section.links.map((link) => (
                   <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-accent)]"
+                    {/*
+                      Navigation interne par useState (module 3) :
+                      bouton type="button" + setPage. Les entrées sans `page`
+                      restent visibles mais désactivées.
+                    */}
+                    <button
+                      type="button"
+                      disabled={!link.page}
+                      onClick={() => {
+                        if (link.page) setPage(link.page);
+                      }}
+                      className="cursor-pointer text-left text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-accent)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:text-[var(--color-text-muted)]"
                     >
                       {link.label}
-                    </Link>
+                    </button>
                   </li>
                 ))}
               </ul>

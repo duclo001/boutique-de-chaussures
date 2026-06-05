@@ -49,8 +49,8 @@ export default function Header({ setPage, totalItems }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur">
       <div className="container-app flex h-16 items-center justify-between gap-6">
-        <Logo />
-        <SearchBar />
+        <Logo onClick={() => naviguer("accueil")} />
+        <SearchBar setPage={setPage} />
 
         {/* Navigation desktop */}
         <nav

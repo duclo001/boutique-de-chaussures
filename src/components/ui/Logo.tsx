@@ -1,24 +1,26 @@
-import Link from "next/link";
-
 type LogoProps = {
   /** Variante de couleur. "light" pour fond sombre, "dark" pour fond clair. */
   variant?: "light" | "dark";
   className?: string;
+  /** Callback pour revenir à la page d'accueil (navigation via useState). */
+  onClick?: () => void;
 };
 
 /**
  * Logo SVG inline (vectoriel, scalable).
  * Représente une chaussure stylisée à côté du nom de la boutique.
+ * Bouton cliquable qui ramène à la page d'accueil via setPage("accueil").
  */
-export default function Logo({ variant = "dark", className = "" }: LogoProps) {
+export default function Logo({ variant = "dark", className = "", onClick }: LogoProps) {
   const textColor = variant === "dark" ? "text-text" : "text-white";
   const iconColor = variant === "dark" ? "text-accent" : "text-white";
 
   return (
-    <Link
-      href="/"
+    <button
+      type="button"
+      onClick={onClick}
       aria-label="Retour à l'accueil — Boutique de Chaussures"
-      className={`group inline-flex items-center gap-2 ${className}`}
+      className={`group inline-flex cursor-pointer items-center gap-2 ${className}`}
     >
       <svg
         viewBox="0 0 48 48"
@@ -57,6 +59,6 @@ export default function Logo({ variant = "dark", className = "" }: LogoProps) {
           de Chaussures
         </span>
       </span>
-    </Link>
+    </button>
   );
 }

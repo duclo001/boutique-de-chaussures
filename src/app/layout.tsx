@@ -161,7 +161,7 @@ export default function RootLayout({
           )}
         </main>
 
-        <Footer />
+        <Footer setPage={setPage} />
         <ScrollToTop />
       </body>
     </html>

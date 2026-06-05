@@ -1,26 +1,30 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { Product } from "@/types/product";
 
 type ProductCardProps = {
   product: Product;
   /**
-   * Si fourni, la carte devient un <button> avec cet onClick.
-   * Utile pour la navigation par useState (pas de Link Next.js).
-   * Si absent, la carte reste un <Link> vers `/produits/[id]`.
+   * Action déclenchée au clic — généralement setSelectedProductId + setPage.
+   * Toute la navigation passe par useState (modules 1-4), donc cette prop
+   * est obligatoire.
    */
-  onClick?: () => void;
+  onClick: () => void;
 };
 
 /**
  * Carte produit réutilisable (catalogue + section vedette).
- * Affiche : image, catégorie, nom, prix de base.
+ * Rendue comme <button> car la navigation est pilotée par useState
+ * (pas de Link Next.js).
  */
 export default function ProductCard({ product, onClick }: ProductCardProps) {
   const cover = product.images[0];
 
-  const content = (
-    <>
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="group block w-full overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] text-left transition-shadow hover:shadow-lg"
+    >
       <div className="relative aspect-square w-full overflow-hidden bg-[var(--color-bg-alt)] p-4">
         <Image
           src={cover}
@@ -42,25 +46,6 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
           {product.basePrice.toFixed(2)} $
         </p>
       </div>
-    </>
-  );
-
-  const cardClasses =
-    "group block overflow-hidden rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] transition-shadow hover:shadow-lg text-left w-full";
-
-  // Navigation par état : on rend un <button>
-  if (onClick) {
-    return (
-      <button onClick={onClick} className={cardClasses}>
-        {content}
-      </button>
-    );
-  }
-
-  // Navigation Next.js classique : on rend un <Link>
-  return (
-    <Link href={`/produits/${product.id}`} className={cardClasses}>
-      {content}
-    </Link>
+    </button>
   );
 }
