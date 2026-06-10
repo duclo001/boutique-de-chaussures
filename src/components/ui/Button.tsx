@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 type Variant = "primary" | "secondary" | "outline";
@@ -60,10 +59,21 @@ export default function Button(props: ButtonProps) {
 
   if ("href" in props && props.href) {
     const { href, target, rel } = props;
+    
+    // Les liens d'ancre (#) utilisent un <a> classique, pas de Link Next.js
+    if (href.startsWith("#")) {
+      return (
+        <a href={href} className={classes}>
+          {children}
+        </a>
+      );
+    }
+    
+    // Les autres liens (externes) utilisent aussi <a> avec target="_blank"
     return (
-      <Link href={href} target={target} rel={rel} className={classes}>
+      <a href={href} target={target} rel={rel} className={classes}>
         {children}
-      </Link>
+      </a>
     );
   }
 

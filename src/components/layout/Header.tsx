@@ -37,6 +37,23 @@ export default function Header({ setPage, totalItems }: HeaderProps) {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [open]);
 
+  // Ferme le menu mobile lorsqu'on clique en dehors (sans useRef)
+  useEffect(() => {
+    if (!open) return;
+
+    function handleOutsidePointer(event: PointerEvent) {
+      const target = event.target as HTMLElement | null;
+      if (!target) return;
+      // si le clic n'est ni dans le menu mobile ni sur le bouton toggle, fermer
+      if (!target.closest('#mobile-menu') && !target.closest('#menu-toggle')) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener('pointerdown', handleOutsidePointer);
+    return () => document.removeEventListener('pointerdown', handleOutsidePointer);
+  }, [open]);
+
   /** Naviguer vers une page, fermer le menu mobile et remonter en haut */
   function naviguer(page: string) {
     setPage(page);
@@ -87,6 +104,7 @@ export default function Header({ setPage, totalItems }: HeaderProps) {
 
         {/* Bouton menu mobile */}
         <button
+          id="menu-toggle"
           type="button"
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={open}
@@ -112,6 +130,7 @@ export default function Header({ setPage, totalItems }: HeaderProps) {
       {/* Menu mobile déroulant */}
       {open && (
         <nav
+          id="mobile-menu"
           aria-label="Navigation mobile"
           className="relative z-40 border-t border-[var(--color-border)] bg-[var(--color-bg)] md:hidden"
         >
