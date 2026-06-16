@@ -1,15 +1,10 @@
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 
-type HeroProps = {
-  setPage: (page: string) => void;
-};
-
 /**
  * Hero section : grande image, slogan, sous-titre et CTA.
- * setPage permet de naviguer vers le catalogue sans Next.js Router.
  */
-export default function Hero({ setPage }: HeroProps) {
+export default function Hero() {
   return (
     <section className="relative w-full overflow-hidden bg-[var(--color-bg-alt)]">
       <div className="container-app grid grid-cols-1 items-center gap-10 py-16 lg:grid-cols-2 lg:py-24">
@@ -33,8 +28,8 @@ export default function Hero({ setPage }: HeroProps) {
           </p>
 
           <div className="flex flex-wrap gap-3">
-            {/* Navigation par état — pas de Link Next.js */}
-            <Button size="lg" onClick={() => setPage("produits")}>
+            {/* Navigation interne vers le catalogue (Link via Button) */}
+            <Button href="/produits" size="lg">
               Découvrir la collection
             </Button>
             {/* Lien ancre interne — scroll vers la section vedette */}
