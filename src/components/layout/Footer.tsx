@@ -1,20 +1,15 @@
 import Logo from "@/components/ui/Logo";
-
-type FooterProps = {
-  setPage: (page: string) => void;
-};
+import Link from "next/link";
 
 /**
  * Configuration des sections du footer.
- * - `page` (optionnel) : si présent, le lien navigue via setPage (useState).
- * - `category` (optionnel) : passe une catégorie à pré-sélectionner sur la
- *   page catalogue. Comme le filtre est dans Produits.tsx et non remonté
- *   ici, on se contente d'aller au catalogue.
- * - Les entrées sans `page` sont décoratives (pages non implémentées).
+ * - `href` (optionnel) : si présent, l'entrée est un <Link> Next.js.
+ * - Les entrées sans `href` sont décoratives (pages non implémentées) et
+ *   restent désactivées.
  */
 type FooterLink = {
   label: string;
-  page?: string;
+  href?: string;
 };
 
 type FooterSection = {
@@ -26,9 +21,9 @@ const SECTIONS: FooterSection[] = [
   {
     title: "Boutique",
     links: [
-      { label: "Tous les produits", page: "produits" },
-      { label: "Page d'accueil", page: "accueil" },
-      { label: "Mon panier", page: "panier" },
+      { label: "Tous les produits", href: "/produits" },
+      { label: "Page d'accueil", href: "/" },
+      { label: "Mon panier", href: "/panier" },
     ],
   },
   {
@@ -50,7 +45,7 @@ const SECTIONS: FooterSection[] = [
   },
 ];
 
-export default function Footer({ setPage }: FooterProps) {
+export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
@@ -59,7 +54,7 @@ export default function Footer({ setPage }: FooterProps) {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Colonne logo + tagline */}
           <div className="flex flex-col gap-4">
-            <Logo onClick={() => setPage("accueil")} />
+            <Logo />
             <p className="max-w-xs text-sm text-[var(--color-text-muted)]">
               Des chaussures sélectionnées avec soin, pour un quotidien
               confortable et stylé.
@@ -72,25 +67,26 @@ export default function Footer({ setPage }: FooterProps) {
                 {section.title}
               </h3>
               <ul className="flex flex-col gap-2">
-                {section.links.map((link) => (
-                  <li key={link.label}>
-                    {/*
-                      Navigation interne par useState (module 3) :
-                      bouton type="button" + setPage. Les entrées sans `page`
-                      restent visibles mais désactivées.
-                    */}
-                    <button
-                      type="button"
-                      disabled={!link.page}
-                      onClick={() => {
-                        if (link.page) setPage(link.page);
-                      }}
-                      className="cursor-pointer text-left text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-accent)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:text-[var(--color-text-muted)]"
-                    >
-                      {link.label}
-                    </button>
-                  </li>
-                ))}
+                {section.links.map((link) =>
+                  link.href ? (
+                    // Navigation interne : <Link> Next.js
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-left text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-accent)]"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ) : (
+                    // Entrée décorative (page non implémentée) : désactivée
+                    <li key={link.label}>
+                      <span className="cursor-not-allowed text-sm text-[var(--color-text-muted)] opacity-60">
+                        {link.label}
+                      </span>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           ))}

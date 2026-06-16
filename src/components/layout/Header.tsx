@@ -1,28 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "@/components/ui/Logo";
 import SearchBar from "@/components/ui/SearchBar";
+import * as cartStore from "@/lib/cartStore";
 
-/**
- * Props reçues depuis layout.tsx.
- * - setPage     : permet de changer la page affichée (pas de routeur Next).
- * - totalItems  : nombre total d'articles dans le panier (pour le badge).
- */
-type HeaderProps = {
-  setPage: (page: string) => void;
-  totalItems: number;
-};
-
-/** Liens de navigation avec leur identifiant de page */
+/** Liens de navigation avec leur URL */
 const NAV_LINKS = [
-  { page: "accueil", label: "Accueil" },
-  { page: "produits", label: "Catalogue" },
-  { page: "panier", label: "Panier" },
+  { href: "/", label: "Accueil" },
+  { href: "/produits", label: "Catalogue" },
+  { href: "/panier", label: "Panier" },
 ] as const;
 
-export default function Header({ setPage, totalItems }: HeaderProps) {
+export default function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Badge panier : lu au montage depuis le localStorage (pas de useEffect).
+  // Reflète l'état au chargement de la page (le Header vit dans le layout).
+  const [totalItems] = useState(() =>
+    cartStore.compterArticles(cartStore.lire())
+  );
 
   // Ferme le menu mobile lorsqu'on appuie sur Échap.
   // (useEffect = module 4 ; aucun useRef nécessaire.)
@@ -54,20 +54,11 @@ export default function Header({ setPage, totalItems }: HeaderProps) {
     return () => document.removeEventListener('pointerdown', handleOutsidePointer);
   }, [open]);
 
-  /** Naviguer vers une page, fermer le menu mobile et remonter en haut */
-  function naviguer(page: string) {
-    setPage(page);
-    setOpen(false);
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }
-
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur">
       <div className="container-app flex h-16 items-center justify-between gap-6">
-        <Logo onClick={() => naviguer("accueil")} />
-        <SearchBar setPage={setPage} />
+        <Logo />
+        <SearchBar />
 
         {/* Navigation desktop */}
         <nav
@@ -75,21 +66,24 @@ export default function Header({ setPage, totalItems }: HeaderProps) {
           className="hidden items-center gap-8 md:flex"
         >
           {NAV_LINKS.map((lien) => (
-            <button
-              key={lien.page}
-              type="button"
-              onClick={() => naviguer(lien.page)}
-              className="cursor-pointer text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
+            <Link
+              key={lien.href}
+              href={lien.href}
+              aria-current={pathname === lien.href ? "page" : undefined}
+              className={`text-sm font-medium transition-colors hover:text-[var(--color-accent)] ${
+                pathname === lien.href
+                  ? "text-[var(--color-accent)]"
+                  : "text-[var(--color-text)]"
+              }`}
             >
               {lien.label}
-            </button>
+            </Link>
           ))}
         </nav>
 
         {/* Icône panier (desktop). Le badge n'apparaît que si totalItems > 0. */}
-        <button
-          type="button"
-          onClick={() => naviguer("panier")}
+        <Link
+          href="/panier"
           aria-label="Voir mon panier"
           className="relative hidden h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:bg-[var(--color-bg-alt)] md:inline-flex"
         >
@@ -100,7 +94,7 @@ export default function Header({ setPage, totalItems }: HeaderProps) {
               {totalItems}
             </span>
           )}
-        </button>
+        </Link>
 
         {/* Bouton menu mobile */}
         <button
@@ -136,14 +130,15 @@ export default function Header({ setPage, totalItems }: HeaderProps) {
         >
           <ul className="container-app flex flex-col py-2">
             {NAV_LINKS.map((lien) => (
-              <li key={lien.page}>
-                <button
-                  type="button"
-                  onClick={() => naviguer(lien.page)}
-                  className="block w-full cursor-pointer py-3 text-left text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
+              <li key={lien.href}>
+                <Link
+                  href={lien.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={pathname === lien.href ? "page" : undefined}
+                  className="block w-full py-3 text-left text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
                 >
                   {lien.label}
-                </button>
+                </Link>
               </li>
             ))}
           </ul>
