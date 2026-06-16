@@ -2,20 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { products } from "@/data/products";
 import type { Category } from "@/types/product";
-
-/**
- * Props reçues depuis layout.tsx pour gérer la navigation par état.
- * - setPage : change la page affichée
- * - setSelectedProductId : indique quel produit ouvrir dans ProduitDetail
- */
-type ProduitsProps = {
-  setPage: (page: string) => void;
-  setSelectedProductId: (id: string) => void;
-  /** Catégorie pré-sélectionnée quand on arrive depuis Categories.tsx */
-  categorieInitiale?: Category | "tous";
-};
 
 /** Libellés affichés pour chaque catégorie */
 const CATEGORY_LABELS: Record<Category | "tous", string> = {
@@ -26,28 +16,31 @@ const CATEGORY_LABELS: Record<Category | "tous", string> = {
   elegant: "Élégant",
 };
 
+/** Valide une valeur d'URL contre les catégories connues. */
+function categorieValide(valeur: string | null): Category | "tous" {
+  return valeur && valeur in CATEGORY_LABELS
+    ? (valeur as Category | "tous")
+    : "tous";
+}
+
 /**
  * Page Catalogue — affiche tous les produits avec filtre par catégorie.
- * Cliquer sur une carte navigue vers la fiche détail du produit.
+ * La catégorie initiale provient du query param ?categorie=<slug> (useSearchParams).
+ * Cliquer sur une carte navigue vers la fiche détail (Link).
  */
-export default function Produits({ setPage, setSelectedProductId, categorieInitiale = "tous" }: ProduitsProps) {
-  // Catégorie sélectionnée pour le filtre — initialisée depuis Categories.tsx si fournie
-  const [filtreCategorie, setFiltreCategorie] = useState<Category | "tous">(categorieInitiale);
+export default function Produits() {
+  // Catégorie pré-sélectionnée depuis l'URL (?categorie=sport)
+  const categorieInitiale = categorieValide(useSearchParams().get("categorie"));
+
+  // Catégorie sélectionnée pour le filtre (re-filtrage côté client)
+  const [filtreCategorie, setFiltreCategorie] =
+    useState<Category | "tous">(categorieInitiale);
 
   // Produits filtrés selon la catégorie sélectionnée
   const produitsFiltres =
     filtreCategorie === "tous"
       ? products
       : products.filter((p) => p.category === filtreCategorie);
-
-  /**
-   * Naviguer vers la fiche détail d'un produit.
-   * On mémorise l'id du produit avant de changer de page.
-   */
-  function ouvrirProduit(id: string) {
-    setSelectedProductId(id);
-    setPage("produit-detail");
-  }
 
   return (
     <section className="container-app py-12 lg:py-20">
@@ -90,14 +83,10 @@ export default function Produits({ setPage, setSelectedProductId, categorieIniti
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {produitsFiltres.map((produit) => (
-            /*
-             * Carte produit cliquable.
-             * On utilise un <button> (pas un <Link>) car la navigation
-             * est gérée par useState dans layout.tsx.
-             */
-            <button
+            /* Carte produit : lien vers la fiche détail (/produits/[id]) */
+            <Link
               key={produit.id}
-              onClick={() => ouvrirProduit(produit.id)}
+              href={`/produits/${produit.id}`}
               className="group text-left overflow-hidden rounded-2xl bg-white border border-[var(--color-border)] transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
             >
               {/* Image du produit */}
@@ -123,7 +112,7 @@ export default function Produits({ setPage, setSelectedProductId, categorieIniti
                   À partir de {produit.basePrice.toFixed(2)} $
                 </p>
               </div>
-            </button>
+            </Link>
           ))}
         </div>
       )}

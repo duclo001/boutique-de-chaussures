@@ -1,31 +1,22 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import type { CartItem } from "@/types/cart";
+import Link from "next/link";
+import * as cartStore from "@/lib/cartStore";
 
-// Toutes les données et fonctions liées au panier arrivent en props depuis layout.tsx
-// (modules 2-3-4 : props + useState/useEffect remontés dans le layout, pas de Context).
-type PanierProps = {
-  setPage: (page: string) => void;
-  items: CartItem[];
-  removeItem: (variantId: string) => void;
-  increaseQuantity: (variantId: string) => void;
-  decreaseQuantity: (variantId: string) => void;
-  clearCart: () => void;
-  totalItems: number;
-  totalPrice: number;
-};
+/**
+ * Page Panier. Le contenu est lu directement depuis le localStorage via
+ * cartStore (lecture au montage, sans useEffect ni Context). Chaque action
+ * met à jour l'état local avec le tableau retourné par le store.
+ */
+export default function Panier() {
+  const [items, setItems] = useState(() => cartStore.lire());
 
-export default function Panier({
-  setPage,
-  items,
-  removeItem,
-  increaseQuantity,
-  decreaseQuantity,
-  clearCart,
-  totalItems,
-  totalPrice,
-}: PanierProps) {
+  // Totaux dérivés à chaque rendu
+  const totalItems = cartStore.compterArticles(items);
+  const totalPrice = cartStore.prixTotal(items);
+
   if (items.length === 0) {
     return (
       <section className="container-app py-20 text-center">
@@ -37,13 +28,12 @@ export default function Panier({
           Ajoutez une paire depuis le catalogue pour commencer.
         </p>
 
-        <button
-          type="button"
-          onClick={() => setPage("produits")}
-          className="mt-8 rounded-full bg-[var(--color-accent)] px-6 py-3 font-medium text-white hover:bg-[var(--color-accent-hover)]"
+        <Link
+          href="/produits"
+          className="mt-8 inline-block rounded-full bg-[var(--color-accent)] px-6 py-3 font-medium text-white hover:bg-[var(--color-accent-hover)]"
         >
           Voir le catalogue
-        </button>
+        </Link>
       </section>
     );
   }
@@ -67,7 +57,7 @@ export default function Panier({
 
         <button
           type="button"
-          onClick={clearCart}
+          onClick={() => setItems(cartStore.vider())}
           className="text-sm font-medium text-[var(--color-text-muted)] underline hover:text-[var(--color-accent)]"
         >
           Vider le panier
@@ -106,7 +96,7 @@ export default function Panier({
 
                 <button
                   type="button"
-                  onClick={() => removeItem(item.variantId)}
+                  onClick={() => setItems(cartStore.retirer(item.variantId))}
                   className="mt-4 text-sm text-[var(--color-text-muted)] underline hover:text-[var(--color-accent)]"
                 >
                   Supprimer
@@ -117,7 +107,7 @@ export default function Panier({
                 <div className="flex items-center rounded-full border border-[var(--color-border)]">
                   <button
                     type="button"
-                    onClick={() => decreaseQuantity(item.variantId)}
+                    onClick={() => setItems(cartStore.diminuer(item.variantId))}
                     className="h-9 w-9 text-lg"
                     aria-label="Diminuer la quantité"
                   >
@@ -130,7 +120,7 @@ export default function Panier({
 
                   <button
                     type="button"
-                    onClick={() => increaseQuantity(item.variantId)}
+                    onClick={() => setItems(cartStore.augmenter(item.variantId))}
                     disabled={item.quantity >= item.stock}
                     className="h-9 w-9 text-lg disabled:cursor-not-allowed disabled:text-gray-300"
                     aria-label="Augmenter la quantité"
@@ -178,13 +168,12 @@ export default function Panier({
             Passer commande
           </button>
 
-          <button
-            type="button"
-            onClick={() => setPage("produits")}
-            className="mt-3 w-full rounded-full border border-[var(--color-border)] px-6 py-3 font-medium hover:bg-[var(--color-bg-alt)]"
+          <Link
+            href="/produits"
+            className="mt-3 block w-full rounded-full border border-[var(--color-border)] px-6 py-3 text-center font-medium hover:bg-[var(--color-bg-alt)]"
           >
             Continuer mes achats
-          </button>
+          </Link>
         </aside>
       </div>
     </section>
