@@ -1,17 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import * as cartStore from "@/lib/cartStore";
 
 /**
- * Page Panier. Le contenu est lu directement depuis le localStorage via
- * cartStore (lecture au montage, sans useEffect ni Context). Chaque action
- * met à jour l'état local avec le tableau retourné par le store.
+ * Page Panier. Le contenu est lu via useSyncExternalStore : la page se re-rend
+ * automatiquement à chaque mutation du panier (et le badge du Header aussi,
+ * puisqu'il est abonné au même store). Sans useEffect ni Context.
  */
 export default function Panier() {
-  const [items, setItems] = useState(() => cartStore.lire());
+  const items = useSyncExternalStore(
+    cartStore.subscribe,
+    cartStore.getSnapshot,
+    cartStore.getServerSnapshot
+  );
 
   // Totaux dérivés à chaque rendu
   const totalItems = cartStore.compterArticles(items);
@@ -57,7 +61,7 @@ export default function Panier() {
 
         <button
           type="button"
-          onClick={() => setItems(cartStore.vider())}
+          onClick={() => cartStore.vider()}
           className="text-sm font-medium text-[var(--color-text-muted)] underline hover:text-[var(--color-accent)]"
         >
           Vider le panier
@@ -96,7 +100,7 @@ export default function Panier() {
 
                 <button
                   type="button"
-                  onClick={() => setItems(cartStore.retirer(item.variantId))}
+                  onClick={() => cartStore.retirer(item.variantId)}
                   className="mt-4 text-sm text-[var(--color-text-muted)] underline hover:text-[var(--color-accent)]"
                 >
                   Supprimer
@@ -107,7 +111,7 @@ export default function Panier() {
                 <div className="flex items-center rounded-full border border-[var(--color-border)]">
                   <button
                     type="button"
-                    onClick={() => setItems(cartStore.diminuer(item.variantId))}
+                    onClick={() => cartStore.diminuer(item.variantId)}
                     className="h-9 w-9 text-lg"
                     aria-label="Diminuer la quantité"
                   >
@@ -120,7 +124,7 @@ export default function Panier() {
 
                   <button
                     type="button"
-                    onClick={() => setItems(cartStore.augmenter(item.variantId))}
+                    onClick={() => cartStore.augmenter(item.variantId)}
                     disabled={item.quantity >= item.stock}
                     className="h-9 w-9 text-lg disabled:cursor-not-allowed disabled:text-gray-300"
                     aria-label="Augmenter la quantité"

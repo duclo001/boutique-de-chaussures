@@ -2,16 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import Logo from "@/components/ui/Logo";
 import SearchBar from "@/components/ui/SearchBar";
+import CartBadge from "./CartBadge";
 import navItems from "@/utils/navItems.json";
-
-// Badge panier chargé uniquement côté client (pas de rendu serveur) : le
-// compte vient du localStorage, donc le rendre client-only évite tout
-// mismatch d'hydratation.
-const CartBadge = dynamic(() => import("./CartBadge"), { ssr: false });
 
 export default function Header() {
   const [open, setOpen] = useState(false);

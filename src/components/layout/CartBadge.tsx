@@ -1,21 +1,24 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import * as cartStore from "@/lib/cartStore";
 
 /**
  * Badge du nombre d'articles dans le panier.
  *
- * Lit le compte depuis le localStorage (via cartStore) au montage. Ce composant
- * est volontairement chargé SANS rendu serveur (next/dynamic { ssr: false }
- * dans le Header) : comme le localStorage n'existe pas côté serveur, le rendre
- * uniquement côté client évite tout mismatch d'hydratation — sans useEffect,
- * sans Context.
- *
- * Le compte reflète l'état au chargement de la page (le Header vit dans le
- * layout et ne se remonte pas entre deux navigations).
+ * S'abonne au panier via useSyncExternalStore : il se re-rend automatiquement
+ * à chaque changement (ajout, retrait, vidage…), même déclenché depuis une
+ * autre page. Le hook gère aussi l'hydratation (snapshot serveur = panier
+ * vide), donc aucun mismatch — sans useEffect ni Context.
  */
 export default function CartBadge() {
-  const totalItems = cartStore.compterArticles(cartStore.lire());
+  const items = useSyncExternalStore(
+    cartStore.subscribe,
+    cartStore.getSnapshot,
+    cartStore.getServerSnapshot
+  );
+
+  const totalItems = cartStore.compterArticles(items);
 
   if (totalItems <= 0) return null;
 
