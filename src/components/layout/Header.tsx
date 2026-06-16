@@ -5,14 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "@/components/ui/Logo";
 import SearchBar from "@/components/ui/SearchBar";
+import navItems from "@/utils/navItems.json";
 import * as cartStore from "@/lib/cartStore";
-
-/** Liens de navigation avec leur URL */
-const NAV_LINKS = [
-  { href: "/", label: "Accueil" },
-  { href: "/produits", label: "Catalogue" },
-  { href: "/panier", label: "Panier" },
-] as const;
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -65,7 +59,7 @@ export default function Header() {
           aria-label="Navigation principale"
           className="hidden items-center gap-8 md:flex"
         >
-          {NAV_LINKS.map((lien) => (
+          {navItems.map((lien) => (
             <Link
               key={lien.href}
               href={lien.href}
@@ -129,7 +123,7 @@ export default function Header() {
           className="relative z-40 border-t border-[var(--color-border)] bg-[var(--color-bg)] md:hidden"
         >
           <ul className="container-app flex flex-col py-2">
-            {NAV_LINKS.map((lien) => (
+            {navItems.map((lien) => (
               <li key={lien.href}>
                 <Link
                   href={lien.href}
