@@ -2,21 +2,20 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import Logo from "@/components/ui/Logo";
 import SearchBar from "@/components/ui/SearchBar";
 import navItems from "@/utils/navItems.json";
-import * as cartStore from "@/lib/cartStore";
+
+// Badge panier chargé uniquement côté client (pas de rendu serveur) : le
+// compte vient du localStorage, donc le rendre client-only évite tout
+// mismatch d'hydratation.
+const CartBadge = dynamic(() => import("./CartBadge"), { ssr: false });
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-
-  // Badge panier : lu au montage depuis le localStorage (pas de useEffect).
-  // Reflète l'état au chargement de la page (le Header vit dans le layout).
-  const [totalItems] = useState(() =>
-    cartStore.compterArticles(cartStore.lire())
-  );
 
   // Ferme le menu mobile lorsqu'on appuie sur Échap.
   // (useEffect = module 4 ; aucun useRef nécessaire.)
@@ -82,12 +81,7 @@ export default function Header() {
           className="relative hidden h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:bg-[var(--color-bg-alt)] md:inline-flex"
         >
           <CartIcon />
-
-          {totalItems > 0 && (
-            <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[var(--color-accent)] px-1 text-xs font-bold text-white">
-              {totalItems}
-            </span>
-          )}
+          <CartBadge />
         </Link>
 
         {/* Bouton menu mobile */}
