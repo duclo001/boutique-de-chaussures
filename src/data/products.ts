@@ -40,9 +40,371 @@ function variantesPourCouleur(opts: {
 }
 
 export const products: Product[] = [
+
+
+  // ─────────────────────────────────────────────────────────────
+  // CASUAL
+  // ─────────────────────────────────────────────────────────────
+
+  {
+    id: "nike-ebernon-low",
+    name: "Nike Ebernon Low",
+    description:
+      "Basket low cuir au design épuré, classique intemporel pour la ville. Disponible en noir ou blanc.",
+    basePrice: 109.99,
+    category: "casual",
+    featured: true,
+    images: [
+
+      img("Nike_low_photo6.webp"),
+      img("Nike_low_photo2.webp"),
+      img("Nike_low_photo4.webp"),
+      img("Nike_low_photo5.webp"),
+      img("Nike_low_photo7.webp"),
+      img("Nike_low_photo9.webp"),
+      img("Nike_low_photo10.webp"),
+      img("Nike_low_photo11.webp"),
+      img("Nike_low_photo12.webp"),
+      img("Nike_low_photo13.webp"),
+    ],
+    variants: [
+      ...variantesPourCouleur({
+        prefix: "ebernon-noir",
+        color: "Noir",
+        price: 109.99,
+        image: img("Nike_low_photo1.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ebernon-blanc",
+        color: "Blanc",
+        price: 109.99,
+        image: img("Nike_low_photo2.webp"),
+      }),
+
+      ...variantesPourCouleur({
+        prefix: "ebernon-blanc-2",
+        color: "Blanc / Bleu / Vert",
+        price: 109.99,
+        image: img("Nike_low_photo4.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ebernon-noir-2",
+        color: "Noir / Blanc",
+        price: 109.99,
+        image: img("Nike_low_photo5.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ebernon-blanc-3",
+        color: "Blanc / Rouge / Noir",
+        price: 109.99,
+        image: img("Nike_low_photo6.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ebernon-noir-3",
+        color: "Blanc / Violet / rose-clair / Bleu-Marine / jaune",
+        price: 109.99,
+        image: img("Nike_low_photo7.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ebernon-blanc-4",
+        color: "jaune / Blanc",
+        price: 109.99,
+        image: img("Nike_low_photo9.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ebernon-noir-4",
+        color: "Blanc / Vert-clair",
+        price: 109.99,
+        image: img("Nike_low_photo10.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ebernon-blanc-5",
+        color: "Noir sombre",
+        price: 109.99,
+        image: img("Nike_low_photo11.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ebernon-noir-5",
+        color: "Militaire ",
+        price: 109.99,
+        image: img("Nike_low_photo12.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ebernon-blanc-6",
+        color: "Gris / Noir",
+        price: 109.99,
+        image: img("Nike_low_photo13.webp"),
+      }),
+    ],
+  },
+  {
+    id: "sock-sneaker-confort",
+    name: "Sock Sneaker Confort",
+    description:
+      "Basket chaussette ultra-souple, enfilage facile et maintien de la cheville. Parfaite au quotidien.",
+    basePrice: 59.99,
+    category: "casual",
+    images: [
+      img("Sock_Confondu_photo1.webp"),
+      img("Sock_Confondu_photo2.webp"),
+      img("Sock_Confondu_photo3.webp"),
+      img("Sock_Confondu_photo4.webp"),
+      img("Sock_Confondu_photo5.webp"),
+      img("Sock_Confondu_photo6.webp"),
+
+    ],
+    variants: [
+      ...variantesPourCouleur({
+        prefix: "sock-Blanc",
+        color: "Blanc / Rouge",
+        price: 59.99,
+        image: img("Sock_Confondu_photo1.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "sock-navy",
+        color: "Blanc / Noir",
+        price: 59.99,
+        image: img("Sock_Confondu_photo2.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "sock-navy-2",
+        color: "Blanc / Orange",
+        price: 59.99,
+        image: img("Sock_Confondu_photo3.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "sock-navy-3",
+        color: "Marron / Noir",
+        price: 59.99,
+        image: img("Sock_Confondu_photo4.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "sock-blanc",
+        color: "Blanc / Rouge",
+        price: 59.99,
+        image: img("Sock_Confondu_photo5.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "sock-blanc-2",
+        color: "Blanc / Marron-Foncé",
+        price: 59.99,
+        image: img("Sock_Confondu_photo6.webp"),
+      }),
+
+    ],
+  },
+  {
+    id: "sneaker-urbain-blanc",
+    name: "Sneaker Urbain Blanc",
+    description:
+      "Sneaker minimaliste en cuir lisse, parfaite pour un look quotidien soigné. Finitions discrètes et semelle confortable.",
+    basePrice: 119.99,
+    category: "casual",
+    featured: true,
+    images: [
+      img("Sneaker-urbain_photo4.webp"),
+      img("Sneaker-urbain_photo1.webp"),
+      img("Sneaker-urbain_photo2.webp"),
+      img("Sneaker-urbain_photo3.webp"),
+      img("Sneaker-urbain_photo5.webp"),
+
+
+    ],
+    variants: [
+      ...variantesPourCouleur({
+        prefix: "sneaker-urbain-blanc",
+        color: "Blanc/ Noir",
+        price: 119.99,
+        image: img("Sneaker-urbain_photo1.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "sneaker-urbain-blanc-2",
+        color: "Blanc/ / noir",
+        price: 119.99,
+        image: img("Sneaker-urbain_photo2.webp"),
+
+      }),
+      ...variantesPourCouleur({
+        prefix: "sneaker-urbain-blanc-3",
+        color: "Blanc / Vert",
+        price: 119.99,
+        image: img("Sneaker-urbain_photo3.webp"),
+
+      }),
+      ...variantesPourCouleur({
+        prefix: "sneaker-urbain-blanc-4",
+        color: "Blanc",
+        price: 119.99,
+        image: img("Sneaker-urbain_photo4.webp"),
+
+      }),
+      ...variantesPourCouleur({
+        prefix: "sneaker-urbain-blanc-5",
+        color: "Noir",
+        price: 119.99,
+        image: img("Sneaker-urbain_photo5.webp"),
+
+      }),
+    ]
+  },
+  {
+    id: "slip-on-canvas",
+    name: "Slip-on Canvas",
+    description:
+      "Slip-on en toile résistante, à enfiler sans lacets. Légère, polyvalente, pensée pour les beaux jours.",
+    basePrice: 49.99,
+    category: "casual",
+    images: [
+      img("Slip-on_photo1.webp"),
+      img("Slip-on_photo3.webp"),
+      img("Slip-on_photo2.webp"),
+      img("Slip-on_photo4.webp"),
+    ],
+    variants: [
+
+      ...variantesPourCouleur({
+        prefix: "sock-vert-militaire",
+        color: "Vert-militaire",
+        price: 49.99,
+        image: img("Slip-on_photo1.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "sock-navy-4",
+        color: "Gris",
+        price: 49.99,
+        image: img("Slip-on_photo2.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "sock-navy-5",
+        color: "Bleu-foncé",
+        price: 49.99,
+        image: img("Slip-on_photo3.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "sock-navy-6",
+        color: "Gris",
+        price: 49.99,
+        image: img("Slip-on_photo2.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "sock-blanc-3",
+        color: "Blanc",
+        price: 49.99,
+        image: img("Slip-on_photo4.webp"),
+      }),
+    ],
+  },
+  {
+    id: "sneaker-chunky-plateforme",
+    name: "Sneaker Chunky Plateforme",
+    description:
+      "Silhouette dad-shoe à plateforme épaisse. Maintien renforcé et style streetwear assumé.",
+    basePrice: 89.0,
+    category: "casual",
+    images: [
+      img("SK_Chunky_photo2.webp"),
+      img("SK_Chunky_photo1.webp"),
+    ],
+    variants: [
+      ...variantesPourCouleur({
+        prefix: "chunky-blanc",
+        color: "Blanc",
+        price: 89.0,
+        image: img("SK_Chunky_photo1.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "chunky-noir",
+        color: "Noir",
+        price: 89.0,
+        image: img("SK_Chunky_photo2.webp"),
+      }),
+    ],
+  },
   // ─────────────────────────────────────────────────────────────
   // SPORT
   // ─────────────────────────────────────────────────────────────
+  {
+    id: "jordan-max-aura",
+    name: "Air Jordan Max Aura",
+    description:
+      "Hommage à la Air Jordan III avec une unité Air Max sous le talon et une tige cuir/synthétique.",
+    basePrice: 169.0,
+    category: "sport",
+    images: [
+      img("AirJordan_photo4.webp"),
+      img("AirJordan_photo1.webp"),
+      img("AirJordan_photo2.webp"),
+      img("AirJordan_photo3.webp"),
+
+    ],
+    variants: [
+      ...variantesPourCouleur({
+        prefix: "jordan-gris-loup",
+        color: "Blanc / Noir / Rouge",
+        price: 169.0,
+        image: img("AirJordan_photo1.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "jordan-blanc-rouge",
+        color: "Blanc / Gris",
+        price: 174.0,
+        image: img("AirJordan_photo2.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "jordan-blanc-rouge-2",
+        color: "Blanc / Rouge / Noir",
+        price: 174.0,
+        image: img("AirJordan_photo3.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "jordan-blanc-rouge-3",
+        color: "Cuir Blanc / Rouge / Cuir Noir",
+        price: 174.0,
+        image: img("AirJordan_photo4.webp"),
+      }),
+    ],
+  },
+  {
+    id: "nike-shox-tl",
+    name: "Nike Shox TL",
+    description:
+      "Retour iconique des colonnes Shox pour un amorti spectaculaire et un look futuriste assumé.",
+    basePrice: 189.99,
+    category: "sport",
+    featured: true,
+    images: [
+      img("NikeResor_photo2.webp"),
+      img("NikeResor_photo1.webp"),
+      img("NikeResor_photo3.webp"),
+      img("NikeResor_photo4.webp"),
+    ],
+    variants: [
+      ...variantesPourCouleur({
+        prefix: "shox-blanc-noir",
+        color: "Blanc / Noir",
+        price: 189.99,
+        image: img("NikeResor_photo4.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "shox-noir-orange",
+        color: "Noir / Orange",
+        price: 189.99,
+        image: img("NikeResor_photo1.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "shox-noir-rouge",
+        color: "Noir / Rouge",
+        price: 189.99,
+        image: img("NikeResor_photo2.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "shox-argent",
+        color: "Gris / Argent",
+        price: 189.99,
+        image: img("NikeResor_photo3.webp"),
+      }),
+    ],
+  },
   {
     id: "nike-air-max-excee",
     name: "Nike Air Max Excee",
@@ -51,13 +413,49 @@ export const products: Product[] = [
     basePrice: 159.99,
     category: "sport",
     featured: true,
-    images: [img("Nike Baskets Air Max Excee pour homme.webp")],
-    variants: variantesPourCouleur({
-      prefix: "air-max-excee-blanc",
-      color: "Blanc / Noir",
-      price: 159.99,
-      image: img("Nike Baskets Air Max Excee pour homme.webp"),
-    }),
+    images: [
+
+      img("Nike Baskets Air Max Excee pour homme4.webp"),
+      img("Nike Baskets Air Max Excee pour homme3.webp"),
+      img("Nike Baskets Air Max Excee pour homme1.webp"),
+      img("Nike Baskets Air Max Excee pour homme2.webp"),
+
+      img("Nike Baskets Air Max Excee pour homme5.webp"),
+
+
+    ],
+    variants: [
+      ...variantesPourCouleur({
+        prefix: "air-max-excee-blanc",
+        color: "Blanc / Bleu ",
+        price: 159.99,
+        image: img("Nike Baskets Air Max Excee pour homme1.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "air-max-excee-blanc-2",
+        color: "Blanc / Orange / Jaune / Bleu",
+        price: 159.99,
+        image: img("Nike Baskets Air Max Excee pour homme2.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "air-max-excee-blanc-3",
+        color: "Blanc / Noir / Jaune",
+        price: 159.99,
+        image: img("Nike Baskets Air Max Excee pour homme3.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "air-max-excee-blanc-4",
+        color: "Orange / Noir / Violet / Beige / Gris",
+        price: 159.99,
+        image: img("Nike Baskets Air Max Excee pour homme4.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "air-max-excee-blanc-5",
+        color: "Blanc / Noir / Beige / Gris",
+        price: 159.99,
+        image: img("Nike Baskets Air Max Excee pour homme5.webp"),
+      }),
+    ]
   },
   {
     id: "goodvalue-runner",
@@ -101,50 +499,81 @@ export const products: Product[] = [
     category: "sport",
     featured: true,
     images: [
-      img("81CV1HC0zeL._AC_SY575_.webp"),
-      img("81J6x6PHdhL._AC_SY575_.webp"),
-      img("81JDQAOfA+L._AC_SY695_.webp"),
-      img("81YqUJfbyHL._AC_SY575_.webp"),
-      img("81NURTtWFhL._AC_SY575_.webp"),
-      img("81ZtZIbdaFL._AC_SY575_.webp"),
+      img("Ziitop_photo1.webp"),
+      img("Ziitop_photo4.webp"),
+      img("Ziitop_photo5.webp"),
+      img("Ziitop_photo6.webp"),
+      img("Ziitop_photo7.webp"),
+      img("Ziitop_photo9.webp"),
+      img("Ziitop_photo10.webp"),
+      img("Ziitop_photo11.webp"),
+      img("Ziitop_photo12.webp"),
+      img("Ziitop_photo13.webp"),
+
     ],
     variants: [
       ...variantesPourCouleur({
         prefix: "ziitop-rose",
         color: "Rose",
         price: 84.99,
-        image: img("81CV1HC0zeL._AC_SY575_.webp"),
-      }),
-      ...variantesPourCouleur({
-        prefix: "ziitop-violet-turquoise",
-        color: "Violet / Turquoise",
-        price: 84.99,
-        image: img("81J6x6PHdhL._AC_SY575_.webp"),
-      }),
-      ...variantesPourCouleur({
-        prefix: "ziitop-multicolore",
-        color: "Multicolore néon",
-        price: 89.99,
-        image: img("81JDQAOfA+L._AC_SY695_.webp"),
+        image: img("Ziitop_photo1.webp"),
       }),
       ...variantesPourCouleur({
         prefix: "ziitop-rouge",
         color: "Rouge",
         price: 84.99,
-        image: img("81YqUJfbyHL._AC_SY575_.webp"),
+        image: img("Ziitop_photo4.webp"),
       }),
       ...variantesPourCouleur({
         prefix: "ziitop-vert-noir",
-        color: "Vert / Noir",
+        color: " Noir / Blanc / Gris",
         price: 84.99,
-        image: img("81NURTtWFhL._AC_SY575_.webp"),
+        image: img("Ziitop_photo5.webp"),
       }),
       ...variantesPourCouleur({
         prefix: "ziitop-rouge-noir",
         color: "Rouge / Noir",
         price: 84.99,
-        image: img("81ZtZIbdaFL._AC_SY575_.webp"),
+        image: img("Ziitop_photo6.webp"),
       }),
+
+      ...variantesPourCouleur({
+        prefix: "ziitop-violet-turquoise",
+        color: "Vert / Blanc / Noir",
+        price: 84.99,
+        image: img("Ziitop_photo7.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ziitop-rouge-2",
+        color: "Vert / Rose / Bleu",
+        price: 84.99,
+        image: img("Ziitop_photo9.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ziitop-vert-noir-2",
+        color: "Bleu / Noir / Violet",
+        price: 84.99,
+        image: img("Ziitop_photo10.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ziitop-rouge-noir-2",
+        color: "Gris / Noir / Orange",
+        price: 84.99,
+        image: img("Ziitop_photo11.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ziitop-rouge-3",
+        color: "Noir / Blanc ",
+        price: 84.99,
+        image: img("Ziitop_photo12.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "ziitop-vert-noir-3",
+        color: "Bleu / Noir / Vert-citron /Gris",
+        price: 84.99,
+        image: img("Ziitop_photo13.webp"),
+      }),
+
     ],
   },
   {
@@ -155,112 +584,58 @@ export const products: Product[] = [
     basePrice: 99.0,
     category: "sport",
     images: [
-      img("71zaQAZDV4L._AC_SX695_.webp"),
-      img("818nWDrqR+L._AC_SX695_.webp"),
-      img("81bIqXyl89L._AC_SY695_.webp"),
-      img("81eErFFq8wS._AC_SY695_.webp"),
-      img("81K+PfdxfqL._AC_SY575_.webp"),
+      img("Kricely_photo1.webp"),
+      img("Kricely_photo2.webp"),
+      img("Kricely_photo3.webp"),
+      img("Kricely_photo4.webp"),
+      img("Kricely_photo5.webp"),
+      img("Kricely_photo6.webp"),
     ],
     variants: [
       ...variantesPourCouleur({
         prefix: "kricely-orange",
-        color: "Orange / Noir",
+        color: "Noir / Orange / Noir",
         price: 99.0,
-        image: img("71zaQAZDV4L._AC_SX695_.webp"),
+        image: img("Kricely_photo1.webp"),
       }),
       ...variantesPourCouleur({
         prefix: "kricely-jaune",
-        color: "Jaune / Noir",
+        color: "Camouflage",
         price: 99.0,
-        image: img("818nWDrqR+L._AC_SX695_.webp"),
+        image: img("Kricely_photo2.webp"),
       }),
       ...variantesPourCouleur({
         prefix: "kricely-gris",
-        color: "Gris / Orange",
+        color: "Multicolore",
         price: 99.0,
-        image: img("81bIqXyl89L._AC_SY695_.webp"),
+        image: img("Kricely_photo3.webp"),
       }),
       ...variantesPourCouleur({
         prefix: "kricely-camo",
-        color: "Camouflage",
+        color: "Orange / Noir",
         price: 104.0,
-        image: img("81eErFFq8wS._AC_SY695_.webp"),
+        image: img("Kricely_photo4.webp"),
       }),
       ...variantesPourCouleur({
         prefix: "kricely-tiedye",
-        color: "Tie & Dye",
+        color: "Jaune / Noir",
         price: 104.0,
-        image: img("81K+PfdxfqL._AC_SY575_.webp"),
+        image: img("Kricely_photo5.webp"),
+
+
+      }),
+      ...variantesPourCouleur({
+        prefix: "kricely-tiedye-2",
+        color: "Noir",
+        price: 104.0,
+        image: img("Kricely_photo6.webp"),
+
+
       }),
     ],
   },
-  {
-    id: "nike-shox-tl",
-    name: "Nike Shox TL",
-    description:
-      "Retour iconique des colonnes Shox pour un amorti spectaculaire et un look futuriste assumé.",
-    basePrice: 189.99,
-    category: "sport",
-    featured: true,
-    images: [
-      img("410kJJ1FjOL._AC_SY695_.webp"),
-      img("51eRlh5UIoL._AC_SY575_.webp"),
-      img("71i11O1W6fL._AC_SY575_.webp"),
-      img("71ZIrGcZcJL._AC_SY575_.webp"),
-    ],
-    variants: [
-      ...variantesPourCouleur({
-        prefix: "shox-blanc-noir",
-        color: "Blanc / Noir",
-        price: 189.99,
-        image: img("410kJJ1FjOL._AC_SY695_.webp"),
-      }),
-      ...variantesPourCouleur({
-        prefix: "shox-noir-orange",
-        color: "Noir / Orange",
-        price: 189.99,
-        image: img("51eRlh5UIoL._AC_SY575_.webp"),
-      }),
-      ...variantesPourCouleur({
-        prefix: "shox-noir-rouge",
-        color: "Noir / Rouge",
-        price: 189.99,
-        image: img("71i11O1W6fL._AC_SY575_.webp"),
-      }),
-      ...variantesPourCouleur({
-        prefix: "shox-argent",
-        color: "Gris / Argent",
-        price: 189.99,
-        image: img("71ZIrGcZcJL._AC_SY575_.webp"),
-      }),
-    ],
-  },
-  {
-    id: "jordan-max-aura",
-    name: "Air Jordan Max Aura",
-    description:
-      "Hommage à la Air Jordan III avec une unité Air Max sous le talon et une tige cuir/synthétique.",
-    basePrice: 169.0,
-    category: "sport",
-    images: [
-      img("515bNfrzprS._AC_SY625_.webp"),
-      img("71S4rltY6SL._AC_SX575_.webp"),
-    ],
-    variants: [
-      ...variantesPourCouleur({
-        prefix: "jordan-gris-loup",
-        color: "Gris loup",
-        price: 169.0,
-        image: img("515bNfrzprS._AC_SY625_.webp"),
-      }),
-      ...variantesPourCouleur({
-        prefix: "jordan-blanc-rouge",
-        color: "Blanc / Noir / Rouge",
-        price: 174.0,
-        image: img("71S4rltY6SL._AC_SX575_.webp"),
-      }),
-    ],
-  },
+
+
   {
     id: "ux-sport-mesh",
     name: "UX Sport Sneaker Mesh",
@@ -269,156 +644,34 @@ export const products: Product[] = [
     basePrice: 74.99,
     category: "sport",
     images: [
-      img("81Ek7gVA2oL._AC_SY575_.webp"),
-      img("81u+HyGq1rL._AC_SY575_.webp"),
-      img("81v5oPsQ0cL._AC_SY625_.webp"),
+      img("UXSport_photo1.webp"),
+      img("UXSport_photo2.webp"),
+      img("UXSport_Photo3.webp"),
+
     ],
     variants: [
       ...variantesPourCouleur({
         prefix: "ux-noir",
         color: "Noir total",
         price: 74.99,
-        image: img("81Ek7gVA2oL._AC_SY575_.webp"),
+        image: img("UXSport_photo1.webp"),
       }),
       ...variantesPourCouleur({
         prefix: "ux-gris",
-        color: "Gris",
+        color: "Gris-ecarlate",
         price: 74.99,
-        image: img("81u+HyGq1rL._AC_SY575_.webp"),
+        image: img("UXSport_photo2.webp"),
       }),
       ...variantesPourCouleur({
-        prefix: "ux-rouge",
-        color: "Rouge / Noir",
+        prefix: "ux-rouge-noir",
+        color: " Noir / Rouge",
         price: 74.99,
-        image: img("81v5oPsQ0cL._AC_SY625_.webp"),
+        image: img("UXSport_Photo3.webp"),
       }),
+
     ],
   },
 
-  // ─────────────────────────────────────────────────────────────
-  // CASUAL
-  // ─────────────────────────────────────────────────────────────
-  {
-    id: "sock-sneaker-confort",
-    name: "Sock Sneaker Confort",
-    description:
-      "Basket chaussette ultra-souple, enfilage facile et maintien de la cheville. Parfaite au quotidien.",
-    basePrice: 59.99,
-    category: "casual",
-    images: [
-      img("81FcWznZMqL._AC_SY575_.webp"),
-      img("81ZR-1wCUFL._AC_SY625_.webp"),
-    ],
-    variants: [
-      ...variantesPourCouleur({
-        prefix: "sock-gris",
-        color: "Gris",
-        price: 59.99,
-        image: img("81FcWznZMqL._AC_SY575_.webp"),
-      }),
-      ...variantesPourCouleur({
-        prefix: "sock-navy",
-        color: "Bleu marine",
-        price: 59.99,
-        image: img("81ZR-1wCUFL._AC_SY625_.webp"),
-      }),
-    ],
-  },
-  {
-    id: "sneaker-urbain-blanc",
-    name: "Sneaker Urbain Blanc",
-    description:
-      "Sneaker minimaliste en cuir lisse, parfaite pour un look quotidien soigné. Finitions discrètes et semelle confortable.",
-    basePrice: 119.99,
-    category: "casual",
-    featured: true,
-    images: [img("new-pair-white-sneakers-isolated-white.webp")],
-    variants: variantesPourCouleur({
-      prefix: "sneaker-urbain-blanc",
-      color: "Blanc",
-      price: 119.99,
-      image: img("new-pair-white-sneakers-isolated-white.webp"),
-    }),
-  },
-  {
-    id: "slip-on-canvas",
-    name: "Slip-on Canvas",
-    description:
-      "Slip-on en toile résistante, à enfiler sans lacets. Légère, polyvalente, pensée pour les beaux jours.",
-    basePrice: 49.99,
-    category: "casual",
-    images: [
-      img("71Th7ySnVkL._AC_SY625_.webp"),
-      img("812tSN-XdBL._AC_SY625_.webp"),
-    ],
-    variants: [
-      ...variantesPourCouleur({
-        prefix: "slipon-blanc",
-        color: "Blanc",
-        price: 49.99,
-        image: img("71Th7ySnVkL._AC_SY625_.webp"),
-      }),
-      ...variantesPourCouleur({
-        prefix: "slipon-olive",
-        color: "Vert olive",
-        price: 49.99,
-        image: img("812tSN-XdBL._AC_SY625_.webp"),
-      }),
-    ],
-  },
-  {
-    id: "sneaker-chunky-plateforme",
-    name: "Sneaker Chunky Plateforme",
-    description:
-      "Silhouette dad-shoe à plateforme épaisse. Maintien renforcé et style streetwear assumé.",
-    basePrice: 89.0,
-    category: "casual",
-    images: [
-      img("61-ZeKuVaLL._AC_SX575_.webp"),
-      img("715Dr9uiGlL._AC_SX575_.webp"),
-    ],
-    variants: [
-      ...variantesPourCouleur({
-        prefix: "chunky-blanc",
-        color: "Blanc",
-        price: 89.0,
-        image: img("61-ZeKuVaLL._AC_SX575_.webp"),
-      }),
-      ...variantesPourCouleur({
-        prefix: "chunky-noir",
-        color: "Noir",
-        price: 89.0,
-        image: img("715Dr9uiGlL._AC_SX575_.webp"),
-      }),
-    ],
-  },
-  {
-    id: "nike-ebernon-low",
-    name: "Nike Ebernon Low",
-    description:
-      "Basket low cuir au design épuré, classique intemporel pour la ville. Disponible en noir ou blanc.",
-    basePrice: 109.99,
-    category: "casual",
-    featured: true,
-    images: [
-      img("51H81y1a2+L._AC_SX575_.webp"),
-      img("61cVdDNXEgL._AC_SY695_.webp"),
-    ],
-    variants: [
-      ...variantesPourCouleur({
-        prefix: "ebernon-noir",
-        color: "Noir",
-        price: 109.99,
-        image: img("51H81y1a2+L._AC_SX575_.webp"),
-      }),
-      ...variantesPourCouleur({
-        prefix: "ebernon-blanc",
-        color: "Blanc",
-        price: 109.99,
-        image: img("61cVdDNXEgL._AC_SY695_.webp"),
-      }),
-    ],
-  },
 
   // ─────────────────────────────────────────────────────────────
   // VILLE
@@ -431,14 +684,134 @@ export const products: Product[] = [
     basePrice: 179.0,
     category: "ville",
     featured: true,
-    images: [img("jeffjuit-shoes-1011596_1920.webp")],
-    variants: variantesPourCouleur({
-      prefix: "bottines-cuir-brun",
-      color: "Brun",
-      price: 179.0,
-      image: img("jeffjuit-shoes-1011596_1920.webp"),
-      stockParTaille: 3,
-    }),
+    images: [
+      img("Bottine_photo1.webp"),
+      img("Bottine_photo2.webp"),
+      img("Bottine_photo3.webp"),
+      img("Bottine_photo4.webp"),
+      img("Bottine_photo5.webp"),
+      img("Bottine_photo6.webp"),
+      img("Bottine_photo7.webp"),
+      img("Bottine_photo8.webp"),
+      img("Bottine_photo9.webp"),
+      img("Bottine_photo10.webp"),
+      img("Bottine_photo11.webp"),
+      img("Bottine_photo12.webp"),
+      img("Bottine_photo13.webp"),
+      img("Bottine_photo14.webp"),
+      img("Bottine_photo15.webp"),
+
+
+    ],
+
+    variants: [
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun",
+        color: "Noir / Blanc / Gris",
+        price: 179.0,
+        image: img("Bottine_photo1.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-2",
+        color: " Blanc /Blanc / Rose-Fichsia /Bleu-Light",
+        price: 179.0,
+        image: img("Bottine_photo2.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-3",
+        color: "Blanc  /Noir /Vert-citron",
+        price: 179.0,
+        image: img("Bottine_photo3.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-4",
+        color: "Blanc / Noir-vif",
+        price: 179.0,
+        image: img("Bottine_photo4.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-5",
+        color: "Blanc /Noir / Rose-Fichsia /Bleu-Light",
+        price: 179.0,
+        image: img("Bottine_photo5.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-6",
+        color: "Noir /Blanc",
+        price: 179.0,
+        image: img("Bottine_photo6.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-7",
+        color: "Blanc /Bleu-Royal / Rose-Fichsia",
+        price: 179.0,
+        image: img("Bottine_photo7.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-8",
+        color: "Blanc /Bleu-Turquoise / Violet ",
+        price: 179.0,
+        image: img("Bottine_photo8.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-9",
+        color: "Bleu-Turquoise / Violet / Noir",
+        price: 179.0,
+        image: img("Bottine_photo9.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-10",
+        color: "Bleu-Turquoise / Blanc / Vert-citron",
+        price: 179.0,
+        image: img("Bottine_photo10.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-11",
+        color: "Noir / Bleu-Turquoise",
+        price: 179.0,
+        image: img("Bottine_photo11.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-12",
+        color: "Bleu-Turquoise / Blanc ",
+        price: 179.0,
+        image: img("Bottine_photo12.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-13",
+        color: "Noir / Orange / Bleu-Verdun",
+        price: 179.0,
+        image: img("Bottine_photo13.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-14",
+        color: "Rouge / Blanc",
+        price: 179.0,
+        image: img("Bottine_photo14.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "bottines-cuir-brun-15",
+        color: "Jaune / Rouge / Noir",
+        price: 179.0,
+        image: img("Bottine_photo15.webp"),
+        stockParTaille: 3,
+      }),
+
+    ]
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -511,14 +884,67 @@ export const products: Product[] = [
       "Derby en cuir noir glacé, montage cousu, idéal pour le costume sombre.",
     basePrice: 149.0,
     category: "elegant",
-    images: [img("derby-shoes-men-formal-wear.webp")],
-    variants: variantesPourCouleur({
-      prefix: "derby-noir",
-      color: "Noir",
-      price: 149.0,
-      image: img("derby-shoes-men-formal-wear.webp"),
-      stockParTaille: 3,
-    }),
+    images: [
+      img("derby-shoes_photo6.webp"),
+      img("derby-shoes_photo.webp"),
+      img("derby-shoes_photo2.png"),
+      img("derby-shoes_photo3.png"),
+      img("derby-shoes_photo4.png"),
+      img("derby-shoes_photo5.png"),
+      img("derby-shoes_photo6.png"),
+
+    ],
+    variants: [
+      ...variantesPourCouleur({
+        prefix: "derby-noir",
+        color: "Chatain-Clair",
+        price: 149.0,
+        image: img("derby-shoes_photo.webp"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "derby-noir-2",
+        color: "Gris-Ardoise",
+        price: 149.0,
+        image: img("derby-shoes_photo2.png"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "derby-noir-3",
+        color: "Noir",
+        price: 149.0,
+        image: img("derby-shoes_photo3.png"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "derby-noir-4",
+        color: "Marron-Moyen",
+        price: 149.0,
+        image: img("derby-shoes_photo4.png"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "derby-noir-5",
+        color: "Rouge-Cerise-Foncé",
+        price: 149.0,
+        image: img("derby-shoes_photo5.png"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "derby-noir-6",
+        color: "Marron-Chocolat",
+        price: 149.0,
+        image: img("derby-shoes_photo6.png"),
+        stockParTaille: 3,
+      }),
+      ...variantesPourCouleur({
+        prefix: "derby-noir-7",
+        color: "Beige-Clair",
+        price: 149.0,
+        image: img("derby-shoes_photo6.webp"),
+        stockParTaille: 3,
+      }),
+    ]
   },
   {
     id: "oxford-brogue-cognac",
@@ -528,13 +954,39 @@ export const products: Product[] = [
     basePrice: 159.0,
     category: "elegant",
     featured: true,
-    images: [img("tylermike525-oxford-shoes-6078993_1920.webp")],
-    variants: variantesPourCouleur({
-      prefix: "oxford-brogue-cognac",
-      color: "Cognac",
-      price: 159.0,
-      image: img("tylermike525-oxford-shoes-6078993_1920.webp"),
-    }),
+    images: [
+      img("Oxford_Brogue_photo1.webp"),
+      img("Oxford_Brogue_photo1.webp"),
+      img("Oxford_Brogue_photo3.webp"),
+      img("Oxford_Brogue_photo4.webp"),
+
+    ],
+    variants: [
+      ...variantesPourCouleur({
+        prefix: "oxford-brogue-cognac",
+        color: "Noir",
+        price: 159.0,
+        image: img("Oxford_Brogue_photo1.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "oxford-brogue-cognac-2",
+        color: "Marron-Cognac",
+        price: 159.0,
+        image: img("Oxford_Brogue_photo1.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "oxford-brogue-cognac-3",
+        color: "Cognac",
+        price: 159.0,
+        image: img("Oxford_Brogue_photo3.webp"),
+      }),
+      ...variantesPourCouleur({
+        prefix: "oxford-brogue-cognac-4",
+        color: "Brun-Noir",
+        price: 159.0,
+        image: img("Oxford_Brogue_photo4.webp"),
+      }),
+    ]
   },
 ];
 
