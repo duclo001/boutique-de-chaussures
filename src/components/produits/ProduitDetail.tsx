@@ -2,19 +2,17 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { products } from "@/data/products";
-import type { CartItem } from "@/types/cart";
+import * as cartStore from "@/lib/cartStore";
 
 /**
- * Props reçues depuis layout.tsx.
- * - id       : identifiant du produit à afficher (peut être null)
- * - setPage  : permet de revenir au catalogue ou d'aller au panier
- * - addItem  : fonction d'ajout au panier (état remonté dans layout.tsx)
+ * Props reçues depuis la route /produits/[id].
+ * - id : identifiant du produit à afficher (segment dynamique de l'URL)
  */
 type ProduitDetailProps = {
-  id: string | null;
-  setPage: (page: string) => void;
-  addItem: (item: CartItem) => void;
+  id: string;
 };
 
 /**
@@ -23,7 +21,9 @@ type ProduitDetailProps = {
  *  2. L'image change dynamiquement selon le coloris (survol ou sélection).
  *  3. Le bouton "Ajouter au panier" est désactivé tant qu'aucune variante n'est choisie.
  */
-export default function ProduitDetail({ id, setPage, addItem }: ProduitDetailProps) {
+export default function ProduitDetail({ id }: ProduitDetailProps) {
+  const router = useRouter();
+
   // Sélection en deux étapes : coloris puis pointure
   const [coloris, setColoris] = useState<string | null>(null);
   const [pointure, setPointure] = useState<number | null>(null);
@@ -37,13 +37,12 @@ export default function ProduitDetail({ id, setPage, addItem }: ProduitDetailPro
     return (
       <div className="container-app py-20 text-center">
         <p className="text-[var(--color-text-muted)]">Produit introuvable.</p>
-        <button
-          type="button"
-          onClick={() => setPage("produits")}
-          className="mt-6 text-sm font-medium text-[var(--color-accent)] underline"
+        <Link
+          href="/produits"
+          className="mt-6 inline-block text-sm font-medium text-[var(--color-accent)] underline"
         >
           ← Retour au catalogue
-        </button>
+        </Link>
       </div>
     );
   }
@@ -86,19 +85,14 @@ export default function ProduitDetail({ id, setPage, addItem }: ProduitDetailPro
   return (
     <div className="container-app py-10 lg:py-16">
 
-      {/* ── Bouton retour ── */}
-      <button
-        type="button"
-        onClick={() => {
-          setPage("produits");
-          setColoris(null);
-          setPointure(null);
-        }}
-        className="mb-8 flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
+      {/* ── Lien retour ── */}
+      <Link
+        href="/produits"
+        className="mb-8 flex w-fit items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
       >
         <ArrowLeftIcon />
         Retour au catalogue
-      </button>
+      </Link>
 
       {/* ── Corps principal : image + infos ── */}
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
@@ -249,7 +243,7 @@ export default function ProduitDetail({ id, setPage, addItem }: ProduitDetailPro
             disabled={!peutAjouterAuPanier}
             onClick={() => {
               if (!varianteChoisie) return;
-              addItem({
+              cartStore.ajouter({
                 productId: produit.id,
                 variantId: varianteChoisie.id,
                 name: produit.name,
@@ -261,7 +255,8 @@ export default function ProduitDetail({ id, setPage, addItem }: ProduitDetailPro
                 stock: varianteChoisie.stock,
               });
 
-              setPage("panier");
+              // Navigation programmatique vers le panier après l'ajout
+              router.push("/panier");
             }}
             className={`mt-2 w-full rounded-2xl px-6 py-4 text-base font-semibold transition-all ${peutAjouterAuPanier
                 ? "bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] shadow-md hover:shadow-lg"

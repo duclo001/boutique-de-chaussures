@@ -1,28 +1,21 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Product } from "@/types/product";
 
 type ProductCardProps = {
   product: Product;
-  /**
-   * Action déclenchée au clic — généralement setSelectedProductId + setPage.
-   * Toute la navigation passe par useState (modules 1-4), donc cette prop
-   * est obligatoire.
-   */
-  onClick: () => void;
 };
 
 /**
  * Carte produit réutilisable (catalogue + section vedette).
- * Rendue comme <button> car la navigation est pilotée par useState
- * (pas de Link Next.js).
+ * Rendue comme <Link> Next.js vers la fiche détail du produit.
  */
-export default function ProductCard({ product, onClick }: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
   const cover = product.images[0];
 
   return (
-    <button
-      type="button"
-      onClick={onClick}
+    <Link
+      href={`/produits/${product.id}`}
       className="group block w-full overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] text-left transition-shadow hover:shadow-lg"
     >
       <div className="relative aspect-square w-full overflow-hidden bg-[var(--color-bg-alt)] p-4">
@@ -46,6 +39,6 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
           {product.basePrice.toFixed(2)} $
         </p>
       </div>
-    </button>
+    </Link>
   );
 }

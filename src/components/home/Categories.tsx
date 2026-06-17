@@ -1,6 +1,5 @@
-"use client";
-
 import Image from "next/image";
+import Link from "next/link";
 import type { Category } from "@/types/product";
 
 type CategoryItem = {
@@ -36,21 +35,11 @@ const CATEGORIES: CategoryItem[] = [
   },
 ];
 
-type CategoriesProps = {
-  setPage: (page: string) => void;
-  setSelectedCategory: (cat: Category | "tous") => void;
-};
-
 /**
- * Grille de catégories — chaque tuile navigue vers le catalogue
- * pré-filtré sur la catégorie choisie.
+ * Grille de catégories — chaque tuile est un lien vers le catalogue
+ * pré-filtré via le query param ?categorie=<slug>.
  */
-export default function Categories({ setPage, setSelectedCategory }: CategoriesProps) {
-  function naviguerVersCategorie(slug: Category) {
-    setSelectedCategory(slug); // pré-filtre le catalogue
-    setPage("produits");       // affiche la page catalogue
-  }
-
+export default function Categories() {
   return (
     <section className="bg-[var(--color-bg-alt)] py-16 lg:py-24">
       <div className="container-app">
@@ -65,10 +54,10 @@ export default function Categories({ setPage, setSelectedCategory }: CategoriesP
 
         <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
           {CATEGORIES.map((cat) => (
-            /* button à la place de Link — navigation par état */
-            <button
+            /* Lien vers le catalogue pré-filtré sur la catégorie */
+            <Link
               key={cat.slug}
-              onClick={() => naviguerVersCategorie(cat.slug)}
+              href={`/produits?categorie=${cat.slug}`}
               className="group relative aspect-[3/4] overflow-hidden rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
             >
               <Image
@@ -82,7 +71,7 @@ export default function Categories({ setPage, setSelectedCategory }: CategoriesP
               <span className="absolute bottom-4 left-4 text-lg font-semibold text-white sm:text-xl">
                 {cat.label}
               </span>
-            </button>
+            </Link>
           ))}
         </div>
       </div>

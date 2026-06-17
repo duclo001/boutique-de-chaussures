@@ -1,27 +1,24 @@
 "use client";
 
 import { useState } from "react";
-
-type SearchBarProps = {
-  /** Permet de naviguer vers la page catalogue après une recherche. */
-  setPage: (page: string) => void;
-};
+import { useRouter } from "next/navigation";
 
 /**
  * Barre de recherche simple.
- * Au submit, on déclenche setPage("produits") via useState — pas de
- * rechargement de page ni de window.location (respect des modules 1-4).
+ * Au submit, on navigue vers le catalogue via useRouter (navigation pilotée
+ * par une logique → cas d'usage de useRouter, module 5).
  */
-export default function SearchBar({ setPage }: SearchBarProps) {
+export default function SearchBar() {
   const [query, setQuery] = useState("");
+  const router = useRouter();
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!query.trim()) return;
 
-    // Navigation interne par état (module 3) — on remet le champ à zéro
-    setPage("produits");
+    // Navigation programmatique vers le catalogue, puis on vide le champ
+    router.push("/produits");
     setQuery("");
   }
 

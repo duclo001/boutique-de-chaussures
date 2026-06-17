@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 type Variant = "primary" | "secondary" | "outline";
@@ -59,8 +60,8 @@ export default function Button(props: ButtonProps) {
 
   if ("href" in props && props.href) {
     const { href, target, rel } = props;
-    
-    // Les liens d'ancre (#) utilisent un <a> classique, pas de Link Next.js
+
+    // Les liens d'ancre (#) utilisent un <a> classique (scroll même page)
     if (href.startsWith("#")) {
       return (
         <a href={href} className={classes}>
@@ -68,8 +69,17 @@ export default function Button(props: ButtonProps) {
         </a>
       );
     }
-    
-    // Les autres liens (externes) utilisent aussi <a> avec target="_blank"
+
+    // Navigation interne (commence par "/") : <Link> Next.js (préchargement)
+    if (href.startsWith("/")) {
+      return (
+        <Link href={href} className={classes}>
+          {children}
+        </Link>
+      );
+    }
+
+    // Liens externes : <a> classique avec target/rel
     return (
       <a href={href} target={target} rel={rel} className={classes}>
         {children}
