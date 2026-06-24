@@ -31,7 +31,7 @@ const SECTIONS: FooterSection[] = [
     links: [
       { label: "Livraison & retours" },
       { label: "Guide des tailles" },
-      { label: "Nous contacter" },
+      { label: "Nous contacter", href: "/contact" },
       { label: "FAQ" },
     ],
   },

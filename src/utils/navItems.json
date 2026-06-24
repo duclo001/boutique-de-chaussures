@@ -1,5 +1,18 @@
 [
-    { "label": "Accueil", "href": "/" },
-    { "label": "Catalogue", "href": "/produits" },
-    { "label": "Panier", "href": "/panier" }
+    {
+        "label": "Accueil",
+        "href": "/"
+    },
+    {
+        "label": "Catalogue",
+        "href": "/produits"
+    },
+    {
+        "label": "Panier",
+        "href": "/panier"
+    },
+    {
+        "label": "Contact",
+        "href": "/contact"
+    }
 ]
