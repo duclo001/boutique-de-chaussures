@@ -6,8 +6,6 @@ import { useForm } from "react-hook-form";
 type ContactFormData = {
   nom: string;
   courriel: string;
-  motDePasse: string;
-  confirmerMotDePasse: string;
   message: string;
 };
 
@@ -16,13 +14,9 @@ export default function ContactForm() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<ContactFormData>();
-
-  // Observe le mot de passe pour le comparer avec sa confirmation.
-  const motDePasse = watch("motDePasse");
 
   // Fonction exécutée lorsque le formulaire est valide.
   function onSubmit(data: ContactFormData) {
@@ -89,64 +83,6 @@ export default function ContactForm() {
           {errors.courriel && (
             <p className="mt-1 text-sm text-red-600">
               {errors.courriel.message}
-            </p>
-          )}
-        </div>
-
-        <div>
-          <label htmlFor="motDePasse" className="block text-sm font-medium">
-            Mot de passe
-          </label>
-
-          <input
-            id="motDePasse"
-            type="password"
-            placeholder="Créez un mot de passe"
-            // Enregistre le mot de passe et impose une longueur minimale.
-            {...register("motDePasse", {
-              required: "Le mot de passe est obligatoire.",
-              minLength: {
-                value: 6,
-                message: "Le mot de passe doit contenir au moins 6 caractères.",
-              },
-            })}
-            className="mt-2 w-full rounded-xl border border-[var(--color-border)] px-4 py-3 outline-none focus:border-[var(--color-accent)]"
-          />
-
-          {/* Affiche l'erreur du mot de passe si la validation échoue. */}
-          {errors.motDePasse && (
-            <p className="mt-1 text-sm text-red-600">
-              {errors.motDePasse.message}
-            </p>
-          )}
-        </div>
-
-        <div>
-          <label
-            htmlFor="confirmerMotDePasse"
-            className="block text-sm font-medium"
-          >
-            Confirmer le mot de passe
-          </label>
-
-          <input
-            id="confirmerMotDePasse"
-            type="password"
-            placeholder="Confirmez votre mot de passe"
-            // Vérifie que la confirmation correspond au mot de passe.
-            {...register("confirmerMotDePasse", {
-              required: "La confirmation est obligatoire.",
-              validate: (value) =>
-                value === motDePasse ||
-                "Les mots de passe ne correspondent pas.",
-            })}
-            className="mt-2 w-full rounded-xl border border-[var(--color-border)] px-4 py-3 outline-none focus:border-[var(--color-accent)]"
-          />
-
-          {/* Affiche l'erreur de confirmation si la validation échoue. */}
-          {errors.confirmerMotDePasse && (
-            <p className="mt-1 text-sm text-red-600">
-              {errors.confirmerMotDePasse.message}
             </p>
           )}
         </div>
