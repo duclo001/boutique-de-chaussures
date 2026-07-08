@@ -174,8 +174,8 @@ export default function ContactForm() {
         {/* Message d'erreur affiché si l'envoi échoue. */}
         {statut === "erreur" && (
           <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
-            Une erreur est survenue lors de l'envoi. Veuillez réessayer dans
-            quelques instants.
+            Une erreur est survenue lors de l&apos;envoi. Veuillez réessayer
+            dans quelques instants.
           </p>
         )}
       </div>
