@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import emailjs from "@emailjs/browser";
 
 // Définit la structure des données du formulaire.
 type ContactFormData = {
@@ -8,6 +10,16 @@ type ContactFormData = {
   courriel: string;
   message: string;
 };
+
+// Identifiants EmailJS lus depuis les variables d'environnement (.env.local).
+// Voir dashboard.emailjs.com. Les valeurs NEXT_PUBLIC_ sont disponibles côté client.
+const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? "";
+const TEMPLATE_CONTACT = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_CONTACT ?? "";
+const TEMPLATE_AUTOREPLY = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_AUTOREPLY ?? "";
+const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ?? "";
+
+// État de l'envoi utilisé pour afficher le message de retour à l'utilisateur.
+type StatutEnvoi = "succes" | "erreur" | null;
 
 export default function ContactForm() {
   // Initialise React Hook Form et récupère les outils nécessaires.
@@ -18,10 +30,37 @@ export default function ContactForm() {
     reset,
   } = useForm<ContactFormData>();
 
+  // Message affiché après la tentative d'envoi (succès ou erreur).
+  const [statut, setStatut] = useState<StatutEnvoi>(null);
+
   // Fonction exécutée lorsque le formulaire est valide.
-  function onSubmit(data: ContactFormData) {
-    console.log("Données du formulaire :", data);
-    reset();
+  async function onSubmit(data: ContactFormData) {
+    setStatut(null);
+
+    // Les variables ci-dessous doivent correspondre aux {{champs}} des templates EmailJS.
+    const parametres = {
+      nom: data.nom,
+      courriel: data.courriel,
+      message: data.message,
+    };
+
+    try {
+      // 1) Courriel envoyé à la boutique (contient le message du client).
+      await emailjs.send(SERVICE_ID, TEMPLATE_CONTACT, parametres, {
+        publicKey: PUBLIC_KEY,
+      });
+
+      // 2) Courriel de confirmation automatique envoyé au client.
+      await emailjs.send(SERVICE_ID, TEMPLATE_AUTOREPLY, parametres, {
+        publicKey: PUBLIC_KEY,
+      });
+
+      setStatut("succes");
+      reset(); // vide les champs après un envoi réussi
+    } catch (error) {
+      console.error("Échec de l'envoi EmailJS :", error);
+      setStatut("erreur");
+    }
   }
 
   return (
@@ -121,8 +160,24 @@ export default function ContactForm() {
           disabled={isSubmitting}
           className="w-full rounded-full bg-[var(--color-accent)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Envoyer
+          {isSubmitting ? "Envoi en cours…" : "Envoyer"}
         </button>
+
+        {/* Message de confirmation affiché après un envoi réussi. */}
+        {statut === "succes" && (
+          <p className="rounded-xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
+            Merci ! Votre message a bien été envoyé. Une confirmation vient de
+            vous être envoyée par courriel.
+          </p>
+        )}
+
+        {/* Message d'erreur affiché si l'envoi échoue. */}
+        {statut === "erreur" && (
+          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+            Une erreur est survenue lors de l&apos;envoi. Veuillez réessayer
+            dans quelques instants.
+          </p>
+        )}
       </div>
     </form>
   );
