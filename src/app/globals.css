@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Branche la variante `dark:` de Tailwind sur notre attribut data-theme.
+   Permet d'écrire `dark:bg-...` pour les rares couleurs qui ne passent pas
+   par les variables (encadrés de succès / erreur, par exemple). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ──────────────────────────────────────────────────────────
    Palette de la boutique (voir docs/preparation.md)
    ────────────────────────────────────────────────────────── */

@@ -219,10 +219,10 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
                       aria-pressed={estSelectionnee}
                       className={`min-w-[3.5rem] rounded-xl border px-4 py-2 text-sm font-medium transition-all ${
                         estEpuisee
-                          ? "cursor-not-allowed border-[var(--color-border)] bg-gray-50 text-gray-300 line-through"
+                          ? "cursor-not-allowed border-[var(--color-border)] bg-[var(--color-bg-alt)] text-[var(--color-text-muted)] opacity-50 line-through"
                           : estSelectionnee
                             ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-white shadow-md"
-                            : "border-[var(--color-border)] bg-white text-[var(--color-text)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+                            : "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
                       }`}
                     >
                       {v.size}
@@ -260,7 +260,7 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
             }}
             className={`mt-2 w-full rounded-2xl px-6 py-4 text-base font-semibold transition-all ${peutAjouterAuPanier
                 ? "bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] shadow-md hover:shadow-lg"
-                : "cursor-not-allowed bg-gray-100 text-gray-400"
+                : "cursor-not-allowed bg-[var(--color-bg-alt)] text-[var(--color-text-muted)]"
               }`}
           >
             {peutAjouterAuPanier

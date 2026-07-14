@@ -67,7 +67,7 @@ export default function ContactForm() {
     <form
       // Valide le formulaire avant d'appeler onSubmit.
       onSubmit={handleSubmit(onSubmit)}
-      className="rounded-2xl border border-[var(--color-border)] bg-white p-6 shadow-sm"
+      className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-sm"
     >
       <h2 className="text-2xl font-bold text-[var(--color-text)]">Contact</h2>
 
@@ -165,7 +165,7 @@ export default function ContactForm() {
 
         {/* Message de confirmation affiché après un envoi réussi. */}
         {statut === "succes" && (
-          <p className="rounded-xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
+          <p className="rounded-xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700 dark:bg-green-500/15 dark:text-green-300">
             Merci ! Votre message a bien été envoyé. Une confirmation vient de
             vous être envoyée par courriel.
           </p>
@@ -173,7 +173,7 @@ export default function ContactForm() {
 
         {/* Message d'erreur affiché si l'envoi échoue. */}
         {statut === "erreur" && (
-          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700 dark:bg-red-500/15 dark:text-red-300">
             Une erreur est survenue lors de l&apos;envoi. Veuillez réessayer
             dans quelques instants.
           </p>
