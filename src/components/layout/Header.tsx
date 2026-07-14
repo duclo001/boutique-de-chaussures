@@ -5,12 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "@/components/ui/Logo";
 import SearchBar from "@/components/ui/SearchBar";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import CartBadge from "./CartBadge";
 import navItems from "@/utils/navItems.json";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
+  // Thème courant, fourni par le ThemeProvider (layout.tsx).
+  const { theme } = useTheme();
 
   // Ferme le menu mobile lorsqu'on appuie sur Échap.
   // (useEffect = module 4 ; aucun useRef nécessaire.)
@@ -43,7 +48,15 @@ export default function Header() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur">
+    // Classes Tailwind conditionnelles : en mode sombre, l'en-tête est plus
+    // opaque et reçoit une ombre pour se détacher du contenu de la page.
+    <header
+      className={`sticky top-0 z-40 w-full border-b border-[var(--color-border)] backdrop-blur ${
+        theme === "dark"
+          ? "bg-[var(--color-bg)]/80 shadow-lg shadow-black/30"
+          : "bg-[var(--color-bg)]/90"
+      }`}
+    >
       <div className="container-app flex h-16 items-center justify-between gap-6">
         <Logo />
         <SearchBar />
@@ -67,6 +80,9 @@ export default function Header() {
               {lien.label}
             </Link>
           ))}
+
+          {/* Case à cocher clair / sombre (desktop) */}
+          <ThemeToggle />
         </nav>
 
         {/* Icône panier (desktop). Le badge n'apparaît que si totalItems > 0. */}
@@ -124,6 +140,14 @@ export default function Header() {
                 </Link>
               </li>
             ))}
+
+            {/* Case à cocher clair / sombre (mobile) */}
+            <li className="flex items-center justify-between border-t border-[var(--color-border)] py-3">
+              <span className="text-sm font-medium text-[var(--color-text)]">
+                Mode sombre
+              </span>
+              <ThemeToggle />
+            </li>
           </ul>
         </nav>
       )}
