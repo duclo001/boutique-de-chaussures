@@ -20,7 +20,40 @@
 
   /* Bordures / séparateurs */
   --color-border: #e5e5e5;
-}  
+}
+
+/* ──────────────────────────────────────────────────────────
+   Mode sombre
+   Le ThemeProvider (src/context/ThemeContext.tsx) pose
+   <html data-theme="dark">. On redéfinit ici les MÊMES variables :
+   tous les composants qui utilisent var(--color-*) changent
+   automatiquement de couleur, sans modification de leur code.
+   ────────────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  /* Surfaces — noirs chauds, pour rester dans l'identité de la boutique */
+  --color-bg: #17150f;
+  --color-bg-alt: #24211a;
+  --color-surface: #1f1c16;
+
+  /* Texte — inversé par rapport au mode clair */
+  --color-text: #f5f2ec;
+  --color-text-muted: #a9a399;
+
+  /* Accents — éclaircis pour rester lisibles sur fond sombre */
+  --color-accent: #f97316;
+  --color-accent-hover: #fdba74;
+  --color-accent-2: #6cbf95;
+
+  /* Bordures — plus claires que le fond, contrairement au mode clair */
+  --color-border: #3a352c;
+}
+
+/* Transition douce lors de la bascule clair / sombre */
+body,
+header,
+footer {
+  transition: background-color 200ms ease, color 200ms ease;
+}
 
     button,
    a,

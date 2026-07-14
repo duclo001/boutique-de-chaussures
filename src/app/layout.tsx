@@ -2,11 +2,13 @@
 // Header et Footer persistent d'une page à l'autre ; le contenu de chaque
 // route est injecté via `children`. Le panier est géré par le module
 // `src/lib/cartStore.ts` (localStorage), lu directement par les pages.
+// Le thème (clair / sombre) est fourni à toute l'app par le ThemeProvider.
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { ThemeProvider } from "@/context/ThemeContext";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
@@ -38,10 +40,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] text-[var(--color-text)]">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <ScrollToTop />
+        {/* ThemeProvider englobe toute l'application : Header, pages et Footer
+            peuvent lire le thème via le hook useTheme(). */}
+        <ThemeProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <ScrollToTop />
+        </ThemeProvider>
       </body>
     </html>
   );
