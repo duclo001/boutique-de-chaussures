@@ -35,6 +35,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# On versionne .env : il ne contient que des cles EmailJS NEXT_PUBLIC (non sensibles,
+# deja exposees cote client) pour que toute l'equipe ait une app fonctionnelle apres un pull.
+# .env.local reste ignore pour d'eventuels reglages locaux.
+!.env
 
 # vercel
 .vercel
