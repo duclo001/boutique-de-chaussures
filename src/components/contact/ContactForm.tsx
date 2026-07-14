@@ -158,7 +158,7 @@ export default function ContactForm() {
           type="submit"
           // Désactive le bouton pendant l'envoi du formulaire.
           disabled={isSubmitting}
-          className="w-full rounded-full bg-[var(--color-accent)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-full bg-[var(--color-accent)] px-6 py-3 font-semibold text-[var(--color-on-accent)] transition-colors hover:bg-[var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? "Envoi en cours…" : "Envoyer"}
         </button>

@@ -38,7 +38,7 @@ const sizeStyles: Record<Size, string> = {
 
 const variantStyles: Record<Variant, string> = {
   primary:
-    "bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)]",
+    "bg-[var(--color-accent)] text-[var(--color-on-accent)] hover:bg-[var(--color-accent-hover)]",
   // Le texte reprend la couleur du fond : reste lisible en clair comme en sombre.
   secondary:
     "bg-[var(--color-text)] text-[var(--color-bg)] hover:opacity-80",

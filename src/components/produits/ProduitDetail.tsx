@@ -221,7 +221,7 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
                         estEpuisee
                           ? "cursor-not-allowed border-[var(--color-border)] bg-[var(--color-bg-alt)] text-[var(--color-text-muted)] opacity-50 line-through"
                           : estSelectionnee
-                            ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-white shadow-md"
+                            ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-on-accent)] shadow-md"
                             : "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
                       }`}
                     >
@@ -259,7 +259,7 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
               router.push("/panier");
             }}
             className={`mt-2 w-full rounded-2xl px-6 py-4 text-base font-semibold transition-all ${peutAjouterAuPanier
-                ? "bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] shadow-md hover:shadow-lg"
+                ? "bg-[var(--color-accent)] text-[var(--color-on-accent)] hover:bg-[var(--color-accent-hover)] shadow-md hover:shadow-lg"
                 : "cursor-not-allowed bg-[var(--color-bg-alt)] text-[var(--color-text-muted)]"
               }`}
           >

@@ -66,7 +66,7 @@ export default function Produits() {
             onClick={() => setFiltreCategorie(cat)}
             className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
               filtreCategorie === cat
-                ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-white"
+                ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-on-accent)]"
                 : "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
             }`}
           >

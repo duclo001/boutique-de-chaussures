@@ -34,7 +34,7 @@ export default function Panier() {
 
         <Link
           href="/produits"
-          className="mt-8 inline-block rounded-full bg-[var(--color-accent)] px-6 py-3 font-medium text-white hover:bg-[var(--color-accent-hover)]"
+          className="mt-8 inline-block rounded-full bg-[var(--color-accent)] px-6 py-3 font-medium text-[var(--color-on-accent)] hover:bg-[var(--color-accent-hover)]"
         >
           Voir le catalogue
         </Link>
@@ -167,7 +167,7 @@ export default function Panier() {
 
           <button
             type="button"
-            className="mt-6 w-full rounded-full bg-[var(--color-accent)] px-6 py-3 font-semibold text-white hover:bg-[var(--color-accent-hover)]"
+            className="mt-6 w-full rounded-full bg-[var(--color-accent)] px-6 py-3 font-semibold text-[var(--color-on-accent)] hover:bg-[var(--color-accent-hover)]"
           >
             Passer commande
           </button>

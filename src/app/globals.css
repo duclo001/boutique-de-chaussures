@@ -22,6 +22,9 @@
   --color-accent: #c2410c;        /* terracotta — CTA, prix */
   --color-accent-hover: #9a330a;
   --color-accent-2: #1f4d3a;      /* vert forêt — secondaire */
+  /* Couleur du TEXTE posé SUR un fond accent (boutons, badges).
+     L'accent étant foncé en mode clair, le texte doit être blanc. */
+  --color-on-accent: #ffffff;
 
   /* Bordures / séparateurs */
   --color-border: #e5e5e5;
@@ -48,6 +51,10 @@
   --color-accent: #f97316;
   --color-accent-hover: #fdba74;
   --color-accent-2: #6cbf95;
+  /* Ici l'accent devient un orange VIF : un texte blanc dessus serait
+     illisible (contraste ~2,8:1, et ~1,7:1 au survol). On inverse donc
+     en texte sombre, ce qui remonte le contraste au-delà de 10:1. */
+  --color-on-accent: #17150f;
 
   /* Bordures — plus claires que le fond, contrairement au mode clair */
   --color-border: #3a352c;
@@ -86,6 +93,7 @@ input:disabled {
   --color-accent: var(--color-accent);
   --color-accent-hover: var(--color-accent-hover);
   --color-accent-2: var(--color-accent-2);
+  --color-on-accent: var(--color-on-accent);
   --color-border: var(--color-border);
 
   --font-sans: var(--font-geist-sans);
