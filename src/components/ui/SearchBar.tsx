@@ -39,7 +39,7 @@ export default function SearchBar() {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Rechercher une chaussure..."
-          className="h-10 w-full rounded-full border border-[var(--color-border)] bg-white px-4 pr-10 text-sm text-[var(--color-text)] outline-none transition-colors placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)]"
+          className="h-10 w-full rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 pr-10 text-sm text-[var(--color-text)] outline-none transition-colors placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)]"
         />
 
         <button

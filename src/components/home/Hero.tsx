@@ -10,7 +10,7 @@ export default function Hero() {
       <div className="container-app grid grid-cols-1 items-center gap-10 py-16 lg:grid-cols-2 lg:py-24">
         {/* Texte */}
         <div className="flex flex-col gap-6">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[var(--color-border)] bg-white px-3 py-1 text-xs uppercase tracking-wider text-[var(--color-text-muted)]">
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1 text-xs uppercase tracking-wider text-[var(--color-text-muted)]">
             <span className="h-2 w-2 rounded-full bg-[var(--color-accent)]" />
             Nouvelle collection 2026
           </span>
@@ -47,7 +47,7 @@ export default function Hero() {
 
         {/* Image principale */}
         <div className="relative">
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl bg-white shadow-xl">
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl bg-[var(--color-surface)] shadow-xl">
             <Image
               src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=1200&q=80"
               alt="Sneakers de la nouvelle collection"
@@ -59,7 +59,7 @@ export default function Hero() {
           </div>
 
           {/* Carte flottante décorative */}
-          <div className="absolute -bottom-6 -left-6 hidden flex-col gap-1 rounded-2xl bg-white p-4 shadow-lg sm:flex">
+          <div className="absolute -bottom-6 -left-6 hidden flex-col gap-1 rounded-2xl bg-[var(--color-surface)] p-4 shadow-lg sm:flex">
             <span className="text-xs uppercase tracking-wider text-[var(--color-text-muted)]">
               Coup de cœur
             </span>

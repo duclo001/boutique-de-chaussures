@@ -23,7 +23,7 @@ export default function CartBadge() {
   if (totalItems <= 0) return null;
 
   return (
-    <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[var(--color-accent)] px-1 text-xs font-bold text-white">
+    <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[var(--color-accent)] px-1 text-xs font-bold text-[var(--color-on-accent)]">
       {totalItems}
     </span>
   );

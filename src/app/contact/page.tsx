@@ -62,7 +62,7 @@ export default function ContactPage() {
                             {contactCards.map((card) => (
                                 <article
                                     key={card.title}
-                                    className="rounded-2xl border border-[var(--color-border)] bg-white/95 p-5 shadow-lg backdrop-blur"
+                                    className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/95 p-5 shadow-lg backdrop-blur"
                                 >
                                     <h2 className="text-base font-semibold text-[var(--color-text)]">
                                         {card.title}

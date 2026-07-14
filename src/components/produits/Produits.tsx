@@ -66,8 +66,8 @@ export default function Produits() {
             onClick={() => setFiltreCategorie(cat)}
             className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
               filtreCategorie === cat
-                ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-white"
-                : "border-[var(--color-border)] bg-white text-[var(--color-text-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+                ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-on-accent)]"
+                : "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
             }`}
           >
             {CATEGORY_LABELS[cat]}
@@ -87,7 +87,7 @@ export default function Produits() {
             <Link
               key={produit.id}
               href={`/produits/${produit.id}`}
-              className="group text-left overflow-hidden rounded-2xl bg-white border border-[var(--color-border)] transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+              className="group text-left overflow-hidden rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
             >
               {/* Image du produit */}
               <div className="relative aspect-square w-full overflow-hidden bg-[var(--color-bg-alt)] p-4">
