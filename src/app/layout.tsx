@@ -2,7 +2,8 @@
 // Header et Footer persistent d'une page à l'autre ; le contenu de chaque
 // route est injecté via `children`. Le panier est géré par le module
 // `src/lib/cartStore.ts` (localStorage), lu directement par les pages.
-// Le thème (clair / sombre) est fourni à toute l'app par le ThemeProvider.
+// Le thème (clair / sombre) est fourni à toute l'app par le ThemeProvider,
+// et les traductions (FR / EN) par le I18nProvider.
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -15,6 +16,7 @@ import { THEME_STORAGE_KEY } from "@/lib/theme";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
+import I18nProvider from "@/providers/I18nProvider";
 
 /**
  * Script exécuté AVANT le premier affichage de la page (il est placé dans le
@@ -79,13 +81,16 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: SCRIPT_ANTI_FLASH }} />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] text-[var(--color-text)]">
-        {/* ThemeProvider englobe toute l'application : Header, pages et Footer
-            peuvent lire le thème via le hook useTheme(). */}
+        {/* Les deux providers englobent toute l'application : Header, pages et
+            Footer peuvent lire le thème via useTheme() et les traductions via
+            useTranslation(). */}
         <ThemeProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <ScrollToTop />
+          <I18nProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <ScrollToTop />
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

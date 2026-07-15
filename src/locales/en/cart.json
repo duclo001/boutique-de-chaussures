@@ -1,0 +1,29 @@
+{
+    "empty": {
+        "title": "Your cart is empty",
+        "description": "Add a pair from the catalog to get started.",
+        "catalogButton": "View the catalog"
+    },
+    "header": {
+        "eyebrow": "Order",
+        "title": "My cart",
+        "itemCount_one": "{{count}} item",
+        "itemCount_other": "{{count}} items",
+        "clear": "Empty the cart"
+    },
+    "item": {
+        "details": "{{color}} · Size {{size}}",
+        "remove": "Remove",
+        "decreaseQuantity": "Decrease quantity",
+        "increaseQuantity": "Increase quantity"
+    },
+    "summary": {
+        "title": "Summary",
+        "subtotal": "Subtotal",
+        "delivery": "Delivery",
+        "free": "Free",
+        "total": "Total",
+        "checkout": "Checkout",
+        "continueShopping": "Continue shopping"
+    }
+}

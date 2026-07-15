@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 /**
  * Bouton flottant qui apparaît dès que l'utilisateur a défilé d'au moins 300 px.
  * Au clic, retour fluide en haut de la page.
  */
 export default function ScrollToTop() {
+  const { t } = useTranslation("common");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ export default function ScrollToTop() {
   return (
     <button
       type="button"
-      aria-label="Remonter en haut de la page"
+      aria-label={t("accessibility.scrollToTop")}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       className="fixed bottom-6 right-6 z-50 inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-[var(--color-accent)] text-[var(--color-on-accent)] shadow-lg transition-all hover:bg-[var(--color-accent-hover)] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/40"
     >

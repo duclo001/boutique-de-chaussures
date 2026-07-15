@@ -1,18 +1,18 @@
 [
-    {
-        "label": "Accueil",
-        "href": "/"
-    },
-    {
-        "label": "Catalogue",
-        "href": "/produits"
-    },
-    {
-        "label": "Panier",
-        "href": "/panier"
-    },
-    {
-        "label": "Contact",
-        "href": "/contact"
-    }
+  {
+    "translationKey": "navigation.home",
+    "href": "/"
+  },
+  {
+    "translationKey": "navigation.catalog",
+    "href": "/produits"
+  },
+  {
+    "translationKey": "navigation.cart",
+    "href": "/panier"
+  },
+  {
+    "translationKey": "navigation.contact",
+    "href": "/contact"
+  }
 ]

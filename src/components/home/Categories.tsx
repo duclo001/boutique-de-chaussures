@@ -1,34 +1,36 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import type { Category } from "@/types/product";
+import { useTranslation } from "react-i18next";
 
 type CategoryItem = {
-  label: string;
+  translationKey: string;
   slug: Category;
   image: string;
 };
 
 const CATEGORIES: CategoryItem[] = [
   {
-    label: "Sport",
+    translationKey: "categories.sport",
     slug: "sport",
     image:
       "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80",
   },
   {
-    label: "Ville",
+    translationKey: "categories.ville",
     slug: "ville",
     image:
       "https://images.unsplash.com/photo-1581803274668-261faa12dca7?w=900&q=80",
   },
   {
-    label: "Casual",
+    translationKey: "categories.casual",
     slug: "casual",
     image:
       "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
   },
   {
-    label: "Élégant",
+    translationKey: "categories.elegant",
     slug: "elegant",
     image:
       "https://images.unsplash.com/photo-1614253429340-98120bd6d753?w=800&q=80",
@@ -40,15 +42,16 @@ const CATEGORIES: CategoryItem[] = [
  * pré-filtré via le query param ?categorie=<slug>.
  */
 export default function Categories() {
+  const { t } = useTranslation("home");
   return (
     <section className="bg-[var(--color-bg-alt)] py-16 lg:py-24">
       <div className="container-app">
         <div className="mb-10">
           <p className="text-sm uppercase tracking-wider text-[var(--color-accent)]">
-            Catégories
+            {t("categories.eyebrow")}
           </p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
-            Explorez par style
+            {t("categories.title")}
           </h2>
         </div>
 
@@ -62,14 +65,16 @@ export default function Categories() {
             >
               <Image
                 src={cat.image}
-                alt={`Catégorie ${cat.label}`}
+                alt={t("categories.imageAlt", {
+                  category: t(cat.translationKey),
+                })}
                 fill
                 sizes="(min-width: 1024px) 25vw, 50vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
               <span className="absolute bottom-4 left-4 text-lg font-semibold text-white sm:text-xl">
-                {cat.label}
+                {t(cat.translationKey)}
               </span>
             </Link>
           ))}

@@ -1,0 +1,22 @@
+{
+    "metadata": {
+        "title": "Boutique de Chaussures"
+    },
+    "languages": {
+        "fr": "Français",
+        "en": "English"
+    },
+    "actions": {
+        "send": "Envoyer",
+        "sending": "Envoi en cours…"
+    },
+    "theme": {
+        "label": "Mode sombre",
+        "switchToLight": "Passer en mode clair",
+        "switchToDark": "Passer en mode sombre",
+        "enableDarkMode": "Activer le mode sombre"
+    },
+    "accessibility": {
+        "scrollToTop": "Remonter en haut de la page"
+    }
+}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 /**
  * Barre de recherche simple.
@@ -11,6 +12,7 @@ import { useRouter } from "next/navigation";
 export default function SearchBar() {
   const [query, setQuery] = useState("");
   const router = useRouter();
+  const { t } = useTranslation("header");
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -29,7 +31,7 @@ export default function SearchBar() {
       className="hidden w-full max-w-sm md:block"
     >
       <label htmlFor="site-search" className="sr-only">
-        Rechercher une chaussure
+        {t("search.label")}
       </label>
 
       <div className="relative">
@@ -38,13 +40,13 @@ export default function SearchBar() {
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Rechercher une chaussure..."
+          placeholder={t("search.placeholder")}
           className="h-10 w-full rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 pr-10 text-sm text-[var(--color-text)] outline-none transition-colors placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)]"
         />
 
         <button
           type="submit"
-          aria-label="Lancer la recherche"
+          aria-label={t("search.submit")}
           className="absolute right-1 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-bg-alt)] hover:text-[var(--color-accent)]"
         >
           <SearchIcon />

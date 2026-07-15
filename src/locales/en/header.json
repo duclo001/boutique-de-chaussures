@@ -1,0 +1,22 @@
+{
+    "navigation": {
+        "home": "Home",
+        "catalog": "Catalog",
+        "cart": "Cart",
+        "contact": "Contact"
+    },
+    "search": {
+        "label": "Search for shoes",
+        "placeholder": "Search for shoes...",
+        "submit": "Start search"
+    },
+    "accessibility": {
+        "mainNavigation": "Main navigation",
+        "mobileNavigation": "Mobile navigation",
+        "viewCart": "View my cart",
+        "openMenu": "Open menu",
+        "closeMenu": "Close menu",
+        "selectLanguage": "Select language",
+        "homeLink": "Return to home — Shoe Store"
+    }
+}

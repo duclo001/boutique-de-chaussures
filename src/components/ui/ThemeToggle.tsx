@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/context/ThemeContext";
 
 // Case à cocher qui bascule entre le mode clair et le mode sombre.
@@ -8,15 +9,16 @@ import { useTheme } from "@/context/ThemeContext";
 // L'input reste un vrai <input type="checkbox"> (accessible au clavier) ;
 // il est simplement masqué visuellement et habillé en interrupteur.
 export default function ThemeToggle() {
+  const { t } = useTranslation("common");
   const { theme, toggleTheme } = useTheme();
 
   return (
     <label
       className="inline-flex cursor-pointer items-center gap-2"
-      title={theme === "dark" ? "Passer en mode clair" : "Passer en mode sombre"}
+      title={theme === "dark" ? t("theme.switchToLight") : t("theme.switchToDark")}
     >
       {/* Libellé lu par les lecteurs d'écran */}
-      <span className="sr-only">Activer le mode sombre</span>
+      <span className="sr-only">{t("theme.enableDarkMode")}</span>
 
       <input
         type="checkbox"

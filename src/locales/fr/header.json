@@ -1,0 +1,22 @@
+{
+    "navigation": {
+        "home": "Accueil",
+        "catalog": "Catalogue",
+        "cart": "Panier",
+        "contact": "Contact"
+    },
+    "search": {
+        "label": "Rechercher une chaussure",
+        "placeholder": "Rechercher une chaussure...",
+        "submit": "Lancer la recherche"
+    },
+    "accessibility": {
+        "mainNavigation": "Navigation principale",
+        "mobileNavigation": "Navigation mobile",
+        "viewCart": "Voir mon panier",
+        "openMenu": "Ouvrir le menu",
+        "closeMenu": "Fermer le menu",
+        "selectLanguage": "Choisir la langue",
+        "homeLink": "Retour à l'accueil — Boutique de Chaussures"
+    }
+}
