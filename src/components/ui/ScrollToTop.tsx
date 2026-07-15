@@ -25,7 +25,7 @@ export default function ScrollToTop() {
       type="button"
       aria-label={t("accessibility.scrollToTop")}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="fixed bottom-6 right-6 z-50 inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-[var(--color-accent)] text-white shadow-lg transition-all hover:bg-[var(--color-accent-hover)] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/40"
+      className="fixed bottom-6 right-6 z-50 inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-[var(--color-accent)] text-[var(--color-on-accent)] shadow-lg transition-all hover:bg-[var(--color-accent-hover)] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/40"
     >
       <svg
         viewBox="0 0 24 24"

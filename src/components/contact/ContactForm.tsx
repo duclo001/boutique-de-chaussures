@@ -69,7 +69,7 @@ export default function ContactForm() {
     <form
       // Valide le formulaire avant d'appeler onSubmit.
       onSubmit={handleSubmit(onSubmit)}
-      className="rounded-2xl border border-[var(--color-border)] bg-white p-6 shadow-sm"
+      className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-sm"
     >
       <h2 className="text-2xl font-bold text-[var(--color-text)]">{t("contact:form.title")}</h2>
 
@@ -160,7 +160,7 @@ export default function ContactForm() {
           type="submit"
           // Désactive le bouton pendant l'envoi du formulaire.
           disabled={isSubmitting}
-          className="w-full rounded-full bg-[var(--color-accent)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-full bg-[var(--color-accent)] px-6 py-3 font-semibold text-[var(--color-on-accent)] transition-colors hover:bg-[var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting
             ? t("common:actions.sending")
@@ -169,14 +169,14 @@ export default function ContactForm() {
 
         {/* Message de confirmation affiché après un envoi réussi. */}
         {statut === "succes" && (
-          <p className="rounded-xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
+          <p className="rounded-xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700 dark:bg-green-500/15 dark:text-green-300">
             {t("contact:form.status.success")}
           </p>
         )}
 
         {/* Message d'erreur affiché si l'envoi échoue. */}
         {statut === "erreur" && (
-          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700 dark:bg-red-500/15 dark:text-red-300">
             {t("contact:form.status.error")}
           </p>
         )}

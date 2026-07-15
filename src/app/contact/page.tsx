@@ -62,7 +62,7 @@ export default function ContactPage() {
                             {contactCards.map((card) => (
                                 <article
                                     key={card.id}
-                                    className="rounded-2xl border border-[var(--color-border)] bg-white/95 p-5 shadow-lg backdrop-blur"
+                                    className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/95 p-5 shadow-lg backdrop-blur"
                                 >
                                     <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-bg-alt)]">
                                         <Image

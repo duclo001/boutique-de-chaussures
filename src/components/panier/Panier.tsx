@@ -47,7 +47,7 @@ export default function Panier() {
 
         <Link
           href="/produits"
-          className="mt-8 inline-block rounded-full bg-[var(--color-accent)] px-6 py-3 font-medium text-white hover:bg-[var(--color-accent-hover)]"
+          className="mt-8 inline-block rounded-full bg-[var(--color-accent)] px-6 py-3 font-medium text-[var(--color-on-accent)] hover:bg-[var(--color-accent-hover)]"
         >
           {t("empty.catalogButton")}
         </Link>
@@ -86,7 +86,7 @@ export default function Panier() {
           {items.map((item) => (
             <article
               key={item.variantId}
-              className="grid gap-4 rounded-2xl border border-[var(--color-border)] bg-white p-4 sm:grid-cols-[120px_1fr_auto]"
+              className="grid gap-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 sm:grid-cols-[120px_1fr_auto]"
             >
               <div className="relative aspect-square overflow-hidden rounded-xl bg-[var(--color-bg-alt)] p-2">
                 <Image
@@ -142,7 +142,7 @@ export default function Panier() {
                     type="button"
                     onClick={() => cartStore.augmenter(item.variantId)}
                     disabled={item.quantity >= item.stock}
-                    className="h-9 w-9 text-lg disabled:cursor-not-allowed disabled:text-gray-300"
+                    className="h-9 w-9 text-lg disabled:cursor-not-allowed disabled:text-[var(--color-text-muted)] disabled:opacity-40"
                     aria-label={t("item.increaseQuantity")}
                   >
                     +
@@ -157,7 +157,7 @@ export default function Panier() {
           ))}
         </div>
 
-        <aside className="h-fit rounded-2xl border border-[var(--color-border)] bg-white p-6">
+        <aside className="h-fit rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
           <h2 className="text-lg font-semibold text-[var(--color-text)]">
             {t("summary.title")}
           </h2>
@@ -183,7 +183,7 @@ export default function Panier() {
 
           <button
             type="button"
-            className="mt-6 w-full rounded-full bg-[var(--color-accent)] px-6 py-3 font-semibold text-white hover:bg-[var(--color-accent-hover)]"
+            className="mt-6 w-full rounded-full bg-[var(--color-accent)] px-6 py-3 font-semibold text-[var(--color-on-accent)] hover:bg-[var(--color-accent-hover)]"
           >
             {t("summary.checkout")}
           </button>

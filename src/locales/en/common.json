@@ -7,6 +7,12 @@
         "send": "Send",
         "sending": "Sending…"
     },
+    "theme": {
+        "label": "Dark mode",
+        "switchToLight": "Switch to light mode",
+        "switchToDark": "Switch to dark mode",
+        "enableDarkMode": "Enable dark mode"
+    },
     "accessibility": {
         "scrollToTop": "Return to the top of the page"
     }

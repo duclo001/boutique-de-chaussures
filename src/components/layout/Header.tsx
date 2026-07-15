@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "@/components/ui/Logo";
 import SearchBar from "@/components/ui/SearchBar";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import CartBadge from "./CartBadge";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
@@ -46,7 +47,10 @@ export default function Header() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur">
+    // En mode sombre, l'en-tête est plus opaque et reçoit une ombre pour se
+    // détacher du contenu. La variante `dark:` (définie dans globals.css)
+    // s'en charge en CSS : inutile de lire le thème en JavaScript ici.
+    <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur dark:bg-[var(--color-bg)]/80 dark:shadow-lg dark:shadow-black/30">
       <div className="container-app flex h-16 items-center justify-between gap-6">
         <Logo />
         <SearchBar />
@@ -69,6 +73,9 @@ export default function Header() {
               {t(lien.translationKey)}
             </Link>
           ))}
+
+          {/* Case à cocher clair / sombre (desktop) */}
+          <ThemeToggle />
         </nav>
 
         <div className="hidden md:block">
@@ -133,8 +140,17 @@ export default function Header() {
                 </Link>
               </li>
             ))}
+            {/* Sélecteur de langue (mobile) */}
             <li className="border-t border-[var(--color-border)] py-3">
               <LanguageSwitcher />
+            </li>
+
+            {/* Case à cocher clair / sombre (mobile) */}
+            <li className="flex items-center justify-between border-t border-[var(--color-border)] py-3">
+              <span className="text-sm font-medium text-[var(--color-text)]">
+                {t("common:theme.label")}
+              </span>
+              <ThemeToggle />
             </li>
           </ul>
         </nav>
