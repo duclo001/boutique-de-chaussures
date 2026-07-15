@@ -1,45 +1,45 @@
 {
-  "hero": {
-    "badge": "New 2026 collection",
-    "titleBefore": "Every step,",
-    "titleAccent": "a new",
-    "titleAfter": "story.",
-    "description": "Discover a selection of shoes designed for comfort, durability and style. From sports to city life, find the pair that suits you.",
-    "collectionButton": "Discover the collection",
-    "featuredButton": "View our favorites",
-    "imageAlt": "Sneakers from the new collection",
-    "favorite": "Our favorite",
-    "stats": {
-      "models": "Styles",
-      "delivery": "Delivery",
-      "return": "Returns",
-      "returnValue": "30 days"
+    "hero": {
+        "badge": "New 2026 collection",
+        "titleBefore": "Every step,",
+        "titleAccent": "a new",
+        "titleAfter": "story.",
+        "description": "Discover a selection of shoes designed for comfort, durability and style. From sports to city life, find the pair that suits you.",
+        "collectionButton": "Discover the collection",
+        "featuredButton": "View our favorites",
+        "imageAlt": "Sneakers from the new collection",
+        "favorite": "Our favorite",
+        "stats": {
+            "models": "Styles",
+            "delivery": "Delivery",
+            "return": "Returns",
+            "returnValue": "30 days"
+        }
+    },
+    "featured": {
+        "eyebrow": "Current selection",
+        "title": "Our featured products",
+        "button": "View the full catalog"
+    },
+    "categories": {
+        "eyebrow": "Categories",
+        "title": "Explore by style",
+        "imageAlt": "{{category}} category",
+        "sport": "Sport",
+        "ville": "City",
+        "casual": "Casual",
+        "elegant": "Elegant"
+    },
+    "about": {
+        "eyebrow": "Our story",
+        "title": "Comfort, style and purpose.",
+        "description": "Our store carefully selects every style for its durable materials, quality finishes and everyday comfort. Whether you need shoes for running, working or walking, you will find a pair designed to stay with you for a long time.",
+        "imageAlt": "Shoe store workshop",
+        "benefits": {
+            "materials": "Durable and responsible materials",
+            "comfort": "Comfort tested over time",
+            "delivery": "Fast delivery across Canada",
+            "returns": "Free returns within 30 days"
+        }
     }
-  },
-  "featured": {
-    "eyebrow": "Current selection",
-    "title": "Our featured products",
-    "button": "View the full catalog"
-  },
-  "categories": {
-    "eyebrow": "Categories",
-    "title": "Explore by style",
-    "imageAlt": "{{category}} category",
-    "sport": "Sport",
-    "ville": "City",
-    "casual": "Casual",
-    "elegant": "Elegant"
-  },
-  "about": {
-    "eyebrow": "Our story",
-    "title": "Comfort, style and purpose.",
-    "description": "Our store carefully selects every style for its durable materials, quality finishes and everyday comfort. Whether you need shoes for running, working or walking, you will find a pair designed to stay with you for a long time.",
-    "imageAlt": "Shoe store workshop",
-    "benefits": {
-      "materials": "Durable and responsible materials",
-      "comfort": "Comfort tested over time",
-      "delivery": "Fast delivery across Canada",
-      "returns": "Free returns within 30 days"
-    }
-  }
 }

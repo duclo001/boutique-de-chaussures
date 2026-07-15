@@ -32,15 +32,15 @@ function categorieValide(valeur: string | null): Category | "tous" {
 export default function Produits() {
   const { t, i18n } = useTranslation("products");
 
-const locale = i18n.resolvedLanguage?.startsWith("en")
-  ? "en-CA"
-  : "fr-CA";
+  const locale = i18n.resolvedLanguage?.startsWith("en")
+    ? "en-CA"
+    : "fr-CA";
 
-function formatPrice(price: number) {
-  return new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency: "CAD",
-  }).format(price);
+  function formatPrice(price: number) {
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: "CAD",
+    }).format(price);
   }
   // Catégorie pré-sélectionnée depuis l'URL (?categorie=sport)
   const categorieInitiale = categorieValide(useSearchParams().get("categorie"));
@@ -79,11 +79,10 @@ function formatPrice(price: number) {
           <button
             key={cat}
             onClick={() => setFiltreCategorie(cat)}
-            className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
-              filtreCategorie === cat
+            className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${filtreCategorie === cat
                 ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-white"
                 : "border-[var(--color-border)] bg-white text-[var(--color-text-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-            }`}
+              }`}
           >
             {t(CATEGORY_KEYS[cat])}
           </button>
@@ -125,8 +124,8 @@ function formatPrice(price: number) {
                 </h2>
                 <p className="mt-1 text-sm font-medium text-[var(--color-accent)]">
                   {t("catalog.fromPrice", {
-  price: formatPrice(produit.basePrice),
-})}
+                    price: formatPrice(produit.basePrice),
+                  })}
                 </p>
               </div>
             </Link>

@@ -18,7 +18,7 @@ const CATEGORY_KEYS: Record<Category, string> = {
  * Rendue comme <Link> Next.js vers la fiche détail du produit.
  */
 export default function ProductCard({ product }: ProductCardProps) {
-   const { t, i18n } = useTranslation("products");
+  const { t, i18n } = useTranslation("products");
   const cover = product.images[0];
 
   const locale = i18n.resolvedLanguage?.startsWith("en")

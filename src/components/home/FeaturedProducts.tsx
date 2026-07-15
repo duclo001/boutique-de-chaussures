@@ -23,7 +23,7 @@ export default function FeaturedProducts() {
         </div>
         {/* Lien interne vers le catalogue */}
         <Button href="/produits" variant="outline">
-           {t("featured.button")}
+          {t("featured.button")}
         </Button>
       </div>
 

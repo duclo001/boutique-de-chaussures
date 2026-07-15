@@ -51,7 +51,7 @@ export default function Categories() {
             {t("categories.eyebrow")}
           </p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
-           {t("categories.title")}
+            {t("categories.title")}
           </h2>
         </div>
 
@@ -65,9 +65,9 @@ export default function Categories() {
             >
               <Image
                 src={cat.image}
-               alt={t("categories.imageAlt", {
-  category: t(cat.translationKey),
-})}
+                alt={t("categories.imageAlt", {
+                  category: t(cat.translationKey),
+                })}
                 fill
                 sizes="(min-width: 1024px) 25vw, 50vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"

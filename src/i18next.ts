@@ -7,52 +7,52 @@ import { loadResources } from "@/utils/loadResources";
 
 // Initialise i18next une seule fois dans le navigateur.
 if (!i18n.isInitialized) {
-  void i18n
-    // Détecte la langue préférée de l'utilisateur.
-    .use(LanguageDetector)
+    void i18n
+        // Détecte la langue préférée de l'utilisateur.
+        .use(LanguageDetector)
 
-    // Rend les traductions disponibles dans les composants React.
-    .use(initReactI18next)
+        // Rend les traductions disponibles dans les composants React.
+        .use(initReactI18next)
 
-    // Configure les langues et les ressources de traduction.
-    .init({
-      resources: loadResources(),
-       // Utilise la même langue pendant le rendu serveur et l'hydratation.
-       lng: "fr",
+        // Configure les langues et les ressources de traduction.
+        .init({
+            resources: loadResources(),
+            // Utilise la même langue pendant le rendu serveur et l'hydratation.
+            lng: "fr",
 
-      // Langue utilisée lorsqu'aucune préférence n'est disponible.
-      fallbackLng: "fr",
+            // Langue utilisée lorsqu'aucune préférence n'est disponible.
+            fallbackLng: "fr",
 
-      // Langues disponibles dans l'application.
-      supportedLngs: ["fr", "en"],
+            // Langues disponibles dans l'application.
+            supportedLngs: ["fr", "en"],
 
-      // Transforme notamment "fr-CA" en "fr".
-      load: "languageOnly",
+            // Transforme notamment "fr-CA" en "fr".
+            load: "languageOnly",
 
-      // Namespaces disponibles.
-      ns: ["common", "header", "contact", "footer", "home", "products", "cart"],
-      
+            // Namespaces disponibles.
+            ns: ["common", "header", "contact", "footer", "home", "products", "cart"],
 
-      // Namespace utilisé lorsqu'aucun namespace n'est précisé.
-      defaultNS: "common",
 
-      // React protège déjà les textes contre les injections HTML.
-      interpolation: {
-        escapeValue: false,
-      },
+            // Namespace utilisé lorsqu'aucun namespace n'est précisé.
+            defaultNS: "common",
 
-      // Évite l'utilisation de Suspense pendant le chargement.
-      react: {
-        useSuspense: false,
-      },
+            // React protège déjà les textes contre les injections HTML.
+            interpolation: {
+                escapeValue: false,
+            },
 
-      // Ordre utilisé pour déterminer la langue.
-      detection: {
-        order: ["localStorage", "navigator"],
-        caches: ["localStorage"],
-      },
-     
-    });
+            // Évite l'utilisation de Suspense pendant le chargement.
+            react: {
+                useSuspense: false,
+            },
+
+            // Ordre utilisé pour déterminer la langue.
+            detection: {
+                order: ["localStorage", "navigator"],
+                caches: ["localStorage"],
+            },
+
+        });
 }
 
 export default i18n;

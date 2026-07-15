@@ -14,16 +14,16 @@ import { useTranslation } from "react-i18next";
 export default function Panier() {
   const { t, i18n } = useTranslation("cart");
 
-const locale = i18n.resolvedLanguage?.startsWith("en")
-  ? "en-CA"
-  : "fr-CA";
+  const locale = i18n.resolvedLanguage?.startsWith("en")
+    ? "en-CA"
+    : "fr-CA";
 
-function formatPrice(price: number) {
-  return new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency: "CAD",
-  }).format(price);
-}
+  function formatPrice(price: number) {
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: "CAD",
+    }).format(price);
+  }
   const items = useSyncExternalStore(
     cartStore.subscribe,
     cartStore.getSnapshot,
@@ -60,7 +60,7 @@ function formatPrice(price: number) {
       <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm uppercase tracking-wider text-[var(--color-accent)]">
-           {t("header.eyebrow")}
+            {t("header.eyebrow")}
           </p>
 
           <h1 className="mt-2 text-3xl font-bold text-[var(--color-text)] sm:text-4xl">
@@ -77,7 +77,7 @@ function formatPrice(price: number) {
           onClick={() => cartStore.vider()}
           className="text-sm font-medium text-[var(--color-text-muted)] underline hover:text-[var(--color-accent)]"
         >
-         {t("header.clear")}
+          {t("header.clear")}
         </button>
       </div>
 
@@ -105,9 +105,9 @@ function formatPrice(price: number) {
 
                 <p className="mt-1 text-sm text-[var(--color-text-muted)]">
                   {t("item.details", {
-  color: item.color,
-  size: item.size,
-})}
+                    color: item.color,
+                    size: item.size,
+                  })}
                 </p>
 
                 <p className="mt-3 font-medium text-[var(--color-accent)]">

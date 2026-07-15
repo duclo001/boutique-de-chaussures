@@ -1,53 +1,53 @@
 {
-  "page": {
-    "eyebrow": "Service client",
-    "title": "Contactez-nous",
-    "description": "Une question sur une commande, une pointure ou un produit ? Notre équipe vous répond rapidement pour vous aider à trouver la paire qui vous convient.",
-    "imageAlt": "Atelier d'une boutique de chaussures"
-  },
-  "cards": {
-    "response": {
-      "title": "Réponse sous 24h",
-      "text": "Notre équipe vous répond rapidement pour toute question."
+    "page": {
+        "eyebrow": "Service client",
+        "title": "Contactez-nous",
+        "description": "Une question sur une commande, une pointure ou un produit ? Notre équipe vous répond rapidement pour vous aider à trouver la paire qui vous convient.",
+        "imageAlt": "Atelier d'une boutique de chaussures"
     },
-    "sizes": {
-      "title": "Aide sur les tailles",
-      "text": "Besoin de choisir la bonne pointure ? Nous pouvons vous guider."
+    "cards": {
+        "response": {
+            "title": "Réponse sous 24h",
+            "text": "Notre équipe vous répond rapidement pour toute question."
+        },
+        "sizes": {
+            "title": "Aide sur les tailles",
+            "text": "Besoin de choisir la bonne pointure ? Nous pouvons vous guider."
+        },
+        "tracking": {
+            "title": "Suivi de commande",
+            "text": "Posez vos questions sur vos achats, livraisons ou disponibilités."
+        },
+        "returns": {
+            "title": "Retours et échanges",
+            "text": "Nous vous accompagnons pour les demandes après achat."
+        }
     },
-    "tracking": {
-      "title": "Suivi de commande",
-      "text": "Posez vos questions sur vos achats, livraisons ou disponibilités."
-    },
-    "returns": {
-      "title": "Retours et échanges",
-      "text": "Nous vous accompagnons pour les demandes après achat."
+    "form": {
+        "title": "Contact",
+        "name": {
+            "label": "Nom",
+            "placeholder": "Votre nom"
+        },
+        "email": {
+            "label": "Courriel",
+            "placeholder": "vous@exemple.com"
+        },
+        "message": {
+            "label": "Message",
+            "placeholder": "Votre message"
+        },
+        "validation": {
+            "nameRequired": "Le nom est obligatoire.",
+            "nameMinLength": "Le nom doit contenir au moins 2 caractères.",
+            "emailRequired": "Le courriel est obligatoire.",
+            "emailInvalid": "Entrez un courriel valide.",
+            "messageRequired": "Le message est obligatoire.",
+            "messageMinLength": "Le message doit contenir au moins 10 caractères."
+        },
+        "status": {
+            "success": "Merci ! Votre message a bien été envoyé. Une confirmation vient de vous être envoyée par courriel.",
+            "error": "Une erreur est survenue lors de l'envoi. Veuillez réessayer dans quelques instants."
+        }
     }
-  },
-  "form": {
-    "title": "Contact",
-    "name": {
-      "label": "Nom",
-      "placeholder": "Votre nom"
-    },
-    "email": {
-      "label": "Courriel",
-      "placeholder": "vous@exemple.com"
-    },
-    "message": {
-      "label": "Message",
-      "placeholder": "Votre message"
-    },
-    "validation": {
-      "nameRequired": "Le nom est obligatoire.",
-      "nameMinLength": "Le nom doit contenir au moins 2 caractères.",
-      "emailRequired": "Le courriel est obligatoire.",
-      "emailInvalid": "Entrez un courriel valide.",
-      "messageRequired": "Le message est obligatoire.",
-      "messageMinLength": "Le message doit contenir au moins 10 caractères."
-    },
-    "status": {
-      "success": "Merci ! Votre message a bien été envoyé. Une confirmation vient de vous être envoyée par courriel.",
-      "error": "Une erreur est survenue lors de l'envoi. Veuillez réessayer dans quelques instants."
-    }
-  }
 }

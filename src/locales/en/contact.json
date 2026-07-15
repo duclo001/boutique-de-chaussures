@@ -1,53 +1,53 @@
 {
-  "page": {
-    "eyebrow": "Customer service",
-    "title": "Contact us",
-    "description": "Do you have a question about an order, a shoe size or a product? Our team will respond quickly and help you find the right pair.",
-    "imageAlt": "Shoe store workshop"
-  },
-  "cards": {
-    "response": {
-      "title": "Response within 24 hours",
-      "text": "Our team responds quickly to all your questions."
+    "page": {
+        "eyebrow": "Customer service",
+        "title": "Contact us",
+        "description": "Do you have a question about an order, a shoe size or a product? Our team will respond quickly and help you find the right pair.",
+        "imageAlt": "Shoe store workshop"
     },
-    "sizes": {
-      "title": "Sizing assistance",
-      "text": "Need help choosing the right size? We can guide you."
+    "cards": {
+        "response": {
+            "title": "Response within 24 hours",
+            "text": "Our team responds quickly to all your questions."
+        },
+        "sizes": {
+            "title": "Sizing assistance",
+            "text": "Need help choosing the right size? We can guide you."
+        },
+        "tracking": {
+            "title": "Order tracking",
+            "text": "Ask us about your purchases, deliveries or product availability."
+        },
+        "returns": {
+            "title": "Returns and exchanges",
+            "text": "We will assist you with your after-purchase requests."
+        }
     },
-    "tracking": {
-      "title": "Order tracking",
-      "text": "Ask us about your purchases, deliveries or product availability."
-    },
-    "returns": {
-      "title": "Returns and exchanges",
-      "text": "We will assist you with your after-purchase requests."
+    "form": {
+        "title": "Contact",
+        "name": {
+            "label": "Name",
+            "placeholder": "Your name"
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "you@example.com"
+        },
+        "message": {
+            "label": "Message",
+            "placeholder": "Your message"
+        },
+        "validation": {
+            "nameRequired": "Name is required.",
+            "nameMinLength": "Name must contain at least 2 characters.",
+            "emailRequired": "Email is required.",
+            "emailInvalid": "Enter a valid email address.",
+            "messageRequired": "Message is required.",
+            "messageMinLength": "Message must contain at least 10 characters."
+        },
+        "status": {
+            "success": "Thank you! Your message has been sent. A confirmation has also been sent to your email address.",
+            "error": "An error occurred while sending your message. Please try again in a few moments."
+        }
     }
-  },
-  "form": {
-    "title": "Contact",
-    "name": {
-      "label": "Name",
-      "placeholder": "Your name"
-    },
-    "email": {
-      "label": "Email",
-      "placeholder": "you@example.com"
-    },
-    "message": {
-      "label": "Message",
-      "placeholder": "Your message"
-    },
-    "validation": {
-      "nameRequired": "Name is required.",
-      "nameMinLength": "Name must contain at least 2 characters.",
-      "emailRequired": "Email is required.",
-      "emailInvalid": "Enter a valid email address.",
-      "messageRequired": "Message is required.",
-      "messageMinLength": "Message must contain at least 10 characters."
-    },
-    "status": {
-      "success": "Thank you! Your message has been sent. A confirmation has also been sent to your email address.",
-      "error": "An error occurred while sending your message. Please try again in a few moments."
-    }
-  }
 }

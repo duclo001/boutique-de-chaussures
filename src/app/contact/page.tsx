@@ -5,22 +5,22 @@ import { useTranslation } from "react-i18next";
 
 // Données utilisées pour afficher les cartes d'information.
 const contactCards = [
-  {
-    id: "response",
-    icon: "/icons/contact/icons8-clock.svg",
-  },
-  {
-    id: "sizes",
-    icon: "/icons/contact/shoe.svg",
-  },
-  {
-    id: "tracking",
-    icon: "/icons/contact/Delivery.png",
-  },
-  {
-    id: "returns",
-    icon: "/icons/contact/reponse.svg",
-  },
+    {
+        id: "response",
+        icon: "/icons/contact/icons8-clock.svg",
+    },
+    {
+        id: "sizes",
+        icon: "/icons/contact/shoe.svg",
+    },
+    {
+        id: "tracking",
+        icon: "/icons/contact/Delivery.png",
+    },
+    {
+        id: "returns",
+        icon: "/icons/contact/reponse.svg",
+    },
 ] as const;
 
 export default function ContactPage() {
@@ -33,11 +33,11 @@ export default function ContactPage() {
                 {/* Colonne gauche : texte, image et cartes d'information. */}
                 <div>
                     <p className="text-sm uppercase tracking-wider text-[var(--color-accent)]">
-                       {t("page.eyebrow")}
+                        {t("page.eyebrow")}
                     </p>
 
                     <h1 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
-                       {t("page.title")}
+                        {t("page.title")}
                     </h1>
 
                     <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--color-text-muted)]">
@@ -50,7 +50,7 @@ export default function ContactPage() {
                         <div className="relative min-h-[560px] overflow-hidden rounded-3xl">
                             <Image
                                 src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1100&q=80"
-                               alt={t("page.imageAlt")}
+                                alt={t("page.imageAlt")}
                                 fill
                                 sizes="(min-width: 1024px) 50vw, 100vw"
                                 className="object-cover"
@@ -61,7 +61,7 @@ export default function ContactPage() {
                         <div className="absolute inset-x-4 top-10 z-10 grid gap-4 sm:inset-x-8 sm:top-0 sm:grid-cols-2">
                             {contactCards.map((card) => (
                                 <article
-                                   key={card.id}
+                                    key={card.id}
                                     className="rounded-2xl border border-[var(--color-border)] bg-white/95 p-5 shadow-lg backdrop-blur"
                                 >
                                     <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-bg-alt)]">
@@ -71,9 +71,9 @@ export default function ContactPage() {
                                             width={24}
                                             height={24}
                                         />
-                                        </div>
+                                    </div>
                                     <h2 className="text-base font-semibold text-[var(--color-text)]">
-                                      {t(`cards.${card.id}.title`)}
+                                        {t(`cards.${card.id}.title`)}
                                     </h2>
 
                                     <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">

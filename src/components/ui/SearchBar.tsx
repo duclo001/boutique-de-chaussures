@@ -31,7 +31,7 @@ export default function SearchBar() {
       className="hidden w-full max-w-sm md:block"
     >
       <label htmlFor="site-search" className="sr-only">
-          {t("search.label")}
+        {t("search.label")}
       </label>
 
       <div className="relative">

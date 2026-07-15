@@ -61,20 +61,19 @@ export default function Header() {
               key={lien.href}
               href={lien.href}
               aria-current={pathname === lien.href ? "page" : undefined}
-              className={`text-sm font-medium transition-colors hover:text-[var(--color-accent)] ${
-                pathname === lien.href
+              className={`text-sm font-medium transition-colors hover:text-[var(--color-accent)] ${pathname === lien.href
                   ? "text-[var(--color-accent)]"
                   : "text-[var(--color-text)]"
-              }`}
+                }`}
             >
-             {t(lien.translationKey)}
+              {t(lien.translationKey)}
             </Link>
           ))}
         </nav>
 
-          <div className="hidden md:block">
-              <LanguageSwitcher />
-            </div>
+        <div className="hidden md:block">
+          <LanguageSwitcher />
+        </div>
         {/* Icône panier (desktop). Le badge n'apparaît que si totalItems > 0.(aria-label="Voir mon panier") */}
         <Link
           href="/panier"
@@ -90,10 +89,10 @@ export default function Header() {
           id="menu-toggle"
           type="button"
           aria-label={
-                        open
-                          ? t("accessibility.closeMenu")
-                          : t("accessibility.openMenu")
-                      }
+            open
+              ? t("accessibility.closeMenu")
+              : t("accessibility.openMenu")
+          }
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
           className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] md:hidden cursor-pointer transition-colors hover:bg-[var(--color-bg-alt)]"
@@ -130,7 +129,7 @@ export default function Header() {
                   aria-current={pathname === lien.href ? "page" : undefined}
                   className="block w-full py-3 text-left text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
                 >
-                 {t(lien.translationKey)}
+                  {t(lien.translationKey)}
                 </Link>
               </li>
             ))}

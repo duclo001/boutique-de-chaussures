@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
  */
 export default function Hero() {
   const { t, i18n } = useTranslation("home");
-    const locale = i18n.resolvedLanguage?.startsWith("en")
+  const locale = i18n.resolvedLanguage?.startsWith("en")
     ? "en-CA"
     : "fr-CA";
 
@@ -27,7 +27,7 @@ export default function Hero() {
           </span>
 
           <h1 className="text-4xl font-bold leading-tight tracking-tight text-[var(--color-text)] sm:text-5xl lg:text-6xl">
-           {t("hero.titleBefore")}{" "}
+            {t("hero.titleBefore")}{" "}
             <span className="text-[var(--color-accent)]">
               {t("hero.titleAccent")}
             </span>{" "}
@@ -75,11 +75,11 @@ export default function Hero() {
           {/* Carte flottante décorative */}
           <div className="absolute -bottom-6 -left-6 hidden flex-col gap-1 rounded-2xl bg-white p-4 shadow-lg sm:flex">
             <span className="text-xs uppercase tracking-wider text-[var(--color-text-muted)]">
-             {t("hero.favorite")}
+              {t("hero.favorite")}
             </span>
             <span className="text-sm font-semibold">Runner Performance</span>
             <span className="text-sm font-medium text-[var(--color-accent)]">
-             {favoritePrice}
+              {favoritePrice}
             </span>
           </div>
         </div>

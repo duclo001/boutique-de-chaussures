@@ -18,27 +18,27 @@ import cartEn from "@/locales/en/cart.json";
 
 // Regroupe les traductions par langue et par namespace.
 const resources = {
-  fr: {
-    common: commonFr,
-    header: headerFr,
-    contact: contactFr,
-    footer: footerFr,
-    home: homeFr,
-    products: productsFr,
-    cart: cartFr,
-  },
-  en: {
-    common: commonEn,
-    header: headerEn,
-    contact: contactEn,
-    footer: footerEn,
-    home: homeEn,
-    products: productsEn,
-    cart: cartEn,
-  },
+    fr: {
+        common: commonFr,
+        header: headerFr,
+        contact: contactFr,
+        footer: footerFr,
+        home: homeFr,
+        products: productsFr,
+        cart: cartFr,
+    },
+    en: {
+        common: commonEn,
+        header: headerEn,
+        contact: contactEn,
+        footer: footerEn,
+        home: homeEn,
+        products: productsEn,
+        cart: cartEn,
+    },
 };
 
 // Retourne toutes les ressources utilisées par i18next.
 export function loadResources() {
-  return resources;
+    return resources;
 }

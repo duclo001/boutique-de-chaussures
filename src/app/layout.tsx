@@ -39,14 +39,14 @@ export default function RootLayout({
       lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-    <body className="min-h-full flex flex-col bg-[var(--color-bg)] text-[var(--color-text)]">
-    <I18nProvider>
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
-      <ScrollToTop />
-    </I18nProvider>
-  </body> 
+      <body className="min-h-full flex flex-col bg-[var(--color-bg)] text-[var(--color-text)]">
+        <I18nProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <ScrollToTop />
+        </I18nProvider>
+      </body>
     </html>
   );
 }

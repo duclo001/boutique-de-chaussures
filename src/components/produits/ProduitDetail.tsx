@@ -33,16 +33,16 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
   const router = useRouter();
   const { t, i18n } = useTranslation("products");
 
-const locale = i18n.resolvedLanguage?.startsWith("en")
-  ? "en-CA"
-  : "fr-CA";
+  const locale = i18n.resolvedLanguage?.startsWith("en")
+    ? "en-CA"
+    : "fr-CA";
 
-function formatPrice(price: number) {
-  return new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency: "CAD",
-  }).format(price);
-}
+  function formatPrice(price: number) {
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: "CAD",
+    }).format(price);
+  }
 
   // Sélection en deux étapes : coloris puis pointure
   const [coloris, setColoris] = useState<string | null>(null);
@@ -67,11 +67,11 @@ function formatPrice(price: number) {
     );
   }
   const nomProduit = t(`items.${produit.id}.name`, {
-  defaultValue: produit.name,
-});
-const descriptionProduit = t(`items.${produit.id}.description`, {
-  defaultValue: produit.description,
-});
+    defaultValue: produit.name,
+  });
+  const descriptionProduit = t(`items.${produit.id}.description`, {
+    defaultValue: produit.description,
+  });
 
   // ── Dérivations à partir des variantes ────────────────────────────
   // Liste unique des coloris (ordre d'apparition conservé)
@@ -88,8 +88,8 @@ const descriptionProduit = t(`items.${produit.id}.description`, {
   const varianteChoisie =
     coloris && pointure !== null
       ? produit.variants.find(
-          (v) => v.color === coloris && v.size === pointure
-        ) ?? null
+        (v) => v.color === coloris && v.size === pointure
+      ) ?? null
       : null;
 
   // ── Image affichée : priorité survol > coloris choisi > première image
@@ -128,14 +128,14 @@ const descriptionProduit = t(`items.${produit.id}.description`, {
           <Image
             key={imageAffichee}
             src={imageAffichee}
-          alt={
-  coloris
-    ? t("detail.imageAlt", {
-        name: nomProduit,
-        color: coloris,
-      })
-    : nomProduit
-}
+            alt={
+              coloris
+                ? t("detail.imageAlt", {
+                  name: nomProduit,
+                  color: coloris,
+                })
+                : nomProduit
+            }
             fill
             priority
             sizes="(min-width: 1024px) 50vw, 100vw"
@@ -152,7 +152,7 @@ const descriptionProduit = t(`items.${produit.id}.description`, {
               {t(CATEGORY_KEYS[produit.category])}
             </span>
             <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
-{nomProduit}
+              {nomProduit}
             </h1>
           </div>
 
@@ -162,8 +162,8 @@ const descriptionProduit = t(`items.${produit.id}.description`, {
             {!varianteChoisie && (
               <span className="ml-2 text-sm font-normal text-[var(--color-text-muted)]">
                 {coloris
-  ? t("detail.fromPrice")
-  : t("detail.indicativePrice")}
+                  ? t("detail.fromPrice")
+                  : t("detail.indicativePrice")}
               </span>
             )}
           </p>
@@ -202,11 +202,10 @@ const descriptionProduit = t(`items.${produit.id}.description`, {
                     onBlur={() => setColorisSurvole(null)}
                     aria-label={t("detail.chooseColor", { color })}
                     aria-pressed={estSelectionne}
-                    className={`group flex items-center gap-2 rounded-xl border p-1.5 pr-3 text-sm font-medium transition-all ${
-                      estSelectionne
+                    className={`group flex items-center gap-2 rounded-xl border p-1.5 pr-3 text-sm font-medium transition-all ${estSelectionne
                         ? "border-[var(--color-accent)] ring-2 ring-[var(--color-accent)]/30"
                         : "border-[var(--color-border)] hover:border-[var(--color-accent)]"
-                    }`}
+                      }`}
                   >
                     <span className="relative h-10 w-10 overflow-hidden rounded-lg bg-[var(--color-bg-alt)] p-1">
                       <Image
@@ -247,13 +246,12 @@ const descriptionProduit = t(`items.${produit.id}.description`, {
                       onClick={() => setPointure(v.size)}
                       disabled={estEpuisee}
                       aria-pressed={estSelectionnee}
-                      className={`min-w-[3.5rem] rounded-xl border px-4 py-2 text-sm font-medium transition-all ${
-                        estEpuisee
+                      className={`min-w-[3.5rem] rounded-xl border px-4 py-2 text-sm font-medium transition-all ${estEpuisee
                           ? "cursor-not-allowed border-[var(--color-border)] bg-gray-50 text-gray-300 line-through"
                           : estSelectionnee
                             ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-white shadow-md"
                             : "border-[var(--color-border)] bg-white text-[var(--color-text)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-                      }`}
+                        }`}
                     >
                       {v.size}
                     </button>
@@ -289,25 +287,25 @@ const descriptionProduit = t(`items.${produit.id}.description`, {
               router.push("/panier");
             }}
             className={`mt-2 w-full rounded-2xl px-6 py-4 text-base font-semibold transition-all ${peutAjouterAuPanier
-                ? "bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] shadow-md hover:shadow-lg"
-                : "cursor-not-allowed bg-gray-100 text-gray-400"
+              ? "bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] shadow-md hover:shadow-lg"
+              : "cursor-not-allowed bg-gray-100 text-gray-400"
               }`}
           >
             {peutAjouterAuPanier
-  ? t("detail.addToCart")
-  : !coloris
-    ? t("detail.selectColor")
-    : pointure === null
-      ? t("detail.selectSize")
-      : t("detail.unavailable")}
+              ? t("detail.addToCart")
+              : !coloris
+                ? t("detail.selectColor")
+                : pointure === null
+                  ? t("detail.selectSize")
+                  : t("detail.unavailable")}
           </button>
 
           {/* Indication de stock — uniquement si stock bas (≤ 3) */}
           {varianteChoisie && varianteChoisie.stock > 0 && varianteChoisie.stock <= 3 && (
             <p className="text-center text-xs font-medium text-amber-700">
-             {t("detail.lowStock", {
-  count: varianteChoisie.stock,
-})}
+              {t("detail.lowStock", {
+                count: varianteChoisie.stock,
+              })}
             </p>
           )}
         </div>

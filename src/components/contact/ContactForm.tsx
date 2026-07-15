@@ -82,7 +82,7 @@ export default function ContactForm() {
           <input
             id="nom"
             type="text"
-           placeholder={t("contact:form.name.placeholder")}
+            placeholder={t("contact:form.name.placeholder")}
             // Enregistre le champ nom et applique ses règles de validation.
             {...register("nom", {
               required: t("contact:form.validation.nameRequired"),
@@ -102,20 +102,20 @@ export default function ContactForm() {
 
         <div>
           <label htmlFor="courriel" className="block text-sm font-medium">
-           {t("contact:form.email.label")}
+            {t("contact:form.email.label")}
           </label>
 
           <input
             id="courriel"
             type="email"
-           placeholder={t("contact:form.email.placeholder")}
+            placeholder={t("contact:form.email.placeholder")}
             // Enregistre le courriel et vérifie son format.
             {...register("courriel", {
               required: t("contact:form.validation.emailRequired"),
               pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: t("contact:form.validation.emailInvalid"),
-                },
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: t("contact:form.validation.emailInvalid"),
+              },
             })}
             className="mt-2 w-full rounded-xl border border-[var(--color-border)] px-4 py-3 outline-none focus:border-[var(--color-accent)]"
           />
@@ -140,10 +140,10 @@ export default function ContactForm() {
             // Enregistre le message et impose un minimum de caractères.
             {...register("message", {
               required: t("contact:form.validation.messageRequired"),
-            minLength: {
-              value: 10,
-              message: t("contact:form.validation.messageMinLength"),
-            },
+              minLength: {
+                value: 10,
+                message: t("contact:form.validation.messageMinLength"),
+              },
             })}
             className="mt-2 w-full resize-none rounded-xl border border-[var(--color-border)] px-4 py-3 outline-none focus:border-[var(--color-accent)]"
           />
@@ -163,8 +163,8 @@ export default function ContactForm() {
           className="w-full rounded-full bg-[var(--color-accent)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting
-              ? t("common:actions.sending")
-              : t("common:actions.send")}
+            ? t("common:actions.sending")
+            : t("common:actions.send")}
         </button>
 
         {/* Message de confirmation affiché après un envoi réussi. */}
@@ -177,7 +177,7 @@ export default function ContactForm() {
         {/* Message d'erreur affiché si l'envoi échoue. */}
         {statut === "erreur" && (
           <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
-          {t("contact:form.status.error")}
+            {t("contact:form.status.error")}
           </p>
         )}
       </div>
