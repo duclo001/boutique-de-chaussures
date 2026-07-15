@@ -83,7 +83,15 @@ export default function Panier() {
 
       <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
         <div className="space-y-4">
-          {items.map((item) => (
+          {items.map((item) => {
+            // Le nom mémorisé dans le panier est celui de la langue active au
+            // moment de l'ajout. On le retraduit à l'affichage (via productId)
+            // pour que le panier suive un changement de langue ultérieur.
+            const nom = t(`products:items.${item.productId}.name`, {
+              defaultValue: item.name,
+            });
+
+            return (
             <article
               key={item.variantId}
               className="grid gap-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 sm:grid-cols-[120px_1fr_auto]"
@@ -91,7 +99,7 @@ export default function Panier() {
               <div className="relative aspect-square overflow-hidden rounded-xl bg-[var(--color-bg-alt)] p-2">
                 <Image
                   src={item.image}
-                  alt={item.name}
+                  alt={nom}
                   fill
                   sizes="120px"
                   className="object-contain"
@@ -100,7 +108,7 @@ export default function Panier() {
 
               <div>
                 <h2 className="font-semibold text-[var(--color-text)]">
-                  {item.name}
+                  {nom}
                 </h2>
 
                 <p className="mt-1 text-sm text-[var(--color-text-muted)]">
@@ -154,7 +162,8 @@ export default function Panier() {
                 </p>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
 
         <aside className="h-fit rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
@@ -165,7 +174,7 @@ export default function Panier() {
           <div className="mt-6 space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-[var(--color-text-muted)]">{t("summary.subtotal")}</span>
-              <span>{totalPrice.toFixed(2)} $</span>
+              <span>{formatPrice(totalPrice)}</span>
             </div>
 
             <div className="flex justify-between">

@@ -97,40 +97,49 @@ export default function Produits() {
         </p>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {produitsFiltres.map((produit) => (
-            /* Carte produit : lien vers la fiche détail (/produits/[id]) */
-            <Link
-              key={produit.id}
-              href={`/produits/${produit.id}`}
-              className="group text-left overflow-hidden rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
-            >
-              {/* Image du produit */}
-              <div className="relative aspect-square w-full overflow-hidden bg-[var(--color-bg-alt)] p-4">
-                <Image
-                  src={produit.images[0]}
-                  alt={produit.name}
-                  fill
-                  sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-contain transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
+          {produitsFiltres.map((produit) => {
+            // Nom traduit — même clé que la fiche détail, pour que le catalogue
+            // et la fiche affichent le MÊME nom. `defaultValue` retombe sur les
+            // données (en français) si la langue n'a pas d'entrée pour ce produit.
+            const nom = t(`items.${produit.id}.name`, {
+              defaultValue: produit.name,
+            });
 
-              {/* Infos produit */}
-              <div className="flex flex-col gap-1 p-4">
-                <span className="text-xs uppercase tracking-wider text-[var(--color-text-muted)]">
-                  {t(CATEGORY_KEYS[produit.category])}
-                </span>
-                <h2 className="text-base font-semibold text-[var(--color-text)]">
-                  {produit.name}
-                </h2>
-                <p className="mt-1 text-sm font-medium text-[var(--color-accent)]">
-                  {t("catalog.fromPrice", {
-                    price: formatPrice(produit.basePrice),
-                  })}
-                </p>
-              </div>
-            </Link>
-          ))}
+            return (
+              /* Carte produit : lien vers la fiche détail (/produits/[id]) */
+              <Link
+                key={produit.id}
+                href={`/produits/${produit.id}`}
+                className="group text-left overflow-hidden rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+              >
+                {/* Image du produit */}
+                <div className="relative aspect-square w-full overflow-hidden bg-[var(--color-bg-alt)] p-4">
+                  <Image
+                    src={produit.images[0]}
+                    alt={nom}
+                    fill
+                    sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-contain transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+
+                {/* Infos produit */}
+                <div className="flex flex-col gap-1 p-4">
+                  <span className="text-xs uppercase tracking-wider text-[var(--color-text-muted)]">
+                    {t(CATEGORY_KEYS[produit.category])}
+                  </span>
+                  <h2 className="text-base font-semibold text-[var(--color-text)]">
+                    {nom}
+                  </h2>
+                  <p className="mt-1 text-sm font-medium text-[var(--color-accent)]">
+                    {t("catalog.fromPrice", {
+                      price: formatPrice(produit.basePrice),
+                    })}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       )}
     </section>
