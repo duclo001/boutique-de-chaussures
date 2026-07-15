@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { products } from "@/data/products";
 import * as cartStore from "@/lib/cartStore";
+import { useTranslation } from "react-i18next";
+import type { Category } from "@/types/product";
 
 /**
  * Props reçues depuis la route /produits/[id].
@@ -13,6 +15,12 @@ import * as cartStore from "@/lib/cartStore";
  */
 type ProduitDetailProps = {
   id: string;
+};
+const CATEGORY_KEYS: Record<Category, string> = {
+  sport: "categories.sport",
+  ville: "categories.ville",
+  casual: "categories.casual",
+  elegant: "categories.elegant",
 };
 
 /**
@@ -23,6 +31,18 @@ type ProduitDetailProps = {
  */
 export default function ProduitDetail({ id }: ProduitDetailProps) {
   const router = useRouter();
+  const { t, i18n } = useTranslation("products");
+
+const locale = i18n.resolvedLanguage?.startsWith("en")
+  ? "en-CA"
+  : "fr-CA";
+
+function formatPrice(price: number) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: "CAD",
+  }).format(price);
+}
 
   // Sélection en deux étapes : coloris puis pointure
   const [coloris, setColoris] = useState<string | null>(null);
@@ -36,16 +56,22 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
   if (!produit) {
     return (
       <div className="container-app py-20 text-center">
-        <p className="text-[var(--color-text-muted)]">Produit introuvable.</p>
+        <p className="text-[var(--color-text-muted)]">{t("detail.notFound")}</p>
         <Link
           href="/produits"
           className="mt-6 inline-block text-sm font-medium text-[var(--color-accent)] underline"
         >
-          ← Retour au catalogue
+          ← {t("detail.backToCatalog")}
         </Link>
       </div>
     );
   }
+  const nomProduit = t(`items.${produit.id}.name`, {
+  defaultValue: produit.name,
+});
+const descriptionProduit = t(`items.${produit.id}.description`, {
+  defaultValue: produit.description,
+});
 
   // ── Dérivations à partir des variantes ────────────────────────────
   // Liste unique des coloris (ordre d'apparition conservé)
@@ -91,7 +117,7 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
         className="mb-8 flex w-fit items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
       >
         <ArrowLeftIcon />
-        Retour au catalogue
+        {t("detail.backToCatalog")}
       </Link>
 
       {/* ── Corps principal : image + infos ── */}
@@ -102,11 +128,14 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
           <Image
             key={imageAffichee}
             src={imageAffichee}
-            alt={
-              coloris
-                ? `${produit.name} — coloris ${coloris}`
-                : produit.name
-            }
+          alt={
+  coloris
+    ? t("detail.imageAlt", {
+        name: nomProduit,
+        color: coloris,
+      })
+    : nomProduit
+}
             fill
             priority
             sizes="(min-width: 1024px) 50vw, 100vw"
@@ -120,34 +149,35 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
           {/* Catégorie + Nom */}
           <div>
             <span className="text-xs uppercase tracking-wider text-[var(--color-accent)]">
-              {produit.category}
+              {t(CATEGORY_KEYS[produit.category])}
             </span>
             <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
-              {produit.name}
+{nomProduit}
             </h1>
           </div>
 
           {/* Prix */}
           <p className="text-2xl font-semibold text-[var(--color-accent)]">
-            {prixAffiche.toFixed(2)} $
+            {formatPrice(prixAffiche)}
             {!varianteChoisie && (
               <span className="ml-2 text-sm font-normal text-[var(--color-text-muted)]">
-                {coloris ? "(à partir de)" : "(prix indicatif)"}
+                {coloris
+  ? t("detail.fromPrice")
+  : t("detail.indicativePrice")}
               </span>
             )}
           </p>
 
           {/* Description */}
           <p className="text-base leading-relaxed text-[var(--color-text-muted)]">
-            {produit.description}
-          </p>
+            {descriptionProduit}     </p>
 
           <hr className="border-[var(--color-border)]" />
 
           {/* ── Sélecteur de coloris ── */}
           <div>
             <p className="mb-3 text-sm font-semibold text-[var(--color-text)]">
-              Coloris{" "}
+              {t("detail.color")}{" "}
               {coloris && (
                 <span className="font-normal text-[var(--color-text-muted)]">
                   : {coloris}
@@ -170,7 +200,7 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
                     onMouseLeave={() => setColorisSurvole(null)}
                     onFocus={() => setColorisSurvole(color)}
                     onBlur={() => setColorisSurvole(null)}
-                    aria-label={`Choisir le coloris ${color}`}
+                    aria-label={t("detail.chooseColor", { color })}
                     aria-pressed={estSelectionne}
                     className={`group flex items-center gap-2 rounded-xl border p-1.5 pr-3 text-sm font-medium transition-all ${
                       estSelectionne
@@ -197,7 +227,7 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
           {/* ── Sélecteur de pointure ── */}
           <div>
             <p className="mb-3 text-sm font-semibold text-[var(--color-text)]">
-              Pointure
+              {t("detail.size")}
               {pointure !== null && (
                 <span className="font-normal text-[var(--color-text-muted)]">
                   {" "}: {pointure}
@@ -232,7 +262,7 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
               </div>
             ) : (
               <p className="text-xs italic text-[var(--color-text-muted)]">
-                Choisissez d&apos;abord un coloris pour voir les pointures disponibles.
+                {t("detail.chooseColorFirst")}
               </p>
             )}
           </div>
@@ -246,7 +276,7 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
               cartStore.ajouter({
                 productId: produit.id,
                 variantId: varianteChoisie.id,
-                name: produit.name,
+                name: nomProduit,
                 color: varianteChoisie.color,
                 size: varianteChoisie.size,
                 price: varianteChoisie.price,
@@ -264,20 +294,20 @@ export default function ProduitDetail({ id }: ProduitDetailProps) {
               }`}
           >
             {peutAjouterAuPanier
-              ? "Ajouter au panier"
-              : !coloris
-                ? "Choisissez un coloris"
-                : pointure === null
-                  ? "Choisissez une pointure"
-                  : "Article indisponible"}
+  ? t("detail.addToCart")
+  : !coloris
+    ? t("detail.selectColor")
+    : pointure === null
+      ? t("detail.selectSize")
+      : t("detail.unavailable")}
           </button>
 
           {/* Indication de stock — uniquement si stock bas (≤ 3) */}
           {varianteChoisie && varianteChoisie.stock > 0 && varianteChoisie.stock <= 3 && (
             <p className="text-center text-xs font-medium text-amber-700">
-              {varianteChoisie.stock === 1
-                ? "Plus qu'un exemplaire en stock — commandez vite !"
-                : `Plus que ${varianteChoisie.stock} exemplaires en stock`}
+             {t("detail.lowStock", {
+  count: varianteChoisie.stock,
+})}
             </p>
           )}
         </div>

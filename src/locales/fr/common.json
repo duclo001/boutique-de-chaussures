@@ -1,0 +1,13 @@
+{
+  "languages": {
+    "fr": "Français",
+    "en": "English"
+  },
+  "actions": {
+    "send": "Envoyer",
+    "sending": "Envoi en cours…"
+  },
+  "accessibility": {
+    "scrollToTop": "Remonter en haut de la page"
+  }
+}

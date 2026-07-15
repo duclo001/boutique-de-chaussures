@@ -7,9 +7,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
+import I18nProvider from "@/providers/I18nProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,12 +39,14 @@ export default function RootLayout({
       lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[var(--color-bg)] text-[var(--color-text)]">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <ScrollToTop />
-      </body>
+    <body className="min-h-full flex flex-col bg-[var(--color-bg)] text-[var(--color-text)]">
+    <I18nProvider>
+      <Header />
+      <main className="flex-1">{children}</main>
+      <Footer />
+      <ScrollToTop />
+    </I18nProvider>
+  </body> 
     </html>
   );
 }

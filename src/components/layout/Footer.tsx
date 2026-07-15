@@ -1,5 +1,7 @@
+"use client";
 import Logo from "@/components/ui/Logo";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 /**
  * Configuration des sections du footer.
@@ -7,45 +9,60 @@ import Link from "next/link";
  * - Les entrées sans `href` sont décoratives (pages non implémentées) et
  *   restent désactivées.
  */
-type FooterLink = {
-  label: string;
-  href?: string;
-};
-
-type FooterSection = {
-  title: string;
-  links: FooterLink[];
-};
-
-const SECTIONS: FooterSection[] = [
+const SECTIONS = [
   {
-    title: "Boutique",
+    titleKey: "sections.shop.title",
     links: [
-      { label: "Tous les produits", href: "/produits" },
-      { label: "Page d'accueil", href: "/" },
-      { label: "Mon panier", href: "/panier" },
+      {
+        labelKey: "sections.shop.allProducts",
+        href: "/produits",
+      },
+      {
+        labelKey: "sections.shop.home",
+        href: "/",
+      },
+      {
+        labelKey: "sections.shop.cart",
+        href: "/panier",
+      },
     ],
   },
   {
-    title: "Aide",
+    titleKey: "sections.help.title",
     links: [
-      { label: "Livraison & retours" },
-      { label: "Guide des tailles" },
-      { label: "Nous contacter", href: "/contact" },
-      { label: "FAQ" },
+      {
+        labelKey: "sections.help.deliveryReturns",
+      },
+      {
+        labelKey: "sections.help.sizeGuide",
+      },
+      {
+        labelKey: "sections.help.contact",
+        href: "/contact",
+      },
+      {
+        labelKey: "sections.help.faq",
+      },
     ],
   },
   {
-    title: "Suivez-nous",
+    titleKey: "sections.social.title",
     links: [
-      { label: "Instagram" },
-      { label: "Facebook" },
-      { label: "TikTok" },
+      {
+        labelKey: "sections.social.instagram",
+      },
+      {
+        labelKey: "sections.social.facebook",
+      },
+      {
+        labelKey: "sections.social.tiktok",
+      },
     ],
   },
-];
+] as const;
 
 export default function Footer() {
+  const { t } = useTranslation("footer");
   const year = new Date().getFullYear();
 
   return (
@@ -56,36 +73,34 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <Logo />
             <p className="max-w-xs text-sm text-[var(--color-text-muted)]">
-              Des chaussures sélectionnées avec soin, pour un quotidien
-              confortable et stylé.
+              {t("tagline")}
             </p>
           </div>
 
           {SECTIONS.map((section) => (
-            <div key={section.title}>
+            <div key={section.titleKey}>
               <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--color-text)]">
-                {section.title}
+                {t(section.titleKey)}
               </h3>
+
               <ul className="flex flex-col gap-2">
                 {section.links.map((link) =>
-                  link.href ? (
-                    // Navigation interne : <Link> Next.js
-                    <li key={link.label}>
+                  "href" in link ? (
+                    <li key={link.labelKey}>
                       <Link
                         href={link.href}
                         className="text-left text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-accent)]"
                       >
-                        {link.label}
+                        {t(link.labelKey)}
                       </Link>
                     </li>
                   ) : (
-                    // Entrée décorative (page non implémentée) : désactivée
-                    <li key={link.label}>
+                    <li key={link.labelKey}>
                       <span className="cursor-not-allowed text-sm text-[var(--color-text-muted)] opacity-60">
-                        {link.label}
+                        {t(link.labelKey)}
                       </span>
                     </li>
-                  )
+                  ),
                 )}
               </ul>
             </div>
@@ -93,7 +108,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-[var(--color-border)] pt-6 text-xs text-[var(--color-text-muted)] sm:flex-row">
-          <p>© {year} Boutique de Chaussures — Tous droits réservés.</p>
+          <p>{t("copyright", { year })}</p>
         </div>
       </div>
     </footer>

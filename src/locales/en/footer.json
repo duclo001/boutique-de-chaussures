@@ -1,0 +1,25 @@
+{
+  "tagline": "Carefully selected shoes for a comfortable and stylish everyday life.",
+  "sections": {
+    "shop": {
+      "title": "Shop",
+      "allProducts": "All products",
+      "home": "Home page",
+      "cart": "My cart"
+    },
+    "help": {
+      "title": "Help",
+      "deliveryReturns": "Delivery and returns",
+      "sizeGuide": "Size guide",
+      "contact": "Contact us",
+      "faq": "FAQ"
+    },
+    "social": {
+      "title": "Follow us",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "tiktok": "TikTok"
+    }
+  },
+  "copyright": "© {{year}} Shoe Store — All rights reserved."
+}

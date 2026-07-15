@@ -4,6 +4,7 @@ import { useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import * as cartStore from "@/lib/cartStore";
+import { useTranslation } from "react-i18next";
 
 /**
  * Page Panier. Le contenu est lu via useSyncExternalStore : la page se re-rend
@@ -11,6 +12,18 @@ import * as cartStore from "@/lib/cartStore";
  * puisqu'il est abonné au même store). Sans useEffect ni Context.
  */
 export default function Panier() {
+  const { t, i18n } = useTranslation("cart");
+
+const locale = i18n.resolvedLanguage?.startsWith("en")
+  ? "en-CA"
+  : "fr-CA";
+
+function formatPrice(price: number) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: "CAD",
+  }).format(price);
+}
   const items = useSyncExternalStore(
     cartStore.subscribe,
     cartStore.getSnapshot,
@@ -25,18 +38,18 @@ export default function Panier() {
     return (
       <section className="container-app py-20 text-center">
         <h1 className="text-3xl font-bold text-[var(--color-text)]">
-          Votre panier est vide
+          {t("empty.title")}
         </h1>
 
         <p className="mt-3 text-[var(--color-text-muted)]">
-          Ajoutez une paire depuis le catalogue pour commencer.
+          {t("empty.description")}
         </p>
 
         <Link
           href="/produits"
           className="mt-8 inline-block rounded-full bg-[var(--color-accent)] px-6 py-3 font-medium text-white hover:bg-[var(--color-accent-hover)]"
         >
-          Voir le catalogue
+          {t("empty.catalogButton")}
         </Link>
       </section>
     );
@@ -47,15 +60,15 @@ export default function Panier() {
       <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm uppercase tracking-wider text-[var(--color-accent)]">
-            Commande
+           {t("header.eyebrow")}
           </p>
 
           <h1 className="mt-2 text-3xl font-bold text-[var(--color-text)] sm:text-4xl">
-            Mon panier
+            {t("header.title")}
           </h1>
 
           <p className="mt-2 text-[var(--color-text-muted)]">
-            {totalItems} article{totalItems > 1 ? "s" : ""}
+            {t("header.itemCount", { count: totalItems })}
           </p>
         </div>
 
@@ -64,7 +77,7 @@ export default function Panier() {
           onClick={() => cartStore.vider()}
           className="text-sm font-medium text-[var(--color-text-muted)] underline hover:text-[var(--color-accent)]"
         >
-          Vider le panier
+         {t("header.clear")}
         </button>
       </div>
 
@@ -91,11 +104,14 @@ export default function Panier() {
                 </h2>
 
                 <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-                  {item.color} · Taille {item.size}
+                  {t("item.details", {
+  color: item.color,
+  size: item.size,
+})}
                 </p>
 
                 <p className="mt-3 font-medium text-[var(--color-accent)]">
-                  {item.price.toFixed(2)} $
+                  {formatPrice(item.price)}
                 </p>
 
                 <button
@@ -103,7 +119,7 @@ export default function Panier() {
                   onClick={() => cartStore.retirer(item.variantId)}
                   className="mt-4 text-sm text-[var(--color-text-muted)] underline hover:text-[var(--color-accent)]"
                 >
-                  Supprimer
+                  {t("item.remove")}
                 </button>
               </div>
 
@@ -113,7 +129,7 @@ export default function Panier() {
                     type="button"
                     onClick={() => cartStore.diminuer(item.variantId)}
                     className="h-9 w-9 text-lg"
-                    aria-label="Diminuer la quantité"
+                    aria-label={t("item.decreaseQuantity")}
                   >
                     -
                   </button>
@@ -127,14 +143,14 @@ export default function Panier() {
                     onClick={() => cartStore.augmenter(item.variantId)}
                     disabled={item.quantity >= item.stock}
                     className="h-9 w-9 text-lg disabled:cursor-not-allowed disabled:text-gray-300"
-                    aria-label="Augmenter la quantité"
+                    aria-label={t("item.increaseQuantity")}
                   >
                     +
                   </button>
                 </div>
 
                 <p className="font-semibold text-[var(--color-text)]">
-                  {(item.price * item.quantity).toFixed(2)} $
+                  {formatPrice(item.price * item.quantity)}
                 </p>
               </div>
             </article>
@@ -143,25 +159,25 @@ export default function Panier() {
 
         <aside className="h-fit rounded-2xl border border-[var(--color-border)] bg-white p-6">
           <h2 className="text-lg font-semibold text-[var(--color-text)]">
-            Résumé
+            {t("summary.title")}
           </h2>
 
           <div className="mt-6 space-y-3 text-sm">
             <div className="flex justify-between">
-              <span className="text-[var(--color-text-muted)]">Sous-total</span>
+              <span className="text-[var(--color-text-muted)]">{t("summary.subtotal")}</span>
               <span>{totalPrice.toFixed(2)} $</span>
             </div>
 
             <div className="flex justify-between">
-              <span className="text-[var(--color-text-muted)]">Livraison</span>
-              <span>Gratuite</span>
+              <span className="text-[var(--color-text-muted)]">{t("summary.delivery")}</span>
+              <span>{t("summary.free")}</span>
             </div>
           </div>
 
           <div className="mt-6 border-t border-[var(--color-border)] pt-6">
             <div className="flex justify-between text-lg font-semibold">
-              <span>Total</span>
-              <span>{totalPrice.toFixed(2)} $</span>
+              <span>{t("summary.total")}</span>
+              <span>{formatPrice(totalPrice)}</span>
             </div>
           </div>
 
@@ -169,14 +185,14 @@ export default function Panier() {
             type="button"
             className="mt-6 w-full rounded-full bg-[var(--color-accent)] px-6 py-3 font-semibold text-white hover:bg-[var(--color-accent-hover)]"
           >
-            Passer commande
+            {t("summary.checkout")}
           </button>
 
           <Link
             href="/produits"
             className="mt-3 block w-full rounded-full border border-[var(--color-border)] px-6 py-3 text-center font-medium hover:bg-[var(--color-bg-alt)]"
           >
-            Continuer mes achats
+            {t("summary.continueShopping")}
           </Link>
         </aside>
       </div>

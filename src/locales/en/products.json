@@ -1,0 +1,105 @@
+{
+  "categories": {
+    "all": "All",
+    "sport": "Sport",
+    "ville": "City",
+    "casual": "Casual",
+    "elegant": "Elegant"
+  },
+  "catalog": {
+    "eyebrow": "Our selection",
+    "title": "Catalog",
+    "productCount_one": "{{count}} product",
+    "productCount_other": "{{count}} products",
+    "empty": "There are no products in this category.",
+    "fromPrice": "Starting at {{price}}"
+  },
+  "detail": {
+    "notFound": "Product not found.",
+    "backToCatalog": "Back to catalog",
+    "imageAlt": "{{name}} — {{color}} color",
+    "fromPrice": "(starting at)",
+    "indicativePrice": "(indicative price)",
+    "color": "Color",
+    "chooseColor": "Choose the {{color}} color",
+    "size": "Size",
+    "chooseColorFirst": "Choose a color first to view the available sizes.",
+    "addToCart": "Add to cart",
+    "selectColor": "Choose a color",
+    "selectSize": "Choose a size",
+    "unavailable": "Item unavailable",
+    "lowStock_one": "Only one item left in stock — order soon!",
+    "lowStock_other": "Only {{count}} items left in stock"
+  },
+  "items": {
+  "nike-ebernon-low": {
+    "name": "Nike Ebernon Low",
+    "description": "A low-top leather sneaker with a clean design and timeless city style. Available in black or white."
+  },
+  "sock-sneaker-confort": {
+    "name": "Comfort Sock Sneaker",
+    "description": "An ultra-flexible sock sneaker that is easy to put on and provides comfortable ankle support. Perfect for everyday wear."
+  },
+  "sneaker-urbain-blanc": {
+    "name": "White Urban Sneaker",
+    "description": "A minimalist smooth-leather sneaker designed for a polished everyday look, with subtle finishes and a comfortable sole."
+  },
+  "slip-on-canvas": {
+    "name": "Canvas Slip-on",
+    "description": "A durable canvas slip-on with no laces. Lightweight, versatile and designed for warmer days."
+  },
+  "sneaker-chunky-plateforme": {
+    "name": "Chunky Platform Sneaker",
+    "description": "A thick-platform dad-shoe silhouette with reinforced support and a bold streetwear style."
+  },
+  "jordan-max-aura": {
+    "name": "Air Jordan Max Aura",
+    "description": "A tribute to the Air Jordan III, featuring a Max Air unit under the heel and a leather and synthetic upper."
+  },
+  "nike-shox-tl": {
+    "name": "Nike Shox TL",
+    "description": "The iconic Shox columns return to deliver striking cushioning and a bold futuristic look."
+  },
+  "nike-air-max-excee": {
+    "name": "Nike Air Max Excee",
+    "description": "A signature Nike sneaker combining breathable mesh with the iconic Air Max sole for versatile cushioning."
+  },
+  "goodvalue-runner": {
+    "name": "GoodValue Men's Runner",
+    "description": "A lightweight running shoe with a breathable mesh upper and cushioned sole. Available in three colors for men."
+  },
+  "ziitop-air-running": {
+    "name": "Ziitop AIR Running",
+    "description": "A unisex running shoe with a visible air unit, breathable knit upper and flexible sole. Available in a wide range of colors."
+  },
+  "kricely-x-grip-trail": {
+    "name": "Kricely X-Grip Trail",
+    "description": "An all-terrain trail running shoe with an ultra-grippy X-Grip sole, ideal for trails and active hiking."
+  },
+  "ux-sport-mesh": {
+    "name": "UX Sport Mesh Sneaker",
+    "description": "A bold athletic sneaker with an exoskeleton-inspired design, ideal for the gym or city outings."
+  },
+  "bottines-cuir-ville": {
+    "name": "Leather City Boots",
+    "description": "Lace-up boots made from aged leather, with an inner lining and lugged sole. Perfect for fall."
+  },
+  "jousen-classic-oxford": {
+    "name": "Jousen Classic Oxford",
+    "description": "A formal shoe made from smooth leather with a classic Oxford cut. Ideal for the office, ceremonies and formal evenings."
+  },
+  "jousen-zhn-oxford": {
+    "name": "Jousen ZHN Oxford",
+    "description": "A ZHN wingtip edition: an elegant Oxford with refined brogue details for polished outfits."
+  },
+  "derby-cuir-noir": {
+    "name": "Black Leather Derby",
+    "description": "A polished black leather Derby with stitched construction, ideal for dark suits."
+  },
+  "oxford-brogue-cognac": {
+    "name": "Cognac Brogue Oxford",
+    "description": "A cognac leather Oxford with decorative brogue perforations that add character to classic outfits."
+  }
+}
+
+}

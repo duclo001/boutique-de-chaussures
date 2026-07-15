@@ -6,19 +6,20 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { products } from "@/data/products";
 import type { Category } from "@/types/product";
+import { useTranslation } from "react-i18next";
 
 /** Libellés affichés pour chaque catégorie */
-const CATEGORY_LABELS: Record<Category | "tous", string> = {
-  tous: "Tous",
-  sport: "Sport",
-  ville: "Ville",
-  casual: "Casual",
-  elegant: "Élégant",
+const CATEGORY_KEYS: Record<Category | "tous", string> = {
+  tous: "categories.all",
+  sport: "categories.sport",
+  ville: "categories.ville",
+  casual: "categories.casual",
+  elegant: "categories.elegant",
 };
 
 /** Valide une valeur d'URL contre les catégories connues. */
 function categorieValide(valeur: string | null): Category | "tous" {
-  return valeur && valeur in CATEGORY_LABELS
+  return valeur && valeur in CATEGORY_KEYS
     ? (valeur as Category | "tous")
     : "tous";
 }
@@ -29,6 +30,18 @@ function categorieValide(valeur: string | null): Category | "tous" {
  * Cliquer sur une carte navigue vers la fiche détail (Link).
  */
 export default function Produits() {
+  const { t, i18n } = useTranslation("products");
+
+const locale = i18n.resolvedLanguage?.startsWith("en")
+  ? "en-CA"
+  : "fr-CA";
+
+function formatPrice(price: number) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: "CAD",
+  }).format(price);
+  }
   // Catégorie pré-sélectionnée depuis l'URL (?categorie=sport)
   const categorieInitiale = categorieValide(useSearchParams().get("categorie"));
 
@@ -48,19 +61,21 @@ export default function Produits() {
       {/* ── En-tête de la page ── */}
       <div className="mb-10">
         <p className="text-sm uppercase tracking-wider text-[var(--color-accent)]">
-          Notre sélection
+          {t("catalog.eyebrow")}
         </p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
-          Catalogue
+          {t("catalog.title")}
         </h1>
         <p className="mt-3 text-base text-[var(--color-text-muted)]">
-          {produitsFiltres.length} produit{produitsFiltres.length > 1 ? "s" : ""}
+          {t("catalog.productCount", {
+            count: produitsFiltres.length,
+          })}
         </p>
       </div>
 
       {/* ── Filtres par catégorie ── */}
       <div className="mb-8 flex flex-wrap gap-2">
-        {(Object.keys(CATEGORY_LABELS) as (Category | "tous")[]).map((cat) => (
+        {(Object.keys(CATEGORY_KEYS) as (Category | "tous")[]).map((cat) => (
           <button
             key={cat}
             onClick={() => setFiltreCategorie(cat)}
@@ -70,7 +85,7 @@ export default function Produits() {
                 : "border-[var(--color-border)] bg-white text-[var(--color-text-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
             }`}
           >
-            {CATEGORY_LABELS[cat]}
+            {t(CATEGORY_KEYS[cat])}
           </button>
         ))}
       </div>
@@ -78,7 +93,7 @@ export default function Produits() {
       {/* ── Grille de produits ── */}
       {produitsFiltres.length === 0 ? (
         <p className="text-center text-[var(--color-text-muted)] py-20">
-          Aucun produit dans cette catégorie.
+          {t("catalog.empty")}
         </p>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -103,13 +118,15 @@ export default function Produits() {
               {/* Infos produit */}
               <div className="flex flex-col gap-1 p-4">
                 <span className="text-xs uppercase tracking-wider text-[var(--color-text-muted)]">
-                  {CATEGORY_LABELS[produit.category]}
+                  {t(CATEGORY_KEYS[produit.category])}
                 </span>
                 <h2 className="text-base font-semibold text-[var(--color-text)]">
                   {produit.name}
                 </h2>
                 <p className="mt-1 text-sm font-medium text-[var(--color-accent)]">
-                  À partir de {produit.basePrice.toFixed(2)} $
+                  {t("catalog.fromPrice", {
+  price: formatPrice(produit.basePrice),
+})}
                 </p>
               </div>
             </Link>

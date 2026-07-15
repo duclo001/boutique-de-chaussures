@@ -1,16 +1,18 @@
+"use client";
 import Image from "next/image";
-
+import { useTranslation } from "react-i18next";
 /**
  * Section "À propos" — courte présentation de la boutique sur la page d'accueil.
  */
 export default function AboutSection() {
+  const { t } = useTranslation("home");
   return (
     <section className="container-app py-16 lg:py-24">
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
         <div className="relative order-2 aspect-[4/3] w-full overflow-hidden rounded-3xl bg-[var(--color-bg-alt)] lg:order-1">
           <Image
             src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1100&q=80"
-            alt="Atelier d'une boutique de chaussures"
+            alt={t("about.imageAlt")}
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"
             className="object-cover"
@@ -19,22 +21,21 @@ export default function AboutSection() {
 
         <div className="order-1 flex flex-col gap-5 lg:order-2">
           <p className="text-sm uppercase tracking-wider text-[var(--color-accent)]">
-            Notre histoire
+            {t("about.eyebrow")}
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
-            Du confort, du style, du sens.
+            {t("about.title")}
           </h2>
           <p className="text-base text-[var(--color-text-muted)]">
-            Notre boutique sélectionne chaque modèle avec exigence : matériaux
-            durables, finitions soignées et confort au quotidien. Que vous
-            cherchiez une paire pour courir, travailler ou flâner, vous
-            trouverez ici un soulier pensé pour vous accompagner longtemps.
+            {t("about.description")}
           </p>
           <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <Bullet>Matériaux durables et responsables</Bullet>
-            <Bullet>Confort testé sur le long terme</Bullet>
-            <Bullet>Livraison rapide partout au Canada</Bullet>
-            <Bullet>Retour gratuit sous 30 jours</Bullet>
+            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <Bullet>{t("about.benefits.materials")}</Bullet>
+              <Bullet>{t("about.benefits.comfort")}</Bullet>
+              <Bullet>{t("about.benefits.delivery")}</Bullet>
+              <Bullet>{t("about.benefits.returns")}</Bullet>
+            </ul>
           </ul>
         </div>
       </div>

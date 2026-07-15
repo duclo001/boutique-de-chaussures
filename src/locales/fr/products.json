@@ -1,0 +1,48 @@
+{
+  "categories": {
+    "all": "Tous",
+    "sport": "Sport",
+    "ville": "Ville",
+    "casual": "Décontracté",
+    "elegant": "Élégant"
+  },
+  "catalog": {
+    "eyebrow": "Notre sélection",
+    "title": "Catalogue",
+    "productCount_one": "{{count}} produit",
+    "productCount_other": "{{count}} produits",
+    "empty": "Aucun produit dans cette catégorie.",
+    "fromPrice": "À partir de {{price}}"
+  },
+  "detail": {
+    "notFound": "Produit introuvable.",
+    "backToCatalog": "Retour au catalogue",
+    "imageAlt": "{{name}} — coloris {{color}}",
+    "fromPrice": "(à partir de)",
+    "indicativePrice": "(prix indicatif)",
+    "color": "Coloris",
+    "chooseColor": "Choisir le coloris {{color}}",
+    "size": "Pointure",
+    "chooseColorFirst": "Choisissez d'abord un coloris pour voir les pointures disponibles.",
+    "addToCart": "Ajouter au panier",
+    "selectColor": "Choisissez un coloris",
+    "selectSize": "Choisissez une pointure",
+    "unavailable": "Article indisponible",
+    "lowStock_one": "Plus qu'un exemplaire en stock — commandez vite !",
+    "lowStock_other": "Plus que {{count}} exemplaires en stock"
+  },
+  "items": {
+  "nike-ebernon-low": {
+    "name": "Nike Ebernon Low",
+    "description": "Basket basse en cuir au design épuré, un classique intemporel pour la ville. Disponible en noir ou en blanc."
+  },
+  "sock-sneaker-confort": {
+    "name": "Sock Sneaker Confort",
+    "description": "Basket chaussette ultra-souple, facile à enfiler et offrant un bon maintien de la cheville. Parfaite au quotidien."
+  },
+  "sneaker-urbain-blanc": {
+    "name": "Sneaker Urbain Blanc",
+    "description": "Sneaker minimaliste en cuir lisse, parfaite pour un style quotidien soigné. Finitions discrètes et semelle confortable."
+  }
+}
+}

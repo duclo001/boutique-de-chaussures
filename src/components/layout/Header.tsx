@@ -6,11 +6,14 @@ import { usePathname } from "next/navigation";
 import Logo from "@/components/ui/Logo";
 import SearchBar from "@/components/ui/SearchBar";
 import CartBadge from "./CartBadge";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 import navItems from "@/utils/navItems.json";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useTranslation("header");
 
   // Ferme le menu mobile lorsqu'on appuie sur Échap.
   // (useEffect = module 4 ; aucun useRef nécessaire.)
@@ -50,7 +53,7 @@ export default function Header() {
 
         {/* Navigation desktop */}
         <nav
-          aria-label="Navigation principale"
+          aria-label={t("accessibility.mainNavigation")}
           className="hidden items-center gap-8 md:flex"
         >
           {navItems.map((lien) => (
@@ -64,15 +67,18 @@ export default function Header() {
                   : "text-[var(--color-text)]"
               }`}
             >
-              {lien.label}
+             {t(lien.translationKey)}
             </Link>
           ))}
         </nav>
 
-        {/* Icône panier (desktop). Le badge n'apparaît que si totalItems > 0. */}
+          <div className="hidden md:block">
+              <LanguageSwitcher />
+            </div>
+        {/* Icône panier (desktop). Le badge n'apparaît que si totalItems > 0.(aria-label="Voir mon panier") */}
         <Link
           href="/panier"
-          aria-label="Voir mon panier"
+          aria-label={t("accessibility.viewCart")}
           className="relative hidden h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:bg-[var(--color-bg-alt)] md:inline-flex"
         >
           <CartIcon />
@@ -83,7 +89,11 @@ export default function Header() {
         <button
           id="menu-toggle"
           type="button"
-          aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-label={
+                        open
+                          ? t("accessibility.closeMenu")
+                          : t("accessibility.openMenu")
+                      }
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
           className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] md:hidden cursor-pointer transition-colors hover:bg-[var(--color-bg-alt)]"
@@ -98,7 +108,7 @@ export default function Header() {
       {open && (
         <button
           type="button"
-          aria-label="Fermer le menu"
+          aria-label={t("accessibility.closeMenu")}
           onClick={() => setOpen(false)}
           className="fixed inset-0 top-16 z-30 cursor-default bg-black/20 md:hidden"
         />
@@ -108,7 +118,7 @@ export default function Header() {
       {open && (
         <nav
           id="mobile-menu"
-          aria-label="Navigation mobile"
+          aria-label={t("accessibility.mobileNavigation")}
           className="relative z-40 border-t border-[var(--color-border)] bg-[var(--color-bg)] md:hidden"
         >
           <ul className="container-app flex flex-col py-2">
@@ -120,10 +130,13 @@ export default function Header() {
                   aria-current={pathname === lien.href ? "page" : undefined}
                   className="block w-full py-3 text-left text-sm font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
                 >
-                  {lien.label}
+                 {t(lien.translationKey)}
                 </Link>
               </li>
             ))}
+            <li className="border-t border-[var(--color-border)] py-3">
+              <LanguageSwitcher />
+            </li>
           </ul>
         </nav>
       )}

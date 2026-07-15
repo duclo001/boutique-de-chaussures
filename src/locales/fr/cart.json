@@ -1,0 +1,29 @@
+{
+  "empty": {
+    "title": "Votre panier est vide",
+    "description": "Ajoutez une paire depuis le catalogue pour commencer.",
+    "catalogButton": "Voir le catalogue"
+  },
+  "header": {
+    "eyebrow": "Commande",
+    "title": "Mon panier",
+    "itemCount_one": "{{count}} article",
+    "itemCount_other": "{{count}} articles",
+    "clear": "Vider le panier"
+  },
+  "item": {
+    "details": "{{color}} · Taille {{size}}",
+    "remove": "Supprimer",
+    "decreaseQuantity": "Diminuer la quantité",
+    "increaseQuantity": "Augmenter la quantité"
+  },
+  "summary": {
+    "title": "Résumé",
+    "subtotal": "Sous-total",
+    "delivery": "Livraison",
+    "free": "Gratuite",
+    "total": "Total",
+    "checkout": "Passer commande",
+    "continueShopping": "Continuer mes achats"
+  }
+}

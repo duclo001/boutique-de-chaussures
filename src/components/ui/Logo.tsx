@@ -1,5 +1,6 @@
+"use client";
 import Link from "next/link";
-
+import { useTranslation } from "react-i18next";
 type LogoProps = {
   /** Variante de couleur. "light" pour fond sombre, "dark" pour fond clair. */
   variant?: "light" | "dark";
@@ -14,11 +15,12 @@ type LogoProps = {
 export default function Logo({ variant = "dark", className = "" }: LogoProps) {
   const textColor = variant === "dark" ? "text-text" : "text-white";
   const iconColor = variant === "dark" ? "text-accent" : "text-white";
+  const { t } = useTranslation("header");
 
   return (
     <Link
       href="/"
-      aria-label="Retour à l'accueil — Boutique de Chaussures"
+      aria-label={t("accessibility.homeLink")}
       className={`group inline-flex cursor-pointer items-center gap-2 ${className}`}
     >
       <svg

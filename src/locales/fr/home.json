@@ -1,0 +1,45 @@
+{
+  "hero": {
+    "badge": "Nouvelle collection 2026",
+    "titleBefore": "Chaque pas,",
+    "titleAccent": "une nouvelle",
+    "titleAfter": "histoire.",
+    "description": "Découvrez une sélection de chaussures pensées pour le confort, la durabilité et le style. Du sport à la ville, trouvez la paire qui vous ressemble.",
+    "collectionButton": "Découvrir la collection",
+    "featuredButton": "Voir les coups de cœur",
+    "imageAlt": "Sneakers de la nouvelle collection",
+    "favorite": "Coup de cœur",
+    "stats": {
+      "models": "Modèles",
+      "delivery": "Livraison",
+      "return": "Retour",
+      "returnValue": "30 j"
+    }
+  },
+  "featured": {
+    "eyebrow": "Sélection du moment",
+    "title": "Nos produits en vedette",
+    "button": "Voir tout le catalogue"
+  },
+  "categories": {
+    "eyebrow": "Catégories",
+    "title": "Explorez par style",
+    "imageAlt": "Catégorie {{category}}",
+    "sport": "Sport",
+    "ville": "Ville",
+    "casual": "Décontracté",
+    "elegant": "Élégant"
+  },
+  "about": {
+    "eyebrow": "Notre histoire",
+    "title": "Du confort, du style, du sens.",
+    "description": "Notre boutique sélectionne chaque modèle avec exigence : matériaux durables, finitions soignées et confort au quotidien. Que vous cherchiez une paire pour courir, travailler ou flâner, vous trouverez ici un soulier pensé pour vous accompagner longtemps.",
+    "imageAlt": "Atelier d'une boutique de chaussures",
+    "benefits": {
+      "materials": "Matériaux durables et responsables",
+      "comfort": "Confort testé sur le long terme",
+      "delivery": "Livraison rapide partout au Canada",
+      "returns": "Retour gratuit sous 30 jours"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "tagline": "Des chaussures sélectionnées avec soin, pour un quotidien confortable et stylé.",
+  "sections": {
+    "shop": {
+      "title": "Boutique",
+      "allProducts": "Tous les produits",
+      "home": "Page d'accueil",
+      "cart": "Mon panier"
+    },
+    "help": {
+      "title": "Aide",
+      "deliveryReturns": "Livraison et retours",
+      "sizeGuide": "Guide des tailles",
+      "contact": "Nous contacter",
+      "faq": "FAQ"
+    },
+    "social": {
+      "title": "Suivez-nous",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "tiktok": "TikTok"
+    }
+  },
+  "copyright": "© {{year}} Boutique de Chaussures — Tous droits réservés."
+}
