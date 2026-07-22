@@ -66,7 +66,8 @@ export default function Hero() {
               src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=1200&q=80"
               alt={t("hero.imageAlt")}
               fill
-              priority
+              loading="eager"
+              fetchPriority="high"
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
             />
