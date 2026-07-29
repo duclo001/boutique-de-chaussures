@@ -17,6 +17,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import I18nProvider from "@/providers/I18nProvider";
+import { siteConfig } from "@/config/site";
 
 /**
  * Script exécuté AVANT le premier affichage de la page (il est placé dans le
@@ -56,10 +57,84 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Boutique de Chaussures",
-  description:
-    "Boutique de chaussures — sport, ville, casual et élégant. Trouvez la paire qui vous ressemble.",
+  // Base utilisée pour transformer les chemins relatifs en URL absolues.
+  metadataBase: new URL(siteConfig.url),
+
+  // Les pages internes pourront fournir uniquement leur titre spécifique.
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  category: "shopping",
+
+  // Informations utilisées lors du partage sur les réseaux sociaux.
+  openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    url: "/",
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
+  },
+
+  // Aperçu utilisé notamment par X/Twitter.
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+  },
+
+  // Autorise l'indexation générale du site.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
+
+const baseUrl = siteConfig.url.replace(/\/$/, "");
+
+const globalJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${baseUrl}/#organization`,
+      name: siteConfig.name,
+      url: baseUrl,
+      description: siteConfig.description,
+      areaServed: siteConfig.country,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${baseUrl}/#website`,
+      name: siteConfig.name,
+      alternateName: siteConfig.shortName,
+      url: baseUrl,
+      description: siteConfig.description,
+      inLanguage: ["fr-CA", "en-CA"],
+      publisher: {
+        "@id": `${baseUrl}/#organization`,
+      },
+    },
+  ],
+};
+// Nous n’ajoutons pas de téléphone, d’adresse ou de réseaux sociaux,
+//  car ces informations ne sont pas encore définies.
+//  Il ne faut pas inventer de données pour Google.
 
 export default function RootLayout({
   children,
@@ -77,8 +152,16 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Doit rester en tête du <head> : il s'exécute avant le premier rendu. */}
+        {/* Doit rester en tête du head. */}
         <script dangerouslySetInnerHTML={{ __html: SCRIPT_ANTI_FLASH }} />
+
+        {/* Identité structurée de la boutique pour les moteurs de recherche. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(globalJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] text-[var(--color-text)]">
         {/* Les deux providers englobent toute l'application : Header, pages et

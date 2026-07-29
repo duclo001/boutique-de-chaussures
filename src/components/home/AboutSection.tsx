@@ -30,12 +30,10 @@ export default function AboutSection() {
             {t("about.description")}
           </p>
           <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <Bullet>{t("about.benefits.materials")}</Bullet>
-              <Bullet>{t("about.benefits.comfort")}</Bullet>
-              <Bullet>{t("about.benefits.delivery")}</Bullet>
-              <Bullet>{t("about.benefits.returns")}</Bullet>
-            </ul>
+            <Bullet>{t("about.benefits.materials")}</Bullet>
+            <Bullet>{t("about.benefits.comfort")}</Bullet>
+            <Bullet>{t("about.benefits.delivery")}</Bullet>
+            <Bullet>{t("about.benefits.returns")}</Bullet>
           </ul>
         </div>
       </div>

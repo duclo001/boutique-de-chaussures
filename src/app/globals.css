@@ -19,7 +19,9 @@
   --color-text-muted: #4b4b4b;
 
   /* Accents */
-  --color-accent: #c2410c;        /* terracotta — CTA, prix */
+  --color-accent: #b83d0a;        /* terracotta — CTA, prix (assombri de #c2410c
+                                     pour passer le contraste AA 4,5:1 sur le
+                                     fond sable --color-bg-alt : 4,40 -> 4,81) */
   --color-accent-hover: #9a330a;
   --color-accent-2: #1f4d3a;      /* vert forêt — secondaire */
   /* Couleur du TEXTE posé SUR un fond accent (boutons, badges).
