@@ -96,7 +96,7 @@ export default function Footer() {
                     </li>
                   ) : (
                     <li key={link.labelKey}>
-                      <span className="cursor-not-allowed text-sm text-[var(--color-text-muted)] opacity-60">
+                      <span className="cursor-not-allowed text-sm text-[var(--color-text-muted)]">
                         {t(link.labelKey)}
                       </span>
                     </li>
