@@ -16,6 +16,10 @@
         "switchToDark": "Switch to dark mode",
         "enableDarkMode": "Enable dark mode"
     },
+    "pwa": {
+        "install": "Install the app",
+        "close": "Close the install banner"
+    },
     "accessibility": {
         "scrollToTop": "Return to the top of the page"
     }
