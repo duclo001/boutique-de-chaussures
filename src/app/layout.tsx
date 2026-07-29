@@ -17,6 +17,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import I18nProvider from "@/providers/I18nProvider";
+import { InstalledDateProvider } from "@/providers/InstalledDateProvider";
+import InstallPrompt from "@/components/InstallPrompt";
 import { siteConfig } from "@/config/site";
 
 /**
@@ -169,10 +171,17 @@ export default function RootLayout({
             useTranslation(). */}
         <ThemeProvider>
           <I18nProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <ScrollToTop />
+            {/* InstalledDateProvider : mémorise la date de fermeture de la
+                bannière PWA (localStorage) pour ne pas la réafficher avant 24 h. */}
+            <InstalledDateProvider>
+              <Header />
+              {/* Bannière d'installation (PWA) : visible seulement quand le
+                  navigateur émet beforeinstallprompt et hors du délai de 24 h. */}
+              <InstallPrompt />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <ScrollToTop />
+            </InstalledDateProvider>
           </I18nProvider>
         </ThemeProvider>
       </body>

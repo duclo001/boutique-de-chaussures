@@ -16,6 +16,10 @@
         "switchToDark": "Passer en mode sombre",
         "enableDarkMode": "Activer le mode sombre"
     },
+    "pwa": {
+        "install": "Installer l'application",
+        "close": "Fermer la bannière d'installation"
+    },
     "accessibility": {
         "scrollToTop": "Remonter en haut de la page"
     }

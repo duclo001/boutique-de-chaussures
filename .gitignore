@@ -20,6 +20,11 @@
 /.next/
 /out/
 
+# service worker généré par Serwist (ne pas versionner)
+/public/sw.js
+/public/sw.js.map
+/public/swe-worker-*.js
+
 # production
 /build
 
